@@ -2,48 +2,65 @@ import React, { useContext, useEffect, useState } from 'react'
 import { AppContext } from '../context/AppContext';
 import { motion } from 'framer-motion';
 import { useParams } from 'react-router-dom';
+import { Spinner } from './Spinner';
+import { toast } from 'react-toastify';
+import Item from 'antd/es/list/Item';
 
 export const BlogDetails = () => {
 
-    const { URL } = useContext(AppContext);
     const params = useParams();
     const [data, setData] = useState([]);
     const [img, setImg] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
     const singleBlog = params.singleBlog;
 
 
+
     useEffect(() => {
-        fetch(`${URL}api/single-blog/${singleBlog}`)
+
+        fetch(`https://www.discounts-space.com/public/api/single-blog/${singleBlog}?token=152784823qtjzdfg213`)
             .then((response) => response.json())
-            .then((actualData) => { setData(actualData.data); setImg(actualData.media_path); })
+            .then((actualData) => { setData(actualData.data); setIsLoading(false); setImg(actualData.image_path); })
             .catch((err) => {
                 setData([]);
+                setIsLoading(false);
+                toast.error("something went wrong!");
             });
     }, []);
+
+
+    console.log(data);
+
 
     return (
         <motion.div initial={{ transition: { duration: 1 }, opacity: 0 }} animate={{ transition: { duration: 1 }, opacity: 1 }} exit={{ transition: { duration: 1 }, opacity: 0 }}>
             <div className='sec py-5'>
-                {data ?
-                    <div className="container text-start">
+                {data.id &&
+                    <div className="container text-start single-blog">
                         <div className="row">
-                            <div className="col-md-6 my-3">
-                                <img src={`${img}/${data.image}`} alt="singleBlog" className='w-100 rounded-4' />
-                            </div>
-                            <div className="col-md-6 my-md-auto my-3">
-                                <h6 className="heading mb-3" >
+                            <div className="col-12">
+                                <h2 class=" fs-2 main-heading fw-sm-bold text-start p-0 text-truncate">
                                     {data.title}
-                                </h6>
-                                <p className="para-sm" dangerouslySetInnerHTML={{ __html: data.short_description }}>
+                                </h2>
+                                <p class="fs-6 text-muted fw-sm-bold">
+
+                                    By {data.username} Last Updated on {data.updated_at.split("T")[0]}
+                                </p>
+                                <p class="fs-6 text-main fw-sm-bold">
+
+                                    0 Comments
+
                                 </p>
                             </div>
-                            <div className="col-md-12 my-3">
-                                <p className="para-sm" dangerouslySetInnerHTML={{ __html: data.long_description }}>
-                                </p>
+                            <div className="col-md-12 mb-3">
+                                <div dangerouslySetInnerHTML={{ __html: data.long_description }}>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    : "Something Went Wrong!"}
+                }
+
+                {isLoading && <Spinner />}
             </div>
         </motion.div>
     )

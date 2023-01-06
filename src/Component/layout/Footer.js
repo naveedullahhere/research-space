@@ -29,12 +29,12 @@ export const Footer = () => {
             .then(json => {
                 if (json.success) {
                     toast.success(json.message);
+                    reset();
                 }
                 else {
                     toast.error(json.message);
                 }
                 setIsLoading(false);
-                reset()
             }).catch(err => {
                 toast.error("Something Went Wrong!");
                 setIsLoading(false);
@@ -42,74 +42,75 @@ export const Footer = () => {
     };
     const userid = 1;
     return (
-        <footer className="pt-5">
-            <div className="container py-md-5">
-                <div className="row">
-                    <div className="col-md-5 my-md-0 my-3">
-                        <Link to="/" className="d-flex align-items-center mb-3 link-dark text-decoration-none">
-                            <img src={Logo} className={'w-75'} alt="" />
-                        </Link>
-                        <p className="para-sm">MediaChapter is a team of dedicated designers, developers, content creators, SEO specialists, digital marketers, and other experts who share a common passion for great brands</p>
-                    </div>
+        <footer>
+            <div class="container my-3">
+                <div class="row ">
+                    <div class="col-md-11 mx-auto">
+                        <div class="card shadow border-0 rounded-5 py-4">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-md-3 text-center">
+                                        <img src="https://discounts-space.com/frontend/img/newsletter.png" class="newsLetterImg" alt="" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="text-center text-black px-md-5 px-3">
+                                            <h4 class="mb-2">EMAIL NEWSLETTER</h4>
+                                            <p class="expiry text-black">
+                                                Be The First To Get The Amazing Deals
+                                            </p>
+                                            <div class="signup_form">
+                                                <form onSubmit={handleSubmit(onSubmit)} class="subscribe newsletter">
+                                                    <input type="text" class={`subscribe__input shadow ${errors.email && "form-control is-invalid"}`} {...register('email', { required: true, pattern: /^\S+@\S+$/i })} placeholder="Enter Email Address" />
+                                                    <button type="submit" class="subscribe__btn newsletter-subscribe border-0 border-start ">
+                                                        {isLoading ?
+                                                            <div class="spinner-border" role="status">
+                                                                <span class="visually-hidden">Loading...</span>
+                                                            </div>
+                                                            : <i class="fas fa-paper-plane text-signature" aria-hidden="true"></i>}
 
-                    <div className="col-md-2 my-md-0 my-3">
-                        <h5>SITE MAP</h5>
-                        <ul className="nav flex-column mt-3">
-                            <li className="nav-item mb-2"><Link to="about" className="nav-link p-0 para-sm">ABOUT</Link></li>
-                            <li className="nav-item mb-2"><Link to="portfolio" className="nav-link p-0 para-sm">PORTFOLIO</Link></li>
-                            <li className="nav-item mb-2"><Link to="blog" className="nav-link p-0 para-sm">BLOGS</Link></li>
-                            <li className="nav-item mb-2"><Link to="contact" className="nav-link p-0 para-sm">CONTACT</Link></li>
-                        </ul>
-                    </div>
+                                                    </button>
 
-                    <div className="col-md-2 my-md-0 my-3">
-                        <h5>OUR POLICIES</h5>
-                        <ul className="nav flex-column mt-3">
-                            <li className="nav-item mb-2"><Link to="/privacy-policy" className="nav-link p-0 para-sm">Privacy Policy</Link></li>
-                            <li className="nav-item mb-2"><Link to="/terms-conditions" className="nav-link p-0 para-sm">Terms & Condition</Link></li>
-
-                        </ul>
-                    </div>
-
-                    <div className="col-md-3 my-md-0 my-3">
-                        <h5>Get Our Brochure
-                        </h5>
-                        <div className="d-flex w-100 gap-2 flex-column mt-3">
-                            <form onSubmit={handleSubmit(onSubmit)}>
-                                <label htmlFor="newsletter1" className="visually-hidden">Email address</label>
-                                <input id="newsletter1" type="text" class={`form-control shadow-none text-dark border-0 py-2 ${errors.email && "form-control is-invalid  text-dark"}`} {...register('email', { required: true, pattern: /^\S+@\S+$/i })} placeholder="Email address" />
-                                <input type="hidden" name="user_id" value={userid} />
-
-                                <button className="btn btn-main w-100" type="submit">
-                                    Subscribe
-                                    {isLoading &&
-                                        <div className="spinner-border me-5" style={{ "float": "right" }} role="status">
-                                            <span className="visually-hidden">Loading...</span>
+                                                </form>
+                                            </div>
                                         </div>
-                                    }
-                                </button>
-                                {errors.email && <span className='para-sm text-white'>Please Enter a Valid Email</span>}
 
-                            </form>
-                        </div>
-                        <h5 className='my-3'>Follow US
-                        </h5>
-                        <div className="footericons d-flex gap-2 align-items-center">
-                            <Link to='#' className="ico"><i className="fa-brands fa-facebook"></i></Link>
-                            <Link to='#' className="ico"><i className="fa-brands fa-twitter"></i></Link>
-                            <Link to='#' className="ico"><i className="fa-brands fa-instagram"></i></Link>
-                            <Link to='#' className="ico"><i className="fa-brands fa-pinterest"></i></Link>
-                            <Link to='#' className="ico"><i className="fa-brands fa-linkedin"></i></Link>
+                                        <div class="social_profile">
+                                            <ul>
+                                                <li><a class="bg-signature" target="_blank" href="//instagram.com"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
+
+                                                <li><a class="bg-signature" target="_blank" href="//facebook.com"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-
             </div>
-            <div className="pt-3 mt-4 border-top para-xs text-center bg-white">
-                <p className='mb-0 pb-3 text-black'>Media Chapter is a registered trademark. Media Chapter is registered in Wyoming, United States. Company no: 45999-0038.
-                </p>
-            </div>
+            <div class="container-fluid p-0">
+                <div class="row">
+                    <div class="col-12 text-center py-2">
+                        <ul class="list-inline text-black fw-bold py-2 fs-6">
+                            <li class="list-inline-item">
+                                <a href="#" class="text-black"> ABOUT US</a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="#" class="text-black"> CONTACT US</a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="#" class="text-black"> FAQ's</a>
+                            </li>
 
+                        </ul>
+                        <h6 class="text-black text-uppercase m-0 fw-bold px-md-0 px-2">
+                            © Copyright 2022 | All Rights Reserved | Powered By <a href="//eliteblue.net" target="_blank" class="text-uppercase text-black">eliteblue technologies</a>
+                        </h6>
+                    </div>
+                </div>
+            </div>
         </footer>
     )
 }

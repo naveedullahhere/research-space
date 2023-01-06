@@ -21,7 +21,7 @@ export const Sidebar = ({ pageid }) => {
 
             <div className="sidebar active">
                 <div className="logo_content">
-                    <div className="logo"> 
+                    <div className="logo">
                         <div className="heading fs-4" style={{ "marginLeft": "5px" }}>{user.data.name}</div>
                     </div>
                     <i class='bx bx-menu-alt-right' id="btn" style={{ "fontSize": "25px" }}></i>
@@ -37,18 +37,11 @@ export const Sidebar = ({ pageid }) => {
                     {user.data.user_type === "user" &&
                         <>
                             <li>
-                                <Link to={'/projects'} className={`${pageid === "projects" && "active"}`}>
-                                    <i class='fa fa-database' ></i>
-                                    <span className="link_names">Projects</span>
-                                </Link>
-                                <span className="tooltip">Projects</span>
-                            </li>
-                            <li>
-                                <Link to={'/invoices'} className={`${pageid === "invoice" && "active"}`}>
+                                <Link to={'/wishlist'} className={`${pageid === "wishlist" && "active"}`}>
                                     <i class='fa fa-file-invoice' ></i>
-                                    <span className="link_names">Invoices</span>
+                                    <span className="link_names">Wishlist</span>
                                 </Link>
-                                <span className="tooltip">Invoices</span>
+                                <span className="tooltip">Wishlist</span>
                             </li>
                             {/* <li>
                                 <Link to={'/completed-projects'} className={`${pageid === "cproject" && "active"}`}>
@@ -59,13 +52,6 @@ export const Sidebar = ({ pageid }) => {
                             </li> */}
                         </>
                     }
-                    <li>
-                        <Link to={'/project-discussion'} className={`${pageid === "chat" && "active"}`}>
-                            <i class='fa fa-mail-bulk' ></i>
-                            <span className="link_names">Project Discussion</span>
-                        </Link>
-                        <span className="tooltip">Project Discussion</span>
-                    </li>
                     <li>
                         <a href='#' onClick={Logout}>
                             {isLoading ?

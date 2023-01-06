@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup';
+import { PromiseButton } from '../Buttons/PromiseButton';
 
 export const Register = () => {
 
@@ -101,15 +102,10 @@ export const Register = () => {
                     {/* <div className="remember-me">
                         <input type="checkbox" checked name="" id="checkbox" />
                         <label htmlFor="checkbox" className='px-2'>Remember Me</label>
-                    </div> */}
+                    </div> */} 
 
-                    <button type="submit">
-                        Signup
-                        {isLoading &&
-                            <div className="spinner-border me-5" style={{ "float": "right" }} role="status">
-                                <span className="visually-hidden">Loading...</span>
-                            </div>
-                        }
+                    <button type='submit' className='py-0'>
+                        <PromiseButton title={"Signup"} loading={isLoading} />
                     </button>
 
                     <div className="auth-action">

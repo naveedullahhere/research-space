@@ -6,14 +6,12 @@ import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom';
 import { PromiseButton } from '../Buttons/PromiseButton';
 
-export const Login = () => {
+export const Forgot = () => {
 
-    const { URL, dispatch, addUserData, user, removeUserData } = useContext(AppContext);
+    const { URL } = useContext(AppContext);
     const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
-    // user && navigate("/my-account");
 
     const {
         register,
@@ -24,22 +22,15 @@ export const Login = () => {
 
     const onSubmit = (data) => {
         let emailD = email;
-        let passwordD = password;
         setIsLoading(true);
-        postData(`${URL}api/signin`, { email: emailD, password: passwordD })
+        postData(`${URL}api/reset`, { email: emailD })
             .then(data => {
                 if (data.success != false) {
-                    toast.success(data.message);
-                    dispatch(addUserData(data.data));
-                    if (data.data.is_varified) {
-                        navigate("/my-account");
-                    }
-                    else {
-                        navigate("/verify");
-                    }
+                    navigate("/login");
                     reset();
-                } else {
-                    toast.error(data.message);
+                }
+                else {
+                    toast.success(data.message);
                 }
                 setIsLoading(false);
             }).catch((err) => {
@@ -66,7 +57,7 @@ export const Login = () => {
 
                 <form onSubmit={handleSubmit(onSubmit)} className="login-box" method='POST' autoComplete="new-password">
                     <div className="title">
-                        <h1>LOGIN</h1>
+                        <h1>Reset Password</h1>
                     </div>
                     <div className="input-box">
                         <input type="text" name="email" autoComplete={`false`} className={`inputLogin ${errors.email && " is-invalid"}`} id="username" required {...register('email', { pattern: /^\S+@\S+$/i })} onChange={(e) => setEmail(e.target.value)} />
@@ -75,21 +66,12 @@ export const Login = () => {
 
                     {errors.email && <span className='para-sm text-white'>Please Enter a Valid Email</span>}
 
-                    <div className="input-box">
-                        <input type="password" name="password" autoComplete="new-password" className="input pass-input" id="password"  {...register('password',)} required onChange={(e) => setPassword(e.target.value)} />
-                        <img src="assets/img/view.png" className="view-pass" alt="" />
-                        <label htmlFor="password">Password</label>
-                    </div>
-                    {/* <div className="remember-me">
-                        <input type="checkbox" checked name="" id="checkbox" />
-                        <label htmlFor="checkbox" className='ps-2'>Remember Me</label>
-                    </div> */}
                     <button type='submit' className='py-0'>
-                        <PromiseButton title={"Login"} loading={isLoading} />
+                        <PromiseButton title={"Send Password Reset Link"} loading={isLoading} />
                     </button>
                     <div className="auth-action">
-                        <Link to="/register">Sign Up</Link>
-                        <Link to="/password/reset">Forget Password?</Link>
+                        <Link to="/login">Login</Link>
+                        <a href="#">Forget Password?</a>
                     </div>
                 </form>
             </div>

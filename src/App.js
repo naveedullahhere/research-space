@@ -16,6 +16,8 @@ import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 function App() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userReducer.user[0]);
+
+
   const [couponItems, setCouponItems] = useState([]);
   const [FilterCategory, setFilterCategory] = useState([]);
   const [FilterStore, setFilterStore] = useState([]);
@@ -34,8 +36,30 @@ function App() {
 
   useEffect(() => {
     fetchTeams();
+    let store = `https://discounts-space.com/api/top-stores?token=152784823qtjzdfg213&since_id=0&paginate=20`;
+    let categ = `https://discounts-space.com/api/category?token=152784823qtjzdfg213&type=coupon`;
+    fetchStore(store);
+    fetchCateg(categ);
   }, []);
 
+  const fetchStore = async (url) => {
+    try {
+      const response = await fetch(url);
+      const json = await response.json();
+      setFilterStore(json);
+    } catch (error) {
+      console.log("error", error);
+    }
+  }
+  const fetchCateg = async (url) => {
+    try {
+      const response = await fetch(url);
+      const json = await response.json();
+      setFilterCategory(json.data);
+    } catch (error) {
+      console.log("error", error);
+    }
+  }
 
   const fetchTeams = () => {
     fetch(`${URL}api/team-member`)
@@ -43,7 +67,7 @@ function App() {
       .then((actualData) => { setTeams(actualData.team); setTeamsImgPath(actualData.media_path); })
       .catch((err) => {
         setData([]);
-        
+
       }
       );
   }
