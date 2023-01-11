@@ -21,7 +21,7 @@ export const SearchCouponDeals = () => {
     const [style, setStyle] = useState("List");
     // const query = useParams();
     // const searchedData = query.searchedData;
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const [data, setData] = useState([]);
     const [searchedCoupons, setSearchedCoupons] = useState([]);
     const [filterState, setFilterState] = useState(true);
@@ -62,16 +62,20 @@ export const SearchCouponDeals = () => {
 
     return (
         <>
-
+            <div class="container-fluid">
+                <div class="row shadow-sm">
+                    <div class="col-md-12 py-3">
+                        <h1 class="text-uppercase text-black m-0">Coupon & Deals</h1>
+                    </div>
+                </div>
+            </div>
             <div className="sect py-md-5 py-3">
                 <div className="container">
                     <div className="row">
                         <div className="col-12">
                             <div className="d-flex justify-content-between">
 
-                                <h1 className="heading">
-                                    Coupons and Deals
-                                </h1>
+                                <div></div>
                                 <div>
                                     <Segmented
                                         onChange={(e) => setStyle(e)}
@@ -149,7 +153,7 @@ export const SearchCouponDeals = () => {
                                             <div className='pagination mt-4 justify-content-center'>
                                                 <Pagination defaultCurrent={vll} total={len} pageSize={1} showPrevNextJumpers={true} onChange={(e) => LoadMore(e)} />
                                             </div>
-                                            
+
                                         }
                                     </>
                                 }

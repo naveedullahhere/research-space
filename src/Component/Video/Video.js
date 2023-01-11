@@ -24,15 +24,17 @@ export const Video = () => {
             setIsLoading(false)
         }
     }, [])
- 
+
     return (
         <>
-            <div className="container sect py-md-5 py-3 text-start">
-                <div className="row">
-                    <div className="col-12">
-                        <h2 className='ps-0 heading'>Video Show</h2>
+            <div class="container-fluid">
+                <div class="row shadow-sm">
+                    <div class="col-md-12 py-3">
+                        <h1 class="text-uppercase text-black m-0">Video Show</h1>
                     </div>
                 </div>
+            </div>
+            <div className="container sect py-md-5 py-3 text-start">
                 <div className="row">
                     {
                         isLoading ? <Spinner /> :

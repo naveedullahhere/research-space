@@ -44,6 +44,7 @@ export const SingleVideo = () => {
                                 <h1 className="heading">
                                     {data.data && data.data.title}
                                 </h1>
+                                
                             </div>
                         </div>
                     </div>

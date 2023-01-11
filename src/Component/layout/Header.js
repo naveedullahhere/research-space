@@ -51,7 +51,7 @@ export const Header = () => {
     const Logout = () => {
         dispatch(removeUserData(user.id));
         navigate("/login")
-    } 
+    }
 
     return (
         <>
@@ -102,7 +102,7 @@ export const Header = () => {
                                         </div>
                                     </div>
                                     <div className='d-flex '>
-                                        <div class="custom-dropdown-area mx-4 text-uppercase position-relative">
+                                        {/* <div class="custom-dropdown-area mx-4 text-uppercase position-relative">
                                             <div class="dropdown-toggle country-list flag">
                                                 <img src="https://discounts-space.com/flags/us.svg" class="" style={{ width: '35px' }} alt="US Selected" />
 
@@ -114,14 +114,14 @@ export const Header = () => {
                                                     </li>
                                                 </ul>
                                             </div>
-                                        </div>
+                                        </div> */}
                                         <div class="right-links">
 
 
                                             {user ?
 
                                                 <div class="custom-dropdown-area cat-dropdown text-uppercase">
-                                                    <li class="list-unstyled dropdown-toggle" data-bs-toggle="dropdown"><Link to="#jgggg">{user.data.name}</Link></li>
+                                                    <li class="list-unstyled dropdown-toggle" data-bs-toggle="dropdown"><Link to="#">{user.data.name}</Link></li>
 
                                                     <ul class="custom-Dropdown dd" id="style-1" style={{ display: 'block' }}>
 

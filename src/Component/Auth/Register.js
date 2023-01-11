@@ -69,8 +69,8 @@ export const Register = () => {
         <motion.div initial={{ opacity: 0, x: 100 }} animate={{ opacity: 1, x: 0 }} exit={{ transition: { duration: 0.3 }, opacity: 0, x: 100 }}>
             <div className="loginMain">
                 <form onSubmit={handleSubmit(onSubmit)} className="login-box" autocomplete="on">
-                    <div className="title">
-                        <h1>Register </h1>
+                    <div className="fs-5">
+                        <h1 className='fs-4 fw-bold'> CREATE YOUR ACCOUNT</h1>
                     </div>
                     <div className="input-box">
                         <input type="hidden" {...register('domain')} name="domain" value={window.location.href} />
@@ -102,8 +102,8 @@ export const Register = () => {
                         <label htmlFor="checkbox" className='px-2'>Remember Me</label>
                     </div> */}
 
-                    <button type='submit' className='py-0'>
-                        <PromiseButton title={"Signup"} loading={isLoading} />
+                    <button type='submit' className='py-2'>
+                        <PromiseButton title={"Signup"} typ='text-white' loading={isLoading} />
                     </button>
 
                     <div className="auth-action">

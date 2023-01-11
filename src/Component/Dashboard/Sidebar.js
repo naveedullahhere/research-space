@@ -68,11 +68,13 @@ export const Sidebar = ({ pageid }) => {
                     <li>
                         <a href='#' onClick={Logout}>
                             {isLoading ?
-                                <div className="spinner d-flex justify-content-center align-items-center">
-                                    <div className="spinner-border" style={{ "float": "right" }} role="status">
-                                        <span className="visually-hidden">Loading...</span>
+                                <i className='d-flex justify-content-center align-items-center'>
+                                    <div className="spinner d-flex justify-content-center align-items-center">
+                                        <div className="spinner-border" style={{ "float": "right" }} role="status">
+                                            <span className="visually-hidden">Loading...</span>
+                                        </div>
                                     </div>
-                                </div>
+                                </i>
                                 :
                                 <i class='fa fa-power-off' ></i>
                             }

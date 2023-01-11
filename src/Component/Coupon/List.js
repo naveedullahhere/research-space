@@ -64,7 +64,7 @@ export const List = ({ title, style, discount, rprice, cprice, image, singleurl,
         return response.json();
     }
 
-    console.log(item);
+    // console.log(item);
 
     if (style === "List")
         return (

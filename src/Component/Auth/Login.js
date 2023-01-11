@@ -67,8 +67,8 @@ export const Login = () => {
             <div className="loginMain">
 
                 <form onSubmit={handleSubmit(onSubmit)} className="login-box" method='POST' autoComplete="new-password">
-                    <div className="title">
-                        <h1>LOGIN</h1>
+                    <div className="fs-5">
+                        <h1 className='fs-4 fw-bold'>LOGIN YOUR ACCOUNT</h1>
                     </div>
                     <div className="input-box">
                         <input type="text" name="email" autoComplete={`false`} className={`inputLogin ${errors.email && " is-invalid"}`} id="username" required {...register('email', { pattern: /^\S+@\S+$/i })} onChange={(e) => setEmail(e.target.value)} />
@@ -86,8 +86,8 @@ export const Login = () => {
                         <input type="checkbox" checked name="" id="checkbox" />
                         <label htmlFor="checkbox" className='ps-2'>Remember Me</label>
                     </div> */}
-                    <button type='submit' className='py-0'>
-                        <PromiseButton title={"Login"} loading={isLoading} />
+                    <button type='submit' className='py-2'>
+                        <PromiseButton title={"Login"} typ='text-white' loading={isLoading} />
                     </button>
                     <div className="auth-action">
                         <Link to="/register">Sign Up</Link>

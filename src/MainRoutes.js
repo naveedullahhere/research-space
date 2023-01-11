@@ -52,11 +52,11 @@ export const MainRoutes = () => {
                     <Route path="/password/reset" element={<Forgot />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/video" element={<Video />} />
-                    <Route path="/saved" element={<Saved />} />
                     <Route path="/notfound" element={<NotFound />} />
                     <Route path="/*" element={<NotFound />} />
                     <Route path="/register" element={<Register />} />
                     <Route element={<PrivateRoutes />}>
+                        <Route path="/saved" element={<Saved />} />
                         <Route path="/my-account" element={<MyAccount />} exact />
                         <Route path="/wishlist" element={<Wishlist />} exact />
                         <Route path="/like" element={<Like />} exact />

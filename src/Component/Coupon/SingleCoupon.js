@@ -8,18 +8,21 @@ import heart from "../assets/coupon/heart-line.png";
 import save from "../assets/coupon/bookmark-line.png";
 import GetCoupon from "../assets/coupon/getcoupon.png";
 import like from "../assets/coupon/like-line.png";
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { AppContext } from '../../context/AppContext';
 import { toast } from 'react-toastify';
 import { PromiseButton } from '../Buttons/PromiseButton';
 import { Spinner } from '../Spinner';
 import { Tooltip } from 'antd';
+import { HeartOutlined, HeartFilled, LikeFilled, LikeOutlined, BookFilled, BookOutlined } from '@ant-design/icons';
 
 
 
 export const SingleCoupon = () => {
     const params = useParams();
-    const { user, API_TOKEN, SITE_URL } = useContext(AppContext);
+    const { user, API_TOKEN, SITE_URL, setWishlistItems
+        , setLikedItems
+        , setSavedItems } = useContext(AppContext);
 
     const singleCoupon = params.singleCoupon;
     const [isLoading, setIsLoading] = useState(false);
@@ -131,7 +134,55 @@ export const SingleCoupon = () => {
         }
 
     }
+    const navigate = useNavigate();
 
+    const handleItem = (typec) => {
+        if (!user) {
+            navigate('/login');
+        }
+        var typp = typec;
+        setIsLoading(true);
+        postData(`${SITE_URL}api/web/reaction-post`, { type: typec, user_token: user && user.data.user_token, reference_type: "coupon", comment: "", reference_id: data.coupon.id })
+            .then(res => {
+                if (res.success != false) {
+                    toast.success("Successfully Added!");
+                    data[typp] = true;
+                } else {
+                    data[typp] = false;
+                    toast.error("Item Removed!");
+                }
+                fetch(`${SITE_URL}api/web/react-items?user_id=${user ? user.data.id : ""}&user_token=${user.data.user_token}&type=${typp}`)
+                    .then((response) => response.json())
+                    .then((actualData) => {
+                        if (typp === "wishlist") {
+                            setWishlistItems(actualData);
+                        }
+                        else if (typp === "like") {
+                            setLikedItems(actualData);
+                        }
+                        else if (typp === "save") {
+                            setSavedItems(actualData);
+                        }
+                    })
+                setIsLoading(false);
+            }).catch((err) => {
+
+                setIsLoading(false);
+                toast.error("Something went wrong!");
+
+            });
+
+    };
+    async function postData(url, data) {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+        return response.json();
+    }
     return (
         <>
             <div className="container">
@@ -183,7 +234,16 @@ export const SingleCoupon = () => {
                             </div>
                             <div className="col-md-8 p-4">
                                 <div className="couponimagedetaildiv my-auto">
-                                    <small><p className="light-black">Listing Expires in <span className={`text-danger badge ${date === "Expired" && "text-bg-danger text-white"}`}><b>{date}</b></span></p></small>
+                                    <small>
+                                        <p className="light-black">
+                                            Listing Expires in
+                                            <span className={`text-danger badge ${date === "Expired" && "text-bg-danger text-white"}`}>
+                                                <b>
+                                                    {date}
+                                                </b>
+                                            </span>
+                                        </p>
+                                    </small>
                                     <h3 className="text-start ps-0">{data.coupon.title}</h3>
                                     <div className="d-flex gap-2 pt-3 align-items-center">
                                         <img src={`${data.country && data.flag_url}/${(data.country.iso).toLowerCase()}.svg`} alt="" width={'30px'} />
@@ -213,13 +273,46 @@ export const SingleCoupon = () => {
                                         </div>
                                         <div className="my-auto">
                                             <div className="coupon-btn-div">
-                                                <button>
-                                                    <img className="p-2 " src={heart} alt="" width={'45px'} />
+                                                <button className='bg-transparent border-0' onClick={() => handleItem("wishlist")}>
+                                                    <Tooltip title="wishlist">
+
+                                                        {data.wishlist ?
+
+                                                            <HeartFilled />
+                                                            :
+
+                                                            <HeartOutlined />
+                                                        }
+
+                                                    </Tooltip>
                                                 </button>
 
-                                                <img className="p-2 " src={save} alt="" width={'35px'} />
-                                                <img className="p-2 " src={like} alt="" width={'45px'} />
-                                                <small className="my-auto">{data.like_count}</small>
+                                                <button className='bg-transparent border-0' onClick={() => handleItem("save")}>
+                                                    <Tooltip title="save">
+                                                        {data.save ?
+
+
+                                                            <BookFilled />
+                                                            :
+                                                            <BookOutlined />
+
+                                                        }
+                                                    </Tooltip>
+                                                </button>
+                                                <button className='bg-transparent border-0' onClick={() => handleItem("like")}>
+                                                    <Tooltip title="like">
+
+                                                        {data.like ?
+                                                            <LikeFilled />
+
+                                                            :
+
+                                                            <LikeOutlined />
+                                                        }
+
+                                                        <small className="my-auto">{data.like_count}</small>
+                                                    </Tooltip>
+                                                </button>
                                             </div>
                                         </div>
                                     </div>

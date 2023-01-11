@@ -26,7 +26,7 @@ export const Wishlist = () => {
                 .then((actualData) => { setWishlistItems(actualData); setIsLoading(false) })
             setIsLoading(false)
         }
-    }, []) 
+    }, [])
 
     return (
         <div>
@@ -37,9 +37,11 @@ export const Wishlist = () => {
                     <div className="col-xl-9 col-lg-9 col-md-8 col-10 ps-md-0" >
                         <div className='row w-100 mx-0 px-0'>
                             <div className="col-12 mx-0 px-0 text-center">
-                                <div className=" rounded-3 p-4 pb-0">
-                                    <div className="mt-3">
-                                        <h3 className="heading fs-3 mb-3">Wishlist</h3>
+                                <div class="container-fluid">
+                                    <div class="row shadow-sm">
+                                        <div class="col-md-12 py-3">
+                                            <h1 class="text-uppercase text-black m-0">Wishlist</h1>
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="itemz mt-3">

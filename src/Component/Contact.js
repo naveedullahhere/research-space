@@ -12,8 +12,8 @@ export const Contact = () => {
 
     const [isLoading, setIsLoading] = useState(false);
 
-    const { APP_NAME, setTitle, URL, API_TOKEN } = useContext(AppContext);
-    setTitle(`${APP_NAME}Contact`);
+    const { APP_NAME, URL, API_TOKEN } = useContext(AppContext);
+    // setTitle(`${APP_NAME}Contact`);
 
     const {
         register,
@@ -27,7 +27,6 @@ export const Contact = () => {
 
         data = JSON.stringify(data);
 
-        console.log(data);
         fetch(`${URL}api/web/contact`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -56,17 +55,16 @@ export const Contact = () => {
 
             <motion.div initial={{ transition: { duration: 1 }, opacity: 0 }} animate={{ transition: { duration: 1 }, opacity: 1 }} exit={{ transition: { duration: 1 }, opacity: 0 }}>
 
+                <div class="container-fluid">
+                    <div class="row shadow-sm">
+                        <div class="col-md-12 py-3">
+                            <h1 class="text-uppercase text-black m-0">Contact Us</h1>
+                        </div>
+                    </div>
+                </div>
                 <div className="sect py-md-5 py-3">
                     <div className="container">
                         <div className="row">
-                            <div className="col-12">
-                                <div className="d-flex justify-content-between">
-
-                                    <h1 className="heading">
-                                        Contact
-                                    </h1>
-                                </div>
-                            </div>
                             <div className="col-md-9 mx-auto py-5 contact_pg">
                                 <form onSubmit={handleSubmit(onSubmit)} autocomplete="off" className='bg-second pt-5 mx-0 shadow p-3 shadow-sm rounded-4 text-center'>
                                     <div className="row">

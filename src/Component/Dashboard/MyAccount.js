@@ -28,9 +28,10 @@ export const MyAccount = () => {
     const enableEdit = () => {
         setActiveEdit(!isActiveEdit);
     };
+
     const onSubmitProfile = (data) => {
         setIsProfileLoading(true);
-        postData(`${URL}api/profile-setting`, { about: userAbout, name: userName, phone_number: userPhone, token: user.data.user_token })
+        postData(`${URL}api/web/profile-setting`, { about: userAbout, name: userName, phone_number: userPhone, token: user.data.user_token })
             .then(data => {
                 if (data.success != false) {
                     dispatch(addUserData(data.data));
@@ -69,7 +70,7 @@ export const MyAccount = () => {
 
     const onSubmit = (data) => {
         setIsLoading(true)
-        postData(`${URL}api/change-password`, { password: data.cpassword, new_password: data.new_password, token: user.data.user_token })
+        postData(`${URL}api/web/change-password`, { password: data.cpassword, new_password: data.new_password, token: user.data.user_token })
             .then(data => {
                 if (data.success != false) {
                     toast.success(data.message);

@@ -61,69 +61,75 @@ export const Stores = () => {
 
 
     return (
-        <div className="sect py-md-5 py-3">
-            <div className="container">
-                <div className="row">
-                    <div className="col-12">
-                        <div className="d-flex justify-content-between">
+        <>
+            <div class="container-fluid">
+                <div class="row shadow-sm">
+                    <div class="col-md-12 py-3">
+                        <h1 class="text-uppercase text-black m-0">Stores</h1>
+                    </div>
+                </div>
+            </div>
+            <div className="sect py-md-5 py-3">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-12">
+                            <div className="d-flex justify-content-between"> 
+                            <div></div>
+                                <div>
+                                    <Segmented
+                                        onChange={(e) => setStyle(e)}
+                                        options={[
+                                            {
+                                                value: 'List',
+                                                icon: <BarsOutlined />,
+                                            },
+                                            {
+                                                value: 'Kanban',
+                                                icon: <AppstoreOutlined />,
+                                            },
+                                        ]}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="row w-100 mx-auto px-0">
+                            <div className="col-lg-12 col-md-12">
 
-                            <h1 className="heading">
-                                Category
-                            </h1>
-                            <div>
-                                <Segmented
-                                    onChange={(e) => setStyle(e)}
-                                    options={[
-                                        {
-                                            value: 'List',
-                                            icon: <BarsOutlined />,
-                                        },
-                                        {
-                                            value: 'Kanban',
-                                            icon: <AppstoreOutlined />,
-                                        },
-                                    ]}
-                                />
+                                {isLoading ?
+
+                                    <Spinner />
+
+                                    :
+
+                                    <>
+                                        <div className="row">
+
+                                            {data.length > 0 ? (data.slice(dataFrom, dataTo).map((item) => {
+                                                return <List style={style} item={item} user={user} singleurl={item.coupon.slug} image={`${item.image_path}/${item.media.image}`} title={item.coupon.title} discount={item.coupon.discount} rprice={item.coupon.regular_price} cprice={item.coupon.compare_price} />
+                                            })) : <div className="col-12">
+                                                <p className="para fs-4">No Coupon Found!</p>
+                                            </div>}
+
+                                        </div>
+
+                                        {data && data.length > 30 &&
+
+                                            <div className='pagination mt-4 justify-content-center'>
+                                                <Pagination defaultCurrent={vll} total={len} pageSize={1} showPrevNextJumpers={true} onChange={(e) => LoadMore(e)} />
+                                            </div>
+
+                                        }
+                                    </>
+
+
+                                }
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="row">
-                    <div className="row w-100 mx-auto px-0">
-                        <div className="col-lg-12 col-md-12">
-
-                            {isLoading ?
-
-                                <Spinner />
-
-                                :
-
-                                <>
-                                    <div className="row">
-
-                                        {data.length > 0 ? (data.slice(dataFrom, dataTo).map((item) => {
-                                            return <List style={style} item={item} user={user} singleurl={item.coupon.slug} image={`${item.image_path}/${item.media.image}`} title={item.coupon.title} discount={item.coupon.discount} rprice={item.coupon.regular_price} cprice={item.coupon.compare_price} />
-                                        })) : <div className="col-12">
-                                            <p className="para fs-4">No Coupon Found!</p>
-                                        </div>}
-
-                                    </div>
-
-                                    {data && data.length > 30 &&
-
-                                        <div className='pagination mt-4 justify-content-center'>
-                                            <Pagination defaultCurrent={vll} total={len} pageSize={1} showPrevNextJumpers={true} onChange={(e) => LoadMore(e)} />
-                                        </div>
-
-                                    }
-                                </>
-
-
-                            }
-                        </div>
-                    </div>
-                </div>
             </div>
-        </div>
+        </>
     )
 }

@@ -59,16 +59,19 @@ export const Deals = () => {
 
     return (
         <>
-
+            <div class="container-fluid">
+                <div class="row shadow-sm">
+                    <div class="col-md-12 py-3">
+                        <h1 class="text-uppercase text-black m-0">Deals</h1>
+                    </div>
+                </div>
+            </div>
             <div className="sect py-md-5 py-3">
                 <div className="container">
                     <div className="row">
                         <div className="col-12">
                             <div className="d-flex justify-content-between">
-
-                                <h1 className="heading">
-                                    Deals
-                                </h1>
+                                <div></div>
                                 <div>
                                     <Segmented
                                         onChange={(e) => setStyle(e)}
