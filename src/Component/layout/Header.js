@@ -2,16 +2,24 @@ import Logo from '../assets/discount-space-logo.png';
 import Logowhite from '../assets/discount-space-logo-whitee.png';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AppContext } from '../../context/AppContext';
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import { Spinner } from '../Spinner';
 
 export const Header = () => {
+    const { user, removeUserData, dispatch, API_TOKEN, URL } = useContext(AppContext);
 
     const [data, setData] = useState([]);
+    const [stores, setStores] = useState([]);
 
 
     useEffect(() => {
-        fetch(`https://discounts-space.com/api/category?token=152784823qtjzdfg213&type=coupon&since_id=6`)
+        fetch(`${URL}api/web/stores`)
+            .then((response) => response.json())
+            .then((actualData) => { setStores(actualData); })
+            .catch((err) => {
+                setStores([]);
+            });
+        fetch(`${URL}api/web/category?type=coupon`)
             .then((response) => response.json())
             .then((actualData) => { setData(actualData.data); })
             .catch((err) => {
@@ -20,7 +28,7 @@ export const Header = () => {
     }, []);
 
 
-    const { dispatch, removeUserData, user } = useContext(AppContext);
+    const { search, setSearch } = useContext(AppContext);
     const navigate = useNavigate();
     const { pathname } = useLocation();
     const [isActive, setActive] = useState(false);
@@ -39,6 +47,12 @@ export const Header = () => {
     const toggleMobNav = () => {
         setmobnav(!ismobnav);
     };
+
+    const Logout = () => {
+        dispatch(removeUserData(user.id));
+        navigate("/login")
+    } 
+
     return (
         <>
             <div className="navigation-wrap bg-white start-header start-style">
@@ -66,19 +80,19 @@ export const Header = () => {
                                         </div>
                                     </div>
                                     <span className='my-auto'><i class="fa fa-search search-toggle" onClick={toggleClass} aria-hidden="true"></i></span>
-                                    <button class={`navbar-toggler ${isActive ? "notactive" : "Activated"}`} onClick={toggleClass}  >
+                                    <button class={`navbar-toggler ${isActive ? "notactive" : "Activated"}`} onClick={toggleClass}>
                                         <span className="navbar-toggler-icon"></span>
                                     </button>
                                 </div>
                                 <div class={`nav-css navbar-collapse justify-content-between ${isActive ? " " : "show"}`} id="navbarSupportedContent">
                                     <div className='d-flex mx-auto'>
                                         <div className="col-md-12 col-sm-2">
-                                            <form class="m-0 searchbar position-relative" >
+                                            <form class="m-0 searchbar position-relative" action='/search/&'>
                                                 <div class="search ps-3 w-100 d-flex justify-content-between mx-2 rounded-5 border border-white shadow overflow-hidden">
                                                     <div class="fields  my-auto">
-                                                        <input type="text" name="coupon" class="searchbar mx-2 w-100 border-0" placeholder="Search Coupons &amp; Deals" id="show-user" />
+                                                        <input type="text" name="query_search" class="searchbar mx-2 w-100 border-0" onChange={(e) => setSearch(e.target.value)} placeholder="Search Coupons &amp; Deals" id="show-user" />
                                                     </div>
-                                                    <button type="submit" class="search-btn main-header-search border-0 py-2 px-3 ">
+                                                    <button type='submit' class="search-btn main-header-search border-0 py-2 px-3">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#fff" class="bi bi-search" viewBox="0 0 16 16">
                                                             <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
                                                         </svg>
@@ -103,14 +117,34 @@ export const Header = () => {
                                         </div>
                                         <div class="right-links">
 
-                                            <div class="buttons d-flex justify-content-center">
-                                                <Link to={'/login'} class="btn log text-dark  py-2">
-                                                    LOGIN
-                                                </Link>
-                                                <Link to="register" class="btn bg-signature text-white px-4 py-2 rounded-5">
-                                                    SIGNUP
-                                                </Link>
-                                            </div>
+
+                                            {user ?
+
+                                                <div class="custom-dropdown-area cat-dropdown text-uppercase">
+                                                    <li class="list-unstyled dropdown-toggle" data-bs-toggle="dropdown"><Link to="#jgggg">{user.data.name}</Link></li>
+
+                                                    <ul class="custom-Dropdown dd" id="style-1" style={{ display: 'block' }}>
+
+
+
+                                                        <li><Link class="dropdown-item" to={'/my-account'}>My Account</Link></li>
+                                                        <li><Link class="dropdown-item" onClick={Logout}>Logout</Link></li>
+
+
+
+                                                    </ul>
+                                                </div>
+                                                :
+                                                <div class="buttons d-flex justify-content-center">
+                                                    <Link to={'/login'} class="btn log text-dark  py-2">
+                                                        LOGIN
+                                                    </Link>
+                                                    <Link to="register" class="btn bg-signature text-white px-4 py-2 rounded-5">
+                                                        SIGNUP
+                                                    </Link>
+                                                </div>
+
+                                            }
                                         </div>
                                     </div>
                                 </div>
@@ -151,7 +185,29 @@ export const Header = () => {
                                                 ?
 
                                                 data.map((item) => {
-                                                    return <li key={item.id}><a class="dropdown-item" href="https://discounts-space.com/collection/health-household">{item.title}</a></li>
+                                                    return <li key={item.id}><Link class="dropdown-item" to={`/collections/${item.slug}`}>{item.title}</Link></li>
+                                                })
+
+                                                :
+
+                                                <Spinner />
+
+                                            }
+
+
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#" onClick={toggleMobNav} class="comm-btn"  >Store
+                                            <span class={` ${ismobnav ? "fas fa-caret-down third" : "fas fa-caret-down third rotate"}`} aria-hidden="true"></span>
+                                        </a>
+                                        <ul class={` ${ismobnav ? "comm-show" : "comm-show show2"}`}>
+                                            {stores
+
+                                                ?
+
+                                                stores.map((item) => {
+                                                    return <li key={item.id}><Link class="dropdown-item" to={`/stores/${item.slug}`}>{item.title}</Link></li>
                                                 })
 
                                                 :
@@ -190,7 +246,7 @@ export const Header = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div >
             <div class="top-links bg-black nav-2 container-fluid">
                 <div class="row">
                     <div class="col-12 d-flex justify-content-center ">
@@ -205,7 +261,7 @@ export const Header = () => {
                                     ?
 
                                     data.map((item) => {
-                                        return <li key={item.id}><a class="dropdown-item" href="https://www.discounts-space.com/collection/health-household">{item.title} </a></li>
+                                        return <li key={item.id}><Link class="dropdown-item" to={`/collections/${item.slug}`}>{item.title} </Link></li>
                                     })
 
                                     :
@@ -217,6 +273,32 @@ export const Header = () => {
 
                             </ul>
                         </div>
+
+
+                        <div class="custom-dropdown-area cat-dropdown mx-4 text-uppercase">
+                            <li class="list-unstyled  dropdown-toggle py-3" data-bs-toggle="dropdown"><Link to="#jgggg">Stores</Link></li>
+
+                            <ul class="custom-Dropdown dd" id="style-1" style={{ display: 'block' }}>
+
+
+                                {stores
+
+                                    ?
+
+                                    stores.map((item) => {
+                                        return <li key={item.id}><Link class="dropdown-item" to={`/stores/${item.slug}`}>{item.title} </Link></li>
+                                    })
+
+                                    :
+
+                                    <Spinner />
+
+                                }
+
+
+                            </ul>
+                        </div>
+
                         <Link to="coupons" class="mx-4 text-uppercase py-3
                          list-unstyled li-links py-2
                         ">Coupons</Link>

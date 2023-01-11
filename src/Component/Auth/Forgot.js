@@ -8,7 +8,7 @@ import { PromiseButton } from '../Buttons/PromiseButton';
 
 export const Forgot = () => {
 
-    const { URL } = useContext(AppContext);
+    const { URL, API_TOKEN } = useContext(AppContext);
     const [email, setEmail] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
@@ -23,7 +23,7 @@ export const Forgot = () => {
     const onSubmit = (data) => {
         let emailD = email;
         setIsLoading(true);
-        postData(`${URL}api/reset`, { email: emailD })
+        postData(`${URL}api/reset&api_token=${API_TOKEN}`, { email: emailD })
             .then(data => {
                 if (data.success != false) {
                     navigate("/login");

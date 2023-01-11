@@ -1,11 +1,10 @@
 const initialData = {
-    user: []
+    user: [], 
 }
-
 const userReducer = (state = initialData, action) => {
     switch (action.type) {
         case "ADD_USER":
-            const { id, data } = action.payload;
+            const { id, data, wishlistItems } = action.payload;
             // return {
             //     ...state,
             //     user: [
@@ -22,9 +21,10 @@ const userReducer = (state = initialData, action) => {
                     // ...state.user,
                     {
                         id: id,
-                        data: data
+                        data: data,
+                        wishlist: wishlistItems
 
-                    }]
+                    }],
             }
         case "REMOVE_USER":
             return {
@@ -36,4 +36,31 @@ const userReducer = (state = initialData, action) => {
             return state;
     }
 }
+
 export default userReducer
+
+const wishlistReducer = (state = initialData, action) => {
+    switch (action.type) {
+        case "WISHLIST":
+
+            const { item_id, items } = action.payload;
+
+
+            return {
+                items: [
+                    // ...state.items,
+                    {
+
+                        id: item_id,
+                        data: items
+
+                    }]
+            }
+
+        default:
+            return state;
+    }
+}
+// export default wishlistReducer
+
+// export default { userReducer, wishlistReducer }

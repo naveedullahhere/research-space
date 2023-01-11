@@ -17,6 +17,13 @@ import { SingleCoupon } from './Component/Coupon/SingleCoupon';
 import { Deals } from './Component/Deals/Deals';
 import { Coupon } from './Component/Deals/Coupon';
 import { Forgot } from './Component/Auth/Forgot';
+import { Search, SearchCouponDeals } from './Component/Search/SearchCouponDeals';
+import { Video } from './Component/Video/Video';
+import { Like } from './Component/Dashboard/Like';
+import { SingleCollection } from './Component/Deals/SingleCollection';
+import { Stores } from './Component/Deals/Stores';
+import { Saved } from './Component/Dashboard/Saved';
+import { SingleVideo } from './Component/Video/SingleVideo';
 
 
 export const MainRoutes = () => {
@@ -35,17 +42,24 @@ export const MainRoutes = () => {
                     <Route path="/blog" element={<Blog />} />
                     <Route path="/blog/:singleBlog" element={<BlogDetails />} />
                     <Route path="/single-coupon/:singleCoupon" element={<SingleCoupon />} />
+                    <Route path="/search/:searchedData" element={<SearchCouponDeals />} />
+                    <Route path="/collections/:singleCollection" element={<SingleCollection />} />
+                    <Route path="/video/:singleVideo" element={<SingleVideo />} />
+                    <Route path="/stores/:singleStore" element={<Stores />} />
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/deals" element={<Deals />} />
                     <Route path="/coupons" element={<Coupon />} />
                     <Route path="/password/reset" element={<Forgot />} />
-                    <Route path="/login" element={!user ? <Login /> : <NotFound />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/video" element={<Video />} />
+                    <Route path="/saved" element={<Saved />} />
                     <Route path="/notfound" element={<NotFound />} />
                     <Route path="/*" element={<NotFound />} />
-                    <Route path="/register" element={!user ? <Register /> : <NotFound />} />
+                    <Route path="/register" element={<Register />} />
                     <Route element={<PrivateRoutes />}>
-                        <Route path="/my-account" element={user && user.data.is_varified ? <MyAccount /> : <NotFound />} exact />
-                        <Route path="/wishlist" element={user && user.data.is_varified ? <Wishlist /> : <NotFound />} exact />
+                        <Route path="/my-account" element={<MyAccount />} exact />
+                        <Route path="/wishlist" element={<Wishlist />} exact />
+                        <Route path="/like" element={<Like />} exact />
                         {/*  <Route path="/projects" element={user && user.data.user_type === "user" && user.data.is_varified ? <Projects /> : <NotFound />} />
                         <Route path="/projects/:singleProject" element={user && user.data.user_type === "user" && user.data.is_varified ? <SingleProject /> : <NotFound />} />
                         <Route path="/invoices" element={user && user.data.user_type === "user" && user.data.is_varified ? < Invoices /> : <NotFound />} />

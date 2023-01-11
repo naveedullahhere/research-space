@@ -6,7 +6,7 @@ import { Footer } from './Component/layout/Footer';
 import { MainRoutes } from './MainRoutes';
 import { AppContext } from "./context/AppContext.js";
 import { useState, useEffect } from 'react';
-import { URL, APP_NAME } from './config'
+import { URL, APP_NAME, API_TOKEN, SITE_URL } from './config'
 import { Toaster } from "react-hot-toast";
 import { useSelector, useDispatch } from 'react-redux';
 import { removeUserData, addUserData, updateUserData } from './actions';
@@ -15,29 +15,40 @@ import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 function App() {
   const dispatch = useDispatch();
+
+  const wishlistData = useSelector((state) => { return state.userReducer.user[0] ? state.userReducer.user[0].wishlist : [] });
   const user = useSelector((state) => state.userReducer.user[0]);
+  // const items = useSelector((state) => state.userReducer.items);
 
 
+  // dispatch(wishlistItems({ "name": "Mannan" }));
+
+  // console.log(items);
   const [couponItems, setCouponItems] = useState([]);
   const [FilterCategory, setFilterCategory] = useState([]);
   const [FilterStore, setFilterStore] = useState([]);
+  const [WishlistItems, setWishlistItems] = useState([]);
+  const [LikedItems, setLikedItems] = useState([]);
+  const [SavedItems, setSavedItems] = useState([]);
   const [Title, setTitle] = useState(`${APP_NAME}Home`);
   const [data, setData] = useState([]);
   const [teams, setTeams] = useState([]);
   const [teamsImgPath, setTeamsImgPath] = useState("");
+  const [search, setSearch] = useState("");
   const [noteValue, setNoteValue] = useState("");
   const [img, setImg] = useState(null);
 
   // var APP_NAME = APP_NAME;
 
+
   var values = {
-    teams, teamsImgPath, couponItems, setCouponItems, setNoteValue, noteValue, FilterCategory, setFilterCategory, FilterStore, setFilterStore, setTitle, Title, APP_NAME, URL, data, setData, img, setImg, removeUserData, addUserData, updateUserData, dispatch, user
+    SITE_URL, API_TOKEN, teams, teamsImgPath, couponItems, setCouponItems, SavedItems, setSavedItems, WishlistItems, LikedItems, setLikedItems, setWishlistItems, search, setSearch, setNoteValue, noteValue, FilterCategory, setFilterCategory, FilterStore, setFilterStore, setTitle, Title, APP_NAME, URL, data, setData, img, setImg, removeUserData, addUserData, updateUserData, dispatch, user
   }
 
   useEffect(() => {
     fetchTeams();
-    let store = `https://discounts-space.com/api/top-stores?token=152784823qtjzdfg213&since_id=0&paginate=20`;
-    let categ = `https://discounts-space.com/api/category?token=152784823qtjzdfg213&type=coupon`;
+    let store = `${URL}api/web/top-stores?token=${user && user.data.user_token}&since_id=0&paginate=20&api_token=${API_TOKEN}`;
+    let categ = `${URL}api/web/category?token=${user && user.data.user_token}&type=coupon&api_token=${API_TOKEN}`;
     fetchStore(store);
     fetchCateg(categ);
   }, []);
@@ -48,7 +59,6 @@ function App() {
       const json = await response.json();
       setFilterStore(json);
     } catch (error) {
-      console.log("error", error);
     }
   }
   const fetchCateg = async (url) => {
@@ -67,32 +77,22 @@ function App() {
       .then((actualData) => { setTeams(actualData.team); setTeamsImgPath(actualData.media_path); })
       .catch((err) => {
         setData([]);
-
-      }
-      );
+      });
   }
 
 
-  const initialOptions = {
-    "client-id": "AeNv_91L0KGqMWRNUl-J00NsP080jqi7csIKewmFf9nQxVzSXsHQkWy5ma94mB7HB4RJY2zGDqkOCqlY",
-    currency: "USD",
-    intent: "capture",
-    "disable-funding": 'credit,card'
-  };
 
 
   document.title = Title;
   return (
-    <PayPalScriptProvider options={initialOptions}>
-      <AppContext.Provider value={values}>
-        <BrowserRouter>
-          <Header />
-          <MainRoutes />
-          <Footer />
-          <Toaster position="top-right" containerStyle={{ "transform": "translateY(104px)" }} />
-        </BrowserRouter>
-      </AppContext.Provider>
-    </PayPalScriptProvider>
+    <AppContext.Provider value={values}>
+      <BrowserRouter>
+        <Header />
+        <MainRoutes />
+        <Footer />
+        <Toaster position="top-right" containerStyle={{ "transform": "translateY(104px)" }} />
+      </BrowserRouter>
+    </AppContext.Provider>
   );
 }
 

@@ -8,7 +8,7 @@ import { PromiseButton } from '../Buttons/PromiseButton';
 
 export const Login = () => {
 
-    const { URL, dispatch, addUserData, user, removeUserData } = useContext(AppContext);
+    const { URL, dispatch, addUserData, user, API_TOKEN, WishlistItems, setWishlistItems } = useContext(AppContext);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
@@ -22,6 +22,7 @@ export const Login = () => {
         formState: { errors },
     } = useForm({ mode: "onBlur" });
 
+
     const onSubmit = (data) => {
         let emailD = email;
         let passwordD = password;
@@ -29,14 +30,15 @@ export const Login = () => {
         postData(`${URL}api/signin`, { email: emailD, password: passwordD })
             .then(data => {
                 if (data.success != false) {
+
+                    fetch(`${URL}api/web/react-items?user_token=${user.data.user_token}&type=wishlist&api_token=${API_TOKEN}`)
+                        .then((response) => response.json())
+                        .then((actualData) => { setWishlistItems(actualData); })
+
+                    dispatch(addUserData(data.data, WishlistItems));
+
                     toast.success(data.message);
-                    dispatch(addUserData(data.data));
-                    if (data.data.is_varified) {
-                        navigate("/my-account");
-                    }
-                    else {
-                        navigate("/verify");
-                    }
+                    navigate("/my-account");
                     reset();
                 } else {
                     toast.error(data.message);

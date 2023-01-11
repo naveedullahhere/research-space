@@ -6,7 +6,7 @@ import { AppContext } from '../../context/AppContext';
 import { Link } from 'react-router-dom';
 
 export const Footer = () => {
-    const { URL } = useContext(AppContext);
+    const { URL, API_TOKEN } = useContext(AppContext);
     const [isLoading, setIsLoading] = useState(false);
 
     const {
@@ -20,7 +20,7 @@ export const Footer = () => {
         setIsLoading(true)
 
         data = JSON.stringify(data);
-        fetch(`${URL}api/newsletter-subscribe`, {
+        fetch(`${URL}api/web/newsletter-subscribe&api_token=${API_TOKEN}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: data

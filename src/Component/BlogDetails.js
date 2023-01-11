@@ -9,16 +9,16 @@ import Item from 'antd/es/list/Item';
 export const BlogDetails = () => {
 
     const params = useParams();
+    const singleBlog = params.singleBlog;
     const [data, setData] = useState([]);
     const [img, setImg] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
-    const singleBlog = params.singleBlog;
+    const { APP_NAME, setTitle, URL, API_TOKEN } = useContext(AppContext);
 
 
 
     useEffect(() => {
-
-        fetch(`https://www.discounts-space.com/public/api/single-blog/${singleBlog}?token=152784823qtjzdfg213`)
+        fetch(`${URL}api/web/single-blog/${singleBlog}`)
             .then((response) => response.json())
             .then((actualData) => { setData(actualData.data); setIsLoading(false); setImg(actualData.image_path); })
             .catch((err) => {
@@ -29,13 +29,10 @@ export const BlogDetails = () => {
     }, []);
 
 
-    console.log(data);
-
-
     return (
         <motion.div initial={{ transition: { duration: 1 }, opacity: 0 }} animate={{ transition: { duration: 1 }, opacity: 1 }} exit={{ transition: { duration: 1 }, opacity: 0 }}>
             <div className='sec py-5'>
-                {data.id &&
+                {data && data.id &&
                     <div className="container text-start single-blog">
                         <div className="row">
                             <div className="col-12">

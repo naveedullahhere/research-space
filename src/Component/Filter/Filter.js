@@ -14,6 +14,7 @@ export const Filter = ({
     discount,
     setSort,
     sort,
+    search,
     setStore,
     store,
     refMinPrice,
@@ -21,11 +22,12 @@ export const Filter = ({
     type,
     filterState,
 }) => {
+    const { user, API_TOKEN, URL } = useContext(AppContext);
 
 
     const { FilterCategory } = useContext(AppContext);
 
-    var value = "";
+    var value = search;
 
     const options = [];
 
@@ -44,14 +46,13 @@ export const Filter = ({
 
 
     const fetchitems = async (categ, stor, disc, sort, minp, maxp, val) => {
-
         setCategory(categ);
         setStore(stor);
         setDiscount(disc);
         setSort(sort);
         setIsLoading(true);
         try {
-            const response = await fetch(`https://discounts-space.com/public/api/coupons?token=152784823qtjzdfg213&type=&category_ids=${categ.length > 0 ? `[${categ}]` : ""}&store_id=${stor}&discount=${disc}&sort=${sort}&min_price=${minp.current.value}&max_price=${maxp.current.value}&type=${type}&search=${val ? val : ""}`);
+            const response = await fetch(`${URL}api/web/coupons?user_id=${user ? user.data.id : ""}&type=${type ? type : ""}&category_ids=${categ.length > 0 ? `[${categ}]` : ""}&store_id=${stor}&discount=${disc}&sort=${sort}&min_price=${minp.current.value}&max_price=${maxp.current.value}&type=${type}&search=${val ? val : ""}&api_token=${API_TOKEN}`);
             const json = await response.json();
 
             if (json.length != 0 || json.success != false) {

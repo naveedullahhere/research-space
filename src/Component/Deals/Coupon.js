@@ -1,13 +1,16 @@
 
+import { Pagination, Segmented } from 'antd';
 import React, { useContext, useRef, useState } from 'react'
 import { toast } from 'react-hot-toast';
 import { useParams } from 'react-router-dom';
 import { AppContext } from '../../context/AppContext';
 import { List } from '../Coupon/List';
 import { Filter } from '../Filter/Filter';
+import { AppstoreOutlined, BarsOutlined } from '@ant-design/icons';
 import { Spinner } from '../Spinner';
 
 export const Coupon = () => {
+    const { URL, user, dispatch, addUserData, WishlistItems } = useContext(AppContext);
 
     const [category, setCategory] = useState([]);
     const [discount, setDiscount] = useState([]);
@@ -16,13 +19,41 @@ export const Coupon = () => {
     const [sort, setSort] = useState(0);
     const [store, setStore] = useState("");
     const params = useParams();
+    const [style, setStyle] = useState("List");
     const value = params.value;
     const [isLoading, setIsLoading] = useState(false);
     const [data, setData] = useState([]);
-    const [searchedCoupons, setSearchedCoupons] = useState();
+    const [searchedCoupons, setSearchedCoupons] = useState([]);
     const [filterState, setFilterState] = useState(true);
+    const [dataFrom, setDataFrom] = useState(0);
+    const [dataTo, setDataTo] = useState(30);
 
+    var len = Math.ceil(data.length / 30);
+    const [vll, setvll] = useState(1);
 
+    const LoadMore = (e) => {
+
+        setvll(e)
+        setTimeout(() => {
+            if (len === e) {
+                let val = len - 1;
+                val *= 30;
+                setDataFrom(val);
+                setDataTo(data.length);
+            }
+            else if (e === 1) {
+                setDataFrom(0);
+                setDataTo(30);
+            }
+            else {
+                setDataFrom(e * 30 - 30);
+                setDataTo(e * 30);
+            }
+            setIsLoading(false);
+        }, 2000);
+        setIsLoading(true);
+
+    }
     return (
         <>
 
@@ -30,9 +61,26 @@ export const Coupon = () => {
                 <div className="container">
                     <div className="row">
                         <div className="col-12">
-                            <h1 className="heading">
-                                Coupons
-                            </h1>
+                            <div className="d-flex justify-content-between">
+                                <h1 className="heading">
+                                    Coupons
+                                </h1>
+                                <div>
+                                    <Segmented
+                                        onChange={(e) => setStyle(e)}
+                                        options={[
+                                            {
+                                                value: 'List',
+                                                icon: <BarsOutlined />,
+                                            },
+                                            {
+                                                value: 'Kanban',
+                                                icon: <AppstoreOutlined />,
+                                            },
+                                        ]}
+                                    />
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div className="row">
@@ -68,11 +116,26 @@ export const Coupon = () => {
                                     <Spinner />
 
                                     :
+                                    <>
+                                        <div className="row">
 
-                                    searchedCoupons ? (searchedCoupons.map((item) => {
-                                        return <List singleurl={item.coupon.slug} image={`${item.image_path}/${item.media.image}`} title={item.coupon.title} discount={item.coupon.discount} rprice={item.coupon.regular_price} cprice={item.coupon.compare_price} />
-                                    })) : "No Coupon Found!"
+                                            {searchedCoupons.length > 0 ? (searchedCoupons.slice(dataFrom, dataTo).map((item) => {
+                                                return <List style={style} item={item} key={item.id} user={user} singleurl={item.coupon.slug} image={`${item.image_path}/${item.media.image}`} title={item.coupon.title} discount={item.coupon.discount} rprice={item.coupon.regular_price} cprice={item.coupon.compare_price} />
+                                            })) : <div className="col-12">
+                                                <p className="para fs-4">No Coupon Found!</p>
+                                            </div>}
 
+                                        </div>
+
+                                        {searchedCoupons && searchedCoupons.length > 30 &&
+
+                                            <div className='pagination mt-4 justify-content-center'>
+                                                <Pagination defaultCurrent={vll} total={len} pageSize={1} showPrevNextJumpers={true} onChange={(e) => LoadMore(e)} />
+                                            </div>
+
+                                        }
+
+                                    </>
                                 }
                             </div>
                         </div>

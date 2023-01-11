@@ -10,7 +10,7 @@ import { PromiseButton } from '../Buttons/PromiseButton';
 
 export const Register = () => {
 
-    const { URL, addUserData, dispatch, user } = useContext(AppContext);
+    const { URL, addUserData, dispatch, user, WishlistItems, API_TOKEN } = useContext(AppContext);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [userName, setUsername] = useState("");
@@ -34,13 +34,13 @@ export const Register = () => {
         let passwordD = password;
         let usernameD = userName;
         setIsLoading(true)
-        postData(`${URL}api/signup`, { email: emailD, password: passwordD, name: usernameD })
+        console.log(data.domain);
+        postData(`${URL}api/web/signup`, { email: emailD, password: passwordD, name: usernameD, domain: data.domain })
             .then(data => {
                 if (data.success != false) {
-                    dispatch(addUserData(data.data));
-                    fetch(URL + "api/generate-code?token=" + data.data.user_token);
+                    dispatch(addUserData(data.data, []));
                     toast.success(data.message);
-                    navigate("/verify");
+                    navigate("/my-account");
                     reset();
 
                 } else {
@@ -51,7 +51,6 @@ export const Register = () => {
                 setIsLoading(false);
                 toast.error("Something went wrong!");
             });
-
     };
 
 
@@ -66,8 +65,6 @@ export const Register = () => {
         return response.json();
     }
 
-
-
     return (
         <motion.div initial={{ opacity: 0, x: 100 }} animate={{ opacity: 1, x: 0 }} exit={{ transition: { duration: 0.3 }, opacity: 0, x: 100 }}>
             <div className="loginMain">
@@ -76,6 +73,7 @@ export const Register = () => {
                         <h1>Register </h1>
                     </div>
                     <div className="input-box">
+                        <input type="hidden" {...register('domain')} name="domain" value={window.location.href} />
                         <input type="text" name="username" class={`inputLogin ${errors.username && "form-control is-invalid"}`} id="username"  {...register('username', { required: true })} onChange={(e) => setUsername(e.target.value)} />
                         <label htmlFor="username">Username</label>
                     </div>
@@ -102,7 +100,7 @@ export const Register = () => {
                     {/* <div className="remember-me">
                         <input type="checkbox" checked name="" id="checkbox" />
                         <label htmlFor="checkbox" className='px-2'>Remember Me</label>
-                    </div> */} 
+                    </div> */}
 
                     <button type='submit' className='py-0'>
                         <PromiseButton title={"Signup"} loading={isLoading} />

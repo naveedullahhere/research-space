@@ -1,6 +1,7 @@
 import { Pagination } from 'antd';
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { toast } from 'react-hot-toast';
+import { AppContext } from '../context/AppContext';
 import slider0 from "./assets/DiscountSp/slider.png";
 import { List } from './Coupon/List';
 import { Deal } from './Deals/Deal';
@@ -8,25 +9,41 @@ import { Spinner } from './Spinner';
 
 export const Home = () => {
 
+    const { URL, API_TOKEN, user } = useContext(AppContext);
+
+
     const [isLoading, setIsLoading] = useState(true);
+    const [isStoreLoading, setIsStoreLoading] = useState(true);
     const [dataFrom, setDataFrom] = useState(0);
     const [dataTo, setDataTo] = useState(30);
     const [isErr, setIsError] = useState(false);
     const [currTab, setCurrTab] = useState(1);
     const [vll, setvll] = useState(1);
     const [data, setData] = useState([]);
+    const [dataDeal, setDealData] = useState([]);
     const [img, setImg] = useState(null);
+    const [imgDeal, setDealImg] = useState(null);
 
     var len = Math.ceil(data.length / 30);
 
     useEffect(() => {
-        fetch(`https://discounts-space.com/public/api/coupons?token=152784823qtjzdfg213&type=&category_ids=&store_id=&discount=&sort=0&min_price=&max_price=&type=deals&search=`)
+        fetch(`${URL}public/api/web/coupons?user_id=${user ? user.data.id : ""}&type=&category_ids=&store_id=&discount=&sort=0&min_price=&max_price=&type=deals&graph=featured&api_token=${API_TOKEN}`)
             .then((response) => response.json())
             .then((actualData) => { setData(actualData); setIsLoading(false); setImg(actualData.media_path); })
             .catch((err) => {
                 setData([]);
                 setIsError(true);
                 setIsLoading(false);
+                toast.error("something went wrong!");
+            }
+            );
+        fetch(`${URL}public/api/web/coupons?user_id=${user ? user.data.id : ""}&type=&category_ids=&store_id=&discount=&sort=0&min_price=&max_price=&type=deals&graph=hot&api_token=${API_TOKEN}`)
+            .then((response) => response.json())
+            .then((actualData) => { setDealData(actualData); setIsStoreLoading(false); setDealImg(actualData.media_path); })
+            .catch((err) => {
+                setData([]);
+                setIsError(true);
+                setIsStoreLoading(false);
                 toast.error("something went wrong!");
             }
             );
@@ -55,7 +72,7 @@ export const Home = () => {
                 setDataTo(e * 30);
             }
             setIsLoading(false);
-        }, 2000);
+        }, 1000);
         setIsLoading(true);
 
 
@@ -102,18 +119,22 @@ export const Home = () => {
                                     <>
 
                                         {data && data.slice(dataFrom, dataTo).map((item) => {
-                                            return <List singleurl={item.coupon.slug} image={`${item.image_path}/${item.media.image}`} title={item.coupon.title} discount={item.coupon.discount} rprice={item.coupon.regular_price} cprice={item.coupon.compare_price} />
+                                            return <List style={'List'} singleurl={item.coupon.slug} item={item} user={user} image={`${item.image_path}/${item.media.image}`} title={item.coupon.title} discount={item.coupon.discount} rprice={item.coupon.regular_price} cprice={item.coupon.compare_price} />
                                         })}
 
-                                        <div className='pagination mt-4 justify-content-center'>
-                                            <Pagination defaultCurrent={vll} total={len} pageSize={1} showPrevNextJumpers={true} onChange={(e) => LoadMore(e)} />
-                                        </div>
+                                        {data && data.length > 30 &&
+
+                                            <div className='pagination mt-4 justify-content-center'>
+                                                <Pagination defaultCurrent={vll} total={len} pageSize={1} showPrevNextJumpers={true} onChange={(e) => LoadMore(e)} />
+                                            </div>
+
+                                        }
 
                                     </>
                                 }
                             </div>
                         </div>
-                        <div className="col-lg-4 col-md-4 col-sm-12 p-0">
+                        <div className="col-lg-4 col-md-4 col-sm-12 p-md-0">
                             <div className='row w-100 mx-auto'>
                                 <div className="col-12">
                                     <h1 className="heading">
@@ -121,20 +142,20 @@ export const Home = () => {
                                     </h1>
                                 </div>
                                 <div className="col-lg-12 col-md-12 col-sm-12">
-                                    <Deal img={"https://discounts-space.com/images/media/coupon16717282291874257781.jpg?v=110482"} title={"Air Fryer Oven"} link={"https://discounts-space.com/single-coupons/air-fryer-oven"} />
-                                    <Deal img={"https://discounts-space.com/images/media/coupon16717282291874257781.jpg?v=110482"} title={"Air Fryer Oven"} link={"https://discounts-space.com/single-coupons/air-fryer-oven"} />
-                                    <Deal img={"https://discounts-space.com/images/media/coupon16717282291874257781.jpg?v=110482"} title={"Air Fryer Oven"} link={"https://discounts-space.com/single-coupons/air-fryer-oven"} />
-                                    <Deal img={"https://discounts-space.com/images/media/coupon16717282291874257781.jpg?v=110482"} title={"Air Fryer Oven"} link={"https://discounts-space.com/single-coupons/air-fryer-oven"} />
-                                    <Deal img={"https://discounts-space.com/images/media/coupon16717282291874257781.jpg?v=110482"} title={"Air Fryer Oven"} link={"https://discounts-space.com/single-coupons/air-fryer-oven"} />
-                                    <Deal img={"https://discounts-space.com/images/media/coupon16717282291874257781.jpg?v=110482"} title={"Air Fryer Oven"} link={"https://discounts-space.com/single-coupons/air-fryer-oven"} />
-                                    <Deal img={"https://discounts-space.com/images/media/coupon16717282291874257781.jpg?v=110482"} title={"Air Fryer Oven"} link={"https://discounts-space.com/single-coupons/air-fryer-oven"} />
-                                    <Deal img={"https://discounts-space.com/images/media/coupon16717282291874257781.jpg?v=110482"} title={"Air Fryer Oven"} link={"https://discounts-space.com/single-coupons/air-fryer-oven"} />
-                                    <Deal img={"https://discounts-space.com/images/media/coupon16717282291874257781.jpg?v=110482"} title={"Air Fryer Oven"} link={"https://discounts-space.com/single-coupons/air-fryer-oven"} />
-                                    <Deal img={"https://discounts-space.com/images/media/coupon16717282291874257781.jpg?v=110482"} title={"Air Fryer Oven"} link={"https://discounts-space.com/single-coupons/air-fryer-oven"} />
-                                    <Deal img={"https://discounts-space.com/images/media/coupon16717282291874257781.jpg?v=110482"} title={"Air Fryer Oven"} link={"https://discounts-space.com/single-coupons/air-fryer-oven"} />
-                                    <Deal img={"https://discounts-space.com/images/media/coupon16717282291874257781.jpg?v=110482"} title={"Air Fryer Oven"} link={"https://discounts-space.com/single-coupons/air-fryer-oven"} />
-                                    <Deal img={"https://discounts-space.com/images/media/coupon16717282291874257781.jpg?v=110482"} title={"Air Fryer Oven"} link={"https://discounts-space.com/single-coupons/air-fryer-oven"} />
-                                    <Deal img={"https://discounts-space.com/images/media/coupon16717282291874257781.jpg?v=110482"} title={"Air Fryer Oven"} link={"https://discounts-space.com/single-coupons/air-fryer-oven"} />
+                                    {isStoreLoading ?
+
+                                        <Spinner />
+                                        :
+                                        <>
+
+                                            {dataDeal && dataDeal.slice(0, 30).map((item) => {
+                                                return <Deal img={`${item.image_path}/${item.media.image}`} title={item.coupon.title} link={`${item.single_coupon_url}`} />
+                                            })}
+
+
+                                        </>
+                                    }
+
                                 </div>
                             </div>
 

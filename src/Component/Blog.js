@@ -1,17 +1,19 @@
 import { Spinner } from './Spinner';
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
+import { AppContext } from '../context/AppContext';
 
 export const Blog = () => {
 
     const [data, setData] = useState([]);
     const [img, setImg] = useState(null);
+    const { APP_NAME, setTitle, URL, API_TOKEN } = useContext(AppContext);
 
 
     useEffect(() => {
-        fetch(`https://www.discounts-space.com/api/blogs?token=152784823qtjzdfg213&paginate=2&since_id=25`)
+        fetch(`${URL}api/web/blog`)
             .then((response) => response.json())
-            .then((actualData) => { setData(actualData.data.data); console.log(actualData.data.data); setImg(actualData.image_path); })
+            .then((actualData) => { setData(actualData.data); setImg(actualData.image_path); })
             .catch((err) => {
                 setData([]);
             });
@@ -34,7 +36,7 @@ export const Blog = () => {
 
                             data.map((item) => {
                                 return <div className="blog-detail blog-grid-view">
-                                    <Link to={`/blog/${item.id}`}><img className='b-img rounded-5 mb-3' src={`${img}/${item.image}`} alt={item.title} /></Link>
+                                    <Link to={`/blog/${item.slug}`}><img className='b-img rounded-5 mb-3' src={`${img}/${item.image}`} alt={item.title} /></Link>
 
                                     <p className='text-start p-0 heading-md-h'>{item.title}</p>
                                     <div className="by-time f d-flex justify-content-between">

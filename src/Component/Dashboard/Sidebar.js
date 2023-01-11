@@ -5,8 +5,8 @@ import { Link, useNavigate } from 'react-router-dom';
 
 export const Sidebar = ({ pageid }) => {
     const { user, removeUserData, dispatch } = useContext(AppContext);
-    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(false);
 
     const Logout = () => {
         setIsLoading(true);
@@ -19,12 +19,11 @@ export const Sidebar = ({ pageid }) => {
     return (
         <>
 
-            <div className="sidebar active">
-                <div className="logo_content">
+            <div className="sidebar active db-bar">
+                <div className="logo_content mb-4">
                     <div className="logo">
                         <div className="heading fs-4" style={{ "marginLeft": "5px" }}>{user.data.name}</div>
                     </div>
-                    <i class='bx bx-menu-alt-right' id="btn" style={{ "fontSize": "25px" }}></i>
                 </div>
                 <ul className="nav_list ps-0 mt-0">
                     <li>
@@ -42,6 +41,20 @@ export const Sidebar = ({ pageid }) => {
                                     <span className="link_names">Wishlist</span>
                                 </Link>
                                 <span className="tooltip">Wishlist</span>
+                            </li>
+                            <li>
+                                <Link to={'/like'} className={`${pageid === "like" && "active"}`}>
+                                    <i class='fa fa-file-invoice' ></i>
+                                    <span className="link_names">Like</span>
+                                </Link>
+                                <span className="tooltip">Like</span>
+                            </li>
+                            <li>
+                                <Link to={'/saved'} className={`${pageid === "saved" && "active"}`}>
+                                    <i class='fa fa-file-invoice'></i>
+                                    <span className="link_names">Saved</span>
+                                </Link>
+                                <span className="tooltip">Saved</span>
                             </li>
                             {/* <li>
                                 <Link to={'/completed-projects'} className={`${pageid === "cproject" && "active"}`}>

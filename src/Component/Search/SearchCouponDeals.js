@@ -1,18 +1,15 @@
-
+import { Pagination, Segmented } from 'antd';
 import React, { useContext, useEffect, useRef, useState } from 'react'
-import { toast } from 'react-hot-toast';
-import { useParams } from 'react-router-dom';
-import { List } from '../Coupon/List';
+import { AppstoreOutlined, BarsOutlined } from '@ant-design/icons';
+import { useParams, useSearchParams } from 'react-router-dom'
+import { toast } from 'react-toastify';
 import { Filter } from '../Filter/Filter';
 import { Spinner } from '../Spinner';
-
-import { Pagination, Segmented } from 'antd';
-import { AppstoreOutlined, BarsOutlined } from '@ant-design/icons';
-import { Grid } from '../Coupon/Grid';
+import { List } from '../Coupon/List';
 import { AppContext } from '../../context/AppContext';
 
+export const SearchCouponDeals = () => {
 
-export const Deals = () => {
     const { URL, user, dispatch, addUserData, WishlistItems } = useContext(AppContext);
 
     const [category, setCategory] = useState([]);
@@ -22,8 +19,8 @@ export const Deals = () => {
     const [sort, setSort] = useState(0);
     const [store, setStore] = useState("");
     const [style, setStyle] = useState("List");
-    const params = useParams();
-    const value = params.value;
+    // const query = useParams();
+    // const searchedData = query.searchedData;
     const [isLoading, setIsLoading] = useState(false);
     const [data, setData] = useState([]);
     const [searchedCoupons, setSearchedCoupons] = useState([]);
@@ -32,6 +29,11 @@ export const Deals = () => {
     const [dataTo, setDataTo] = useState(30);
     var len = Math.ceil(data.length / 30);
     const [vll, setvll] = useState(1);
+
+    const search = window.location.search;
+    const params = new URLSearchParams(search);
+    const query = params.get('query_search');
+
 
     const LoadMore = (e) => {
 
@@ -57,6 +59,7 @@ export const Deals = () => {
 
     }
 
+
     return (
         <>
 
@@ -67,7 +70,7 @@ export const Deals = () => {
                             <div className="d-flex justify-content-between">
 
                                 <h1 className="heading">
-                                    Deals
+                                    Coupons and Deals
                                 </h1>
                                 <div>
                                     <Segmented
@@ -105,18 +108,18 @@ export const Deals = () => {
                                             refMinPrice={refMinPrice}
                                             refMaxPrice={refMaxPrice}
 
+                                            search={query}
                                             filterState={filterState}
                                             style={style}
                                             setData={setData}
                                             setSearchedCoupons={setSearchedCoupons}
                                             setIsLoading={setIsLoading}
-                                            type={'deals'}
+                                            type={''}
                                         />
                                     </div>
                                 </div>
                             </div>
                             <div className="col-lg-9 col-md-12">
-
                                 {isLoading ?
 
                                     <Spinner />
@@ -124,33 +127,37 @@ export const Deals = () => {
                                     :
 
                                     <>
+
                                         <div className="row">
+
 
                                             {searchedCoupons.length > 0 ? (searchedCoupons.slice(dataFrom, dataTo).map((item) => {
                                                 return <List style={style} item={item} user={user} singleurl={item.coupon.slug} image={`${item.image_path}/${item.media.image}`} title={item.coupon.title} discount={item.coupon.discount} rprice={item.coupon.regular_price} cprice={item.coupon.compare_price} />
-                                            })) : <div className="col-12">
-                                                <p className="para fs-4">No Coupon Found!</p>
-                                            </div>}
+                                            })) :
+
+                                                <div className="col-12">
+                                                    <p className="para fs-4">No Coupon Found!</p>
+                                                </div>
+
+                                            }
 
                                         </div>
+
 
                                         {searchedCoupons && searchedCoupons.length > 30 &&
 
                                             <div className='pagination mt-4 justify-content-center'>
                                                 <Pagination defaultCurrent={vll} total={len} pageSize={1} showPrevNextJumpers={true} onChange={(e) => LoadMore(e)} />
                                             </div>
-
+                                            
                                         }
                                     </>
-
-
                                 }
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </>
     )
 }
