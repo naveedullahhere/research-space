@@ -71,6 +71,7 @@ export const SearchCouponDeals = () => {
                                 <div>
                                     <Segmented
                                         onChange={(e) => dispatch(setStyle(e))}
+                                        defaultValue={style}
                                         options={[
                                             {
                                                 value: 'List',

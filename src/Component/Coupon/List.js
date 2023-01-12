@@ -298,7 +298,7 @@ export const List = ({ title, style, discount, rprice, cprice, image, singleurl,
         )
     else {
         return (
-            <div className="col-md-4 col-6 p-0 grid px-2 my-2 mainview">
+            <div className="col-md-4 col-sm-6 p-0 grid px-2 my-2 mainview">
                 <div className="main-list-card shadow bg-white h-100">
                     <div className="my-sm-2 my-1 px-3 pt-md-3 px-md-3 pt-2">
                         <div className="align-items-center">
@@ -344,8 +344,8 @@ export const List = ({ title, style, discount, rprice, cprice, image, singleurl,
                                     </div>
                                 </div>
                             </div>
-                            <div className="row my-4 itemsz-row">
-                                <div className="col-sm-8">
+                            <div className="row my-4 itemsz-row mx-auto w-100">
+                                <div className="col-md-8 col-6">
 
                                     <div className="getCode position-relative w-75 mx-auto">
                                         <a href={item.coupon.affiliate_url} target="_blank" className="getCodeCouponTopLayer" data-coupon-code="Hello">
@@ -354,7 +354,7 @@ export const List = ({ title, style, discount, rprice, cprice, image, singleurl,
                                         </a>
                                     </div>
                                 </div>
-                                <div className={`col-sm-4 position-relative ${hasCustom && "d-flex justify-content-center align-items-center"}`}>
+                                <div className={`col-md-4 col-6 position-relative my-auto ${hasCustom && "d-flex justify-content-center align-items-center"}`}>
                                     {hasCustom && hasCustom === 'wishlist' &&
                                         <div style={{ gap: '8px' }} className="d-flex align-items-center justify-content-end card-icon-pack" onClick={() => handleItem("wishlist")}>
                                             <p className="mb-0 fs-12 d-md-block d-none">

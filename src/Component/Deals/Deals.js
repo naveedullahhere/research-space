@@ -74,6 +74,7 @@ export const Deals = () => {
                                 <div>
                                     <Segmented
                                         onChange={(e) => dispatch(setStyle(e))}
+                                        defaultValue={style}
                                         options={[
                                             {
                                                 value: 'List',

@@ -10,10 +10,11 @@ import { Sidebar } from './Sidebar';
 import { Link, useNavigate } from 'react-router-dom';
 import { Spinner } from '../Spinner';
 import { List } from '../Coupon/List';
-
+import { AppstoreOutlined, BarsOutlined } from '@ant-design/icons';
+import { Segmented } from 'antd';
 
 export const Saved = () => {
-    const { URL, user, SavedItems, setSavedItems, API_TOKEN } = useContext(AppContext);
+    const { URL, user, SavedItems, setSavedItems, API_TOKEN, style, setStyle, dispatch } = useContext(AppContext);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -38,7 +39,27 @@ export const Saved = () => {
                                 <div class="container-fluid">
                                     <div class="row shadow-sm">
                                         <div class="col-md-12 py-3">
-                                            <h1 class="text-uppercase text-black m-0">Saved</h1>
+                                            <div className="d-flex justify-content-between">
+                                                <h1 class="text-uppercase text-black m-0">Saved</h1>
+
+
+                                                <div>
+                                                    <Segmented
+                                                        onChange={(e) => dispatch(setStyle(e))}
+                                                        defaultValue={style}
+                                                        options={[
+                                                            {
+                                                                value: 'List',
+                                                                icon: <BarsOutlined />,
+                                                            },
+                                                            {
+                                                                value: 'Kanban',
+                                                                icon: <AppstoreOutlined />,
+                                                            },
+                                                        ]}
+                                                    />
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -67,7 +88,7 @@ export const Saved = () => {
                                                 :
 
                                                 SavedItems.length > 0 ? (SavedItems.map((item) => {
-                                                    return <List hasCustom={'save'} style={'List'} item={item} user={user} singleurl={item.coupon.slug} image={`${item.image_path}/${item.media.image}`} title={item.coupon.title} discount={item.coupon.discount} rprice={item.coupon.regular_price} cprice={item.coupon.compare_price} />
+                                                    return <List hasCustom={'save'} style={style} item={item} user={user} singleurl={item.coupon.slug} image={`${item.image_path}/${item.media.image}`} title={item.coupon.title} discount={item.coupon.discount} rprice={item.coupon.regular_price} cprice={item.coupon.compare_price} />
                                                 })) : <Spinner />
 
 
