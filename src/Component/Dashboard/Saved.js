@@ -18,14 +18,11 @@ export const Saved = () => {
 
     useEffect(() => {
 
+        fetch(`${URL}api/web/react-items?user_id=${user ? user.data.id : ""}&user_token=${user.data.user_token}&type=save`)
+            .then((response) => response.json())
+            .then((actualData) => { setSavedItems(actualData); setIsLoading(false); })
+        setIsLoading(false)
 
-        return () => {
-
-            fetch(`${URL}api/web/react-items?user_id=${user ? user.data.id : ""}&user_token=${user.data.user_token}&type=save`)
-                .then((response) => response.json())
-                .then((actualData) => { setSavedItems(actualData); setIsLoading(false); })
-            setIsLoading(false)
-        }
     }, [])
 
 

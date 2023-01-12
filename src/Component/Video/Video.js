@@ -16,13 +16,12 @@ export const Video = () => {
     const [videoPath, setVideoPath] = useState('');
 
     useEffect(() => {
-        return () => {
 
-            fetch(`${URL}api/web/videos`)
-                .then((response) => response.json())
-                .then((actualData) => { setVideos(actualData.data); setImg(actualData.thumbnail_path); setVideoPath(actualData.video_path); setIsLoading(false) })
-            setIsLoading(false)
-        }
+        fetch(`${URL}api/web/videos`)
+            .then((response) => response.json())
+            .then((actualData) => { setVideos(actualData.data); setImg(actualData.thumbnail_path); setVideoPath(actualData.video_path); setIsLoading(false) })
+        setIsLoading(false)
+
     }, [])
 
     return (

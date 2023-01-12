@@ -124,8 +124,8 @@ export const MyAccount = () => {
                                                     <input type="text" name="phone_number" id="" {...register2('phone_number')}
                                                         className={`form-control text-dark ${errors2.phone_number ? 'is-invalid' : ''}`} style={{ "filter": "none" }} placeholder={`Phone Number`} disabled={isActiveEdit} value={userPhone} onChange={(e) => setUserPhone(e.target.value)} />
 
-                                                    <textarea type="text" name="about" id="" {...register2('about')}
-                                                        className={`form-control text-dark ${errors2.about ? 'is-invalid' : ''}`} style={{ "filter": "none" }} placeholder={`About your self`} disabled={isActiveEdit} onChange={(e) => setUserAbout(e.target.value)} >{userAbout}</textarea>
+                                                    {/* <textarea type="text" name="about" id="" {...register2('about')}
+                                                        className={`form-control text-dark ${errors2.about ? 'is-invalid' : ''}`} style={{ "filter": "none" }} placeholder={`About your self`} disabled={isActiveEdit} onChange={(e) => setUserAbout(e.target.value)} >{userAbout}</textarea> */}
 
                                                     <div className="float-end">
                                                         <button type={`${!isActiveEdit ? "button" : "submit"}`} onClick={enableEdit} className={`btn ${!isActiveEdit ? "btn-main" : "btn-dark border-0"} d-flex align-items-center gap-2 btn-sm`}>

@@ -18,14 +18,11 @@ export const Wishlist = () => {
 
     useEffect(() => {
 
+        fetch(`${URL}api/web/react-items?user_id=${user ? user.data.id : ""}&user_token=${user.data.user_token}&type=wishlist`)
+            .then((response) => response.json())
+            .then((actualData) => { setWishlistItems(actualData); setIsLoading(false) })
+        setIsLoading(false)
 
-        return () => {
-
-            fetch(`${URL}api/web/react-items?user_id=${user ? user.data.id : ""}&user_token=${user.data.user_token}&type=wishlist`)
-                .then((response) => response.json())
-                .then((actualData) => { setWishlistItems(actualData); setIsLoading(false) })
-            setIsLoading(false)
-        }
     }, [])
 
     return (
