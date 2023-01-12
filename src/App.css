@@ -6230,6 +6230,28 @@ button#dropdownMenuButton1::after {
 
 @media (max-width: 576px) {
 
+  .h1,
+  h1 {
+    font-size: 18px;
+  }
+
+  .grid .heading {
+    font-size: 16px !important;
+  }
+
+  .main-list-card h4 {
+    font-size: 16px !important;
+  }
+
+  .main-list-card .para :is(strike, span) {
+    font-size: 11px !important;
+  }
+
+  .bannerTxt :is(h3),
+  .card-txt .para :is(strike, span) {
+    font-size: 10px !important;
+  }
+
   .itemsz-row {
     flex-direction: column-reverse;
     margin-block: 4px 14px !important;
@@ -6255,6 +6277,10 @@ button#dropdownMenuButton1::after {
 
   .main-list-card>div>div>div.d-flex a {
     padding: 3px !important;
+  }
+
+  .mobLogo {
+    width: 128px !important;
   }
 
   .profile-page {
@@ -6287,35 +6313,13 @@ button#dropdownMenuButton1::after {
   } */
 
 
-  .h1,
-  h1 {
-    font-size: 18px;
-  }
 
-  .grid .heading {
-    font-size: 16px !important;
-  }
 
   .grid .card-txt {
     gap: 6px !important;
   }
 
-  .mobLogo {
-    width: 128px !important;
-  }
 
-  .main-list-card h4 {
-    font-size: 16px !important;
-  }
-
-  .main-list-card .para :is(strike, span) {
-    font-size: 11px !important;
-  }
-
-  .bannerTxt :is(h3),
-  .card-txt .para :is(strike, span) {
-    font-size: 10px !important;
-  }
 
   .main-list-card .card-txt>p {
     margin-bottom: 0px;
