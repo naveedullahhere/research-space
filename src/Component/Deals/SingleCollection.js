@@ -18,7 +18,7 @@ export const SingleCollection = () => {
 
 
     useEffect(() => {
-        fetch(`${URL}api/web/coupons?category_slug=${singleCollections}`)
+        fetch(`${URL}api/web/coupons?user_id=${user ? user.data.id : ""}&category_slug=${singleCollections}`)
             .then((response) => response.json())
             .then((actualData) => { setData(actualData); setIsLoading(false); })
             .catch((err) => {
@@ -55,6 +55,7 @@ export const SingleCollection = () => {
 
     }
 
+    // console.log(data);
 
     return (
         <>

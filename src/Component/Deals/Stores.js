@@ -18,7 +18,7 @@ export const Stores = () => {
 
 
     useEffect(() => {
-        fetch(`${URL}api/web/coupons?store_slug=${singleStore}`)
+        fetch(`${URL}api/web/coupons?user_id=${user ? user.data.id : ""}&store_slug=${singleStore}`)
             .then((response) => response.json())
             .then((actualData) => { setData(actualData); setIsLoading(false); })
             .catch((err) => {
