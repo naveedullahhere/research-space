@@ -18,14 +18,11 @@ export const Like = () => {
 
     useEffect(() => {
 
+        fetch(`${URL}api/web/react-items?user_id=${user ? user.data.id : ""}&user_token=${user.data.user_token}&type=like`)
+            .then((response) => response.json())
+            .then((actualData) => { setLikedItems(actualData); setIsLoading(false) })
+        setIsLoading(false)
 
-        return () => {
-
-            fetch(`${URL}api/web/react-items?user_id=${user ? user.data.id : ""}&user_token=${user.data.user_token}&type=like`)
-                .then((response) => response.json())
-                .then((actualData) => { setLikedItems(actualData); setIsLoading(false) })
-            setIsLoading(false)
-        }
     }, [])
 
     console.log(LikedItems);
@@ -35,11 +32,12 @@ export const Like = () => {
         <div>
             <div className="container-fluid px-0">
                 <div className="row">
+
                     <div className="col-xl-3 col-lg-3 col-md-4 col-2"><Sidebar pageid={'like'} /></div>
 
                     <div className="col-xl-9 col-lg-9 col-md-8 col-10 ps-md-0" >
                         <div className='row w-100 mx-0 px-0'>
-                            <div className="col-12 mx-0 px-0 text-center"> 
+                            <div className="col-12 mx-0 px-0 text-center">
                                 <div class="container-fluid">
                                     <div class="row shadow-sm">
                                         <div class="col-md-12 py-3">
