@@ -94,7 +94,7 @@ export const Login = () => {
                     </button>
                     <div className="auth-action">
                         <Link to="/register">Sign Up</Link>
-                        <Link to="/password/reset">Forget Password?</Link>
+                        {/* <Link to="/password/reset">Forget Password?</Link> */}
                     </div>
                 </form>
             </div>

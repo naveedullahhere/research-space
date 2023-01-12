@@ -61,7 +61,7 @@ export const SingleCollection = () => {
             <div class="container-fluid">
                 <div class="row shadow-sm">
                     <div class="col-md-12 py-3">
-                        <h1 class="text-uppercase text-black m-0">Categories</h1>
+                        <h1 class="text-uppercase text-black m-0">Category : {singleCollections}</h1>
                     </div>
                 </div>
             </div>

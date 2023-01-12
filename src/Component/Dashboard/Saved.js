@@ -67,7 +67,7 @@ export const Saved = () => {
                                                 :
 
                                                 SavedItems.length > 0 ? (SavedItems.map((item) => {
-                                                    return <List hasCustom={'save'} style={'grid'} item={item} user={user} singleurl={item.coupon.slug} image={`${item.image_path}/${item.media.image}`} title={item.coupon.title} discount={item.coupon.discount} rprice={item.coupon.regular_price} cprice={item.coupon.compare_price} />
+                                                    return <List hasCustom={'save'} style={'List'} item={item} user={user} singleurl={item.coupon.slug} image={`${item.image_path}/${item.media.image}`} title={item.coupon.title} discount={item.coupon.discount} rprice={item.coupon.regular_price} cprice={item.coupon.compare_price} />
                                                 })) : <Spinner />
 
 

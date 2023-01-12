@@ -344,8 +344,8 @@ export const List = ({ title, style, discount, rprice, cprice, image, singleurl,
                                     </div>
                                 </div>
                             </div>
-                            <div className="row my-4">
-                                <div className="col-8">
+                            <div className="row my-4 itemsz-row">
+                                <div className="col-sm-8">
 
                                     <div className="getCode position-relative w-75 mx-auto">
                                         <a href={item.coupon.affiliate_url} target="_blank" className="getCodeCouponTopLayer" data-coupon-code="Hello">
@@ -354,7 +354,7 @@ export const List = ({ title, style, discount, rprice, cprice, image, singleurl,
                                         </a>
                                     </div>
                                 </div>
-                                <div className={`col-4 position-relative ${hasCustom && "d-flex justify-content-center align-items-center"}`}>
+                                <div className={`col-sm-4 position-relative ${hasCustom && "d-flex justify-content-center align-items-center"}`}>
                                     {hasCustom && hasCustom === 'wishlist' &&
                                         <div style={{ gap: '8px' }} className="d-flex align-items-center justify-content-end card-icon-pack" onClick={() => handleItem("wishlist")}>
                                             <p className="mb-0 fs-12 d-md-block d-none">

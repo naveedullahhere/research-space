@@ -60,7 +60,7 @@ export const Like = () => {
                                                     :
 
                                                     LikedItems.length > 0 ? (LikedItems.map((item) => {
-                                                        return <List hasCustom={'like'} style={'grid'} item={item} user={user} singleurl={item.coupon.slug} image={`${item.image_path}/${item.media.image}`} title={item.coupon.title} discount={item.coupon.discount} rprice={item.coupon.regular_price} cprice={item.coupon.compare_price} />
+                                                        return <List hasCustom={'like'} style={'List'} item={item} user={user} singleurl={item.coupon.slug} image={`${item.image_path}/${item.media.image}`} title={item.coupon.title} discount={item.coupon.discount} rprice={item.coupon.regular_price} cprice={item.coupon.compare_price} />
                                                     })) : <Spinner />
                                         }
                                     </div>

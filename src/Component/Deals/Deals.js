@@ -126,7 +126,7 @@ export const Deals = () => {
                                     :
 
                                     <>
-                                        <div className="row">
+                                        <div className="row w-100 mx-auto">
 
                                             {searchedCoupons.length > 0 ? (searchedCoupons.slice(dataFrom, dataTo).map((item) => {
                                                 return <List style={style} item={item} user={user} singleurl={item.coupon.slug} image={`${item.image_path}/${item.media.image}`} title={item.coupon.title} discount={item.coupon.discount} rprice={item.coupon.regular_price} cprice={item.coupon.compare_price} />

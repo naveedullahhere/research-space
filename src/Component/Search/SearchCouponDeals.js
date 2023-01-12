@@ -124,7 +124,7 @@ export const SearchCouponDeals = () => {
 
                                     <>
 
-                                        <div className="row">
+                                        <div className="row w-100 mx-auto">
 
 
                                             {searchedCoupons.length > 0 ? (searchedCoupons.slice(dataFrom, dataTo).map((item) => {

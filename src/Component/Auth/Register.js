@@ -108,7 +108,7 @@ export const Register = () => {
 
                     <div className="auth-action">
                         <Link to="/login">Sign In</Link>
-                        <a href="#">Forget Password?</a>
+                        {/* <a href="#">Forget Password?</a> */}
                     </div>
                 </form>
             </div>

@@ -66,7 +66,7 @@ export const Wishlist = () => {
                                                 :
 
                                                 WishlistItems.length > 0 ? (WishlistItems.map((item) => {
-                                                    return <List hasCustom={'wishlist'} style={'grid'} item={item} user={user} singleurl={item.coupon.slug} image={`${item.image_path}/${item.media.image}`} title={item.coupon.title} discount={item.coupon.discount} rprice={item.coupon.regular_price} cprice={item.coupon.compare_price} />
+                                                    return <List hasCustom={'wishlist'} style={'List'} item={item} user={user} singleurl={item.coupon.slug} image={`${item.image_path}/${item.media.image}`} title={item.coupon.title} discount={item.coupon.discount} rprice={item.coupon.regular_price} cprice={item.coupon.compare_price} />
                                                 })) : <Spinner />
 
 

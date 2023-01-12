@@ -62,7 +62,7 @@ export const Stores = () => {
             <div class="container-fluid">
                 <div class="row shadow-sm">
                     <div class="col-md-12 py-3">
-                        <h1 class="text-uppercase text-black m-0">Stores</h1>
+                        <h1 class="text-uppercase text-black m-0">Stores : {singleStore}</h1>
                     </div>
                 </div>
             </div>
