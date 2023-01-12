@@ -13,7 +13,7 @@ import { AppContext } from '../../context/AppContext';
 
 
 export const Deals = () => {
-    const { URL, user, dispatch, addUserData, WishlistItems } = useContext(AppContext);
+    const { URL, user, dispatch, addUserData, WishlistItems, style, setStyle } = useContext(AppContext);
 
     const [category, setCategory] = useState([]);
     const [discount, setDiscount] = useState([]);
@@ -21,7 +21,6 @@ export const Deals = () => {
     const refMaxPrice = useRef([]);
     const [sort, setSort] = useState(0);
     const [store, setStore] = useState("");
-    const [style, setStyle] = useState("List");
     const params = useParams();
     const value = params.value;
     const [isLoading, setIsLoading] = useState(false);
@@ -74,7 +73,7 @@ export const Deals = () => {
                                 <div></div>
                                 <div>
                                     <Segmented
-                                        onChange={(e) => setStyle(e)}
+                                        onChange={(e) => dispatch(setStyle(e))}
                                         options={[
                                             {
                                                 value: 'List',

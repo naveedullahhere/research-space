@@ -36,7 +36,7 @@ export const Login = () => {
                         .then((response) => response.json())
                         .then((actualData) => { setWishlistItems(actualData); })
 
-                    dispatch(addUserData(data.data, WishlistItems));
+                    dispatch(addUserData(data.data));
 
                     toast.success(data.message);
                     navigate("/my-account");
@@ -68,7 +68,7 @@ export const Login = () => {
         <motion.div initial={{ opacity: 0, x: 100 }} animate={{ opacity: 1, x: 0 }} exit={{ transition: { duration: 0.3 }, opacity: 0, x: 100 }}>
             <div className="loginMain">
 
-                <form onSubmit={handleSubmit(onSubmit)} className="login-box" method='POST' autoComplete="new-password">
+                <form onSubmit={handleSubmit(onSubmit)} className="login-box" method='POST' autoComplete="off">
                     <div className="fs-5">
                         <h1 className='fs-4 fw-bold'>LOGIN YOUR ACCOUNT</h1>
                     </div>
@@ -77,13 +77,14 @@ export const Login = () => {
                         <label htmlFor="username">Email</label>
                     </div>
 
-                    {errors.email && <span className='para-sm text-white'>Please Enter a Valid Email</span>}
+                    {errors.email && <span className='para-sm text-dark'>Please Enter a Valid Email</span>}
 
                     <div className="input-box">
-                        <input type="password" name="password" autoComplete="new-password" className="input pass-input" id="password"  {...register('password',)} required onChange={(e) => setPassword(e.target.value)} />
+                        <input type="password" name="password" autoComplete="off" className="input pass-input" id="password" required {...register('password', { minLength: 8 })} onChange={(e) => setPassword(e.target.value)} />
                         <img src="assets/img/view.png" className="view-pass" alt="" />
                         <label htmlFor="password">Password</label>
                     </div>
+                    {errors.password && <span className='para-sm text-dark'>Password Must 8 Character</span>}
                     {/* <div className="remember-me">
                         <input type="checkbox" checked name="" id="checkbox" />
                         <label htmlFor="checkbox" className='ps-2'>Remember Me</label>

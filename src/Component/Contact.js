@@ -66,13 +66,13 @@ export const Contact = () => {
                     <div className="container">
                         <div className="row">
                             <div className="col-md-9 mx-auto py-5 contact_pg">
-                                <form onSubmit={handleSubmit(onSubmit)} autocomplete="off" className='bg-second pt-5 mx-0 shadow p-3 shadow-sm rounded-4 text-center'>
+                                <form onSubmit={handleSubmit(onSubmit)} autocomplete="off" className='bg-second p-md-5 p-3 mx-0 shadow p-3 shadow-sm rounded-4 text-center'>
                                     <div className="row">
                                         <div className="col-12">
-                                            <h1 class="fs-1 fw-sm-bold text-black mb-2 heading text-uppercase">
+                                            <h1 class="fs-1 fw-sm-bold text-black mb-2 text-uppercase">
                                                 NEED HELP WITH SOMETHING?
                                             </h1>
-                                            <p className="para text-start">
+                                            <p className="para">
 
                                                 Please Fill the form below and we'll get back to you as soon as possible. Thank You
 
@@ -81,18 +81,18 @@ export const Contact = () => {
                                         <div className="col-12">
                                             <input type="hidden" {...register('domain')} name="domain" value={window.location.host} />
                                         </div>
-                                        <div className="col-md-6">
+                                        <div className="col-12">
                                             <div className="input-container">
                                                 <input {...register('name', { required: true })} type="text" name="name" class={`input ${errors.name && "form-control is-invalid"}`} placeholder='.' />
-                                                <label htmlFor="">Name*</label>
+                                                <label htmlFor="">Your Name*</label>
                                             </div>
 
                                         </div>
-                                        <div className="col-md-6">
+                                        <div className="col-12">
 
                                             <div className="input-container mb-2">
                                                 <input type="email" name="email" class={`input ${errors.email && "form-control is-invalid"}`} placeholder='.' {...register('email', { required: true, pattern: /^\S+@\S+$/i })} />
-                                                <label htmlFor="">Email*</label>
+                                                <label htmlFor="">Your E-Mail Address*</label>
                                             </div>
                                             {errors.email && <span className='para-sm text-white'>Please Enter a Valid Email</span>}
 
@@ -116,8 +116,8 @@ export const Contact = () => {
 
                                         </div>
                                         <div className="col-12">
-                                            <button className="bg-signature btn rounded-pill text-white px-md-5 px-3" type="submit">
-                                                <PromiseButton title={"Submit"} loading={isLoading} typ={'text-white'} />
+                                            <button className="bg-signature btn py-0 rounded-pill text-white px-md-4 px-3" type="submit">
+                                                <PromiseButton title={"Submit"} loading={isLoading} typ={'text-white fs-5'} />
                                             </button>
                                         </div>
                                     </div>

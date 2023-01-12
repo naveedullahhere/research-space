@@ -1,4 +1,4 @@
-import { Pagination } from 'antd';
+import { Pagination, Segmented } from 'antd';
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { toast } from 'react-hot-toast';
 import { AppContext } from '../context/AppContext';
@@ -6,10 +6,11 @@ import slider0 from "./assets/DiscountSp/slider.png";
 import { List } from './Coupon/List';
 import { Deal } from './Deals/Deal';
 import { Spinner } from './Spinner';
+import { AppstoreOutlined, BarsOutlined } from '@ant-design/icons';
 
 export const Home = () => {
 
-    const { URL, API_TOKEN, user } = useContext(AppContext);
+    const { URL, API_TOKEN, user, dispatch, style, setStyle } = useContext(AppContext);
 
 
     const [isLoading, setIsLoading] = useState(true);
@@ -74,11 +75,7 @@ export const Home = () => {
             setIsLoading(false);
         }, 1000);
         setIsLoading(true);
-
-
-
     }
-
     return (
         <>
             <div className="section sec-1" ref={page}>
@@ -108,9 +105,28 @@ export const Home = () => {
                         <div className="col-lg-8 col-md-8 col-sm-12">
                             <div className='row w-100 mx-auto'>
                                 <div className="col-12">
-                                    <h1 className="heading">
-                                        Featured Deals
-                                    </h1>
+
+                                    <div className="d-flex justify-content-between">
+
+                                        <h1 className="heading">
+                                            Featured Deals
+                                        </h1>
+                                        <div>
+                                            <Segmented
+                                                onChange={(e) => dispatch(setStyle(e))}
+                                                options={[
+                                                    {
+                                                        value: 'List',
+                                                        icon: <BarsOutlined />,
+                                                    },
+                                                    {
+                                                        value: 'Kanban',
+                                                        icon: <AppstoreOutlined />,
+                                                    },
+                                                ]}
+                                            />
+                                        </div>
+                                    </div>
                                 </div>
                                 {isLoading ?
 
@@ -119,12 +135,12 @@ export const Home = () => {
                                     <>
 
                                         {data && data.slice(dataFrom, dataTo).map((item) => {
-                                            return <List style={'List'} singleurl={item.coupon.slug} item={item} user={user} image={`${item.image_path}/${item.media.image}`} title={item.coupon.title} discount={item.coupon.discount} rprice={item.coupon.regular_price} cprice={item.coupon.compare_price} />
+                                            return <List style={style} singleurl={item.coupon.slug} key={item.coupon.id} item={item} user={user} image={`${item.image_path}/${item.media.image}`} title={item.coupon.title} discount={item.coupon.discount} rprice={item.coupon.regular_price} cprice={item.coupon.compare_price} />
                                         })}
 
                                         {data && data.length > 30 &&
 
-                                            <div className='pagination mt-4 justify-content-center'>
+                                            <div className='pagination mt-4 justify-content-center' >
                                                 <Pagination defaultCurrent={vll} total={len} pageSize={1} showPrevNextJumpers={true} onChange={(e) => LoadMore(e)} />
                                             </div>
 
@@ -149,7 +165,7 @@ export const Home = () => {
                                         <>
 
                                             {dataDeal && dataDeal.slice(0, 30).map((item) => {
-                                                return <Deal img={`${item.image_path}/${item.media.image}`} title={item.coupon.title} link={`${item.single_coupon_url}`} />
+                                                return <Deal key={item.coupon.id} img={`${item.image_path}/${item.media.image}`} title={item.coupon.title} link={`${item.coupon.slug}`} />
                                             })}
 
 

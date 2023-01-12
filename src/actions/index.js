@@ -1,15 +1,23 @@
-export const addUserData = (data, wishlistItems) => { 
+export const addUserData = (data) => {
     return {
         type: "ADD_USER",
         payload: {
             id: new Date().getTime().toString(),
             data: data,
-            wishlistItems: wishlistItems
         }
 
     }
 }
 
+export const setStyle = (data) => {
+    return {
+        type: "STYLE",
+        payload: {
+            id: new Date().getTime().toString(),
+            style: data,
+        }
+    }
+}
 
 export const updateUserData = () => {
     return {

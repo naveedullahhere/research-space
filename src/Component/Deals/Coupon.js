@@ -1,6 +1,6 @@
 
 import { Pagination, Segmented } from 'antd';
-import React, { useContext, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { toast } from 'react-hot-toast';
 import { useParams } from 'react-router-dom';
 import { AppContext } from '../../context/AppContext';
@@ -10,7 +10,7 @@ import { AppstoreOutlined, BarsOutlined } from '@ant-design/icons';
 import { Spinner } from '../Spinner';
 
 export const Coupon = () => {
-    const { URL, user, dispatch, addUserData, WishlistItems } = useContext(AppContext);
+    const { URL, user, dispatch, addUserData, WishlistItems, setStyle, style } = useContext(AppContext);
 
     const [category, setCategory] = useState([]);
     const [discount, setDiscount] = useState([]);
@@ -19,7 +19,7 @@ export const Coupon = () => {
     const [sort, setSort] = useState(0);
     const [store, setStore] = useState("");
     const params = useParams();
-    const [style, setStyle] = useState("List");
+    // const [style, setStyle] = useState("List");
     const value = params.value;
     const [isLoading, setIsLoading] = useState(false);
     const [data, setData] = useState([]);
@@ -54,6 +54,16 @@ export const Coupon = () => {
         setIsLoading(true);
 
     }
+
+
+    useEffect(() => {
+
+
+
+        console.log(style);
+
+    }, [style])
+
     return (
         <>
             <div class="container-fluid">
@@ -71,7 +81,7 @@ export const Coupon = () => {
                                 <div></div>
                                 <div>
                                     <Segmented
-                                        onChange={(e) => setStyle(e)}
+                                        onChange={(e) => dispatch(setStyle(e))}
                                         options={[
                                             {
                                                 value: 'List',

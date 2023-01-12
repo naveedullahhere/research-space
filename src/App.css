@@ -1530,6 +1530,10 @@ textarea.input:not(:placeholder-shown)+label {
   opacity: 0;
 }
 
+.contact_pg textarea.input:focus+label {
+  transform: translateY(-30px);
+}
+
 
 
 .login-box {
@@ -4865,6 +4869,11 @@ nav.mob ul li {
 
 .logo_content .heading {
   color: var(--dark);
+}
+
+.mainview .spinner-border {
+  width: 12px;
+  height: 12px;
 }
 
 .sidebar.db-bar ul li a.active {

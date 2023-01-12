@@ -9,45 +9,44 @@ import { toast } from 'react-hot-toast';
 export const List = ({ title, style, discount, rprice, cprice, image, singleurl, item, hasCustom }) => {
 
     const { URL, user, API_TOKEN, setWishlistItems, setLikedItems, setSavedItems } = useContext(AppContext);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState({ 'save': false, 'like': false, 'wishlist': false });
     const navigate = useNavigate();
     const handleItem = (data) => {
         if (!user) {
-            navigate('/login');
+            toast.error("Please Login!");
+            return navigate('/login');
         }
+        console.log(isLoading[data], data);
         var typp = data;
-        setIsLoading(true);
+        setIsLoading({ ...isLoading, [typp]: true });
         postData(`${URL}api/web/reaction-post`, { type: data, user_token: user && user.data.user_token, reference_type: "coupon", comment: "", reference_id: item.coupon.id })
             .then(data => {
                 if (data.success != false) {
 
-                    toast.success("Successfully Added!");
                     item[typp] = true;
+                    toast.success(`${typp} successfully!`);
 
                 } else {
                     item[typp] = false;
-                    toast.error("Item Removed!");
+                    toast.success(`Remove ${typp} successfully!`);
                 }
                 fetch(`${URL}api/web/react-items?user_id=${user ? user.data.id : ""}&user_token=${user.data.user_token}&type=${typp}`)
                     .then((response) => response.json())
                     .then((actualData) => {
                         if (typp === "wishlist") {
-                            console.log(actualData);
                             setWishlistItems(actualData);
                         }
                         else if (typp === "like") {
-                            console.log("items setted 2");
                             setLikedItems(actualData);
                         }
                         else if (typp === "save") {
-                            console.log("items setted 3");
                             setSavedItems(actualData);
                         }
                     })
-                setIsLoading(false);
+                setIsLoading({ ...isLoading, [typp]: false });
             }).catch((err) => {
 
-                setIsLoading(false);
+                setIsLoading({ ...isLoading, [typp]: false });
                 toast.error("Something went wrong!");
 
             });
@@ -69,7 +68,7 @@ export const List = ({ title, style, discount, rprice, cprice, image, singleurl,
     if (style === "List")
         return (
             <>
-                <div className="col-12 p-0">
+                <div className="col-12 p-0 mainview">
                     <div className="main-list-card shadow bg-white">
                         <div className="my-sm-2 my-1 px-3 py-md-3 px-md-3 py-2">
                             <div className="row align-items-center">
@@ -139,12 +138,19 @@ export const List = ({ title, style, discount, rprice, cprice, image, singleurl,
 
                                             <Tooltip title="wishlist">
                                                 <div className="btn p-0">
-                                                    {item.wishlist ?
+                                                    {isLoading.wishlist ? <div className="spinner d-flex justify-content-center align-items-center">
+                                                        <div className="spinner-border" style={{ "float": "right" }} role="status">
+                                                            <span className="visually-hidden">Loading...</span>
+                                                        </div>
+                                                    </div> :
 
-                                                        <HeartFilled />
-                                                        :
+                                                        item.wishlist ?
 
-                                                        <HeartOutlined />
+                                                            <HeartFilled />
+                                                            :
+
+                                                            <HeartOutlined />
+
                                                     }
                                                 </div>
                                             </Tooltip>
@@ -160,7 +166,11 @@ export const List = ({ title, style, discount, rprice, cprice, image, singleurl,
                                             <Tooltip title="like">
                                                 <div className="btn p-0">
 
-                                                    {item.like ?
+                                                    {isLoading.like ? <div className="spinner d-flex justify-content-center align-items-center">
+                                                        <div className="spinner-border" style={{ "float": "right" }} role="status">
+                                                            <span className="visually-hidden">Loading...</span>
+                                                        </div>
+                                                    </div> : item.like ?
 
                                                         <LikeFilled />
 
@@ -181,7 +191,11 @@ export const List = ({ title, style, discount, rprice, cprice, image, singleurl,
                                             <Tooltip title="save">
                                                 <div className="btn p-0">
 
-                                                    {item.save ?
+                                                    {isLoading.save ? <div className="spinner d-flex justify-content-center align-items-center">
+                                                        <div className="spinner-border" style={{ "float": "right" }} role="status">
+                                                            <span className="visually-hidden">Loading...</span>
+                                                        </div>
+                                                    </div> : item.save ?
 
                                                         <BookFilled />
 
@@ -206,7 +220,11 @@ export const List = ({ title, style, discount, rprice, cprice, image, singleurl,
 
                                                     <div className="btn p-0">
 
-                                                        {item.save ?
+                                                        {isLoading.save ? <div className="spinner d-flex justify-content-center align-items-center">
+                                                            <div className="spinner-border" style={{ "float": "right" }} role="status">
+                                                                <span className="visually-hidden">Loading...</span>
+                                                            </div>
+                                                        </div> : item.save ?
 
                                                             <BookFilled />
 
@@ -226,7 +244,11 @@ export const List = ({ title, style, discount, rprice, cprice, image, singleurl,
 
                                                 <Tooltip title="wishlist">
                                                     <div className="btn p-0">
-                                                        {item.wishlist ?
+                                                        {isLoading.wishlist ? <div className="spinner d-flex justify-content-center align-items-center">
+                                                            <div className="spinner-border" style={{ "float": "right" }} role="status">
+                                                                <span className="visually-hidden">Loading...</span>
+                                                            </div>
+                                                        </div> : item.wishlist ?
 
                                                             <HeartFilled />
                                                             :
@@ -247,7 +269,11 @@ export const List = ({ title, style, discount, rprice, cprice, image, singleurl,
                                                     <div className="btn p-0">
 
 
-                                                        {item.like ?
+                                                        {isLoading.like ? <div className="spinner d-flex justify-content-center align-items-center">
+                                                            <div className="spinner-border" style={{ "float": "right" }} role="status">
+                                                                <span className="visually-hidden">Loading...</span>
+                                                            </div>
+                                                        </div> : item.like ?
 
                                                             <LikeFilled />
 
@@ -272,7 +298,7 @@ export const List = ({ title, style, discount, rprice, cprice, image, singleurl,
         )
     else {
         return (
-            <div className="col-md-4 col-6 p-0 grid px-2 my-2">
+            <div className="col-md-4 col-6 p-0 grid px-2 my-2 mainview">
                 <div className="main-list-card shadow bg-white h-100">
                     <div className="my-sm-2 my-1 px-3 pt-md-3 px-md-3 pt-2">
                         <div className="align-items-center">
@@ -337,7 +363,11 @@ export const List = ({ title, style, discount, rprice, cprice, image, singleurl,
 
                                             <Tooltip title="wishlist">
                                                 <div className="btn p-0">
-                                                    {item.wishlist ?
+                                                    {isLoading.wishlist ? <div className="spinner d-flex justify-content-center align-items-center">
+                                                        <div className="spinner-border" style={{ "float": "right" }} role="status">
+                                                            <span className="visually-hidden">Loading...</span>
+                                                        </div>
+                                                    </div> : item.wishlist ?
 
                                                         <HeartFilled />
                                                         :
@@ -358,7 +388,11 @@ export const List = ({ title, style, discount, rprice, cprice, image, singleurl,
                                             <Tooltip title="like">
                                                 <div className="btn p-0">
 
-                                                    {item.like ?
+                                                    {isLoading.like ? <div className="spinner d-flex justify-content-center align-items-center">
+                                                        <div className="spinner-border" style={{ "float": "right" }} role="status">
+                                                            <span className="visually-hidden">Loading...</span>
+                                                        </div>
+                                                    </div> : item.like ?
 
                                                         <LikeFilled />
 
@@ -380,7 +414,11 @@ export const List = ({ title, style, discount, rprice, cprice, image, singleurl,
                                             <Tooltip title="save">
                                                 <div className="btn p-0">
 
-                                                    {item.save ?
+                                                    {isLoading.save ? <div className="spinner d-flex justify-content-center align-items-center">
+                                                        <div className="spinner-border" style={{ "float": "right" }} role="status">
+                                                            <span className="visually-hidden">Loading...</span>
+                                                        </div>
+                                                    </div> : item.save ?
 
                                                         <BookFilled />
 
@@ -405,7 +443,11 @@ export const List = ({ title, style, discount, rprice, cprice, image, singleurl,
 
 
                                                     <div className="btn p-0">
-                                                        {item.save ?
+                                                        {isLoading.save ? <div className="spinner d-flex justify-content-center align-items-center">
+                                                            <div className="spinner-border" style={{ "float": "right" }} role="status">
+                                                                <span className="visually-hidden">Loading...</span>
+                                                            </div>
+                                                        </div> : item.save ?
 
                                                             <BookFilled />
 
@@ -425,7 +467,11 @@ export const List = ({ title, style, discount, rprice, cprice, image, singleurl,
 
                                                 <Tooltip title="wishlist">
                                                     <div className="btn p-0">
-                                                        {item.wishlist ?
+                                                        {isLoading.wishlist ? <div className="spinner d-flex justify-content-center align-items-center">
+                                                            <div className="spinner-border" style={{ "float": "right" }} role="status">
+                                                                <span className="visually-hidden">Loading...</span>
+                                                            </div>
+                                                        </div> : item.wishlist ?
 
                                                             <HeartFilled />
                                                             :
@@ -443,7 +489,11 @@ export const List = ({ title, style, discount, rprice, cprice, image, singleurl,
 
                                                 <Tooltip title="like">
                                                     <div className="btn p-0">
-                                                        {item.like ?
+                                                        {isLoading.like ? <div className="spinner d-flex justify-content-center align-items-center">
+                                                            <div className="spinner-border" style={{ "float": "right" }} role="status">
+                                                                <span className="visually-hidden">Loading...</span>
+                                                            </div>
+                                                        </div> : item.like ?
 
                                                             <LikeFilled />
 

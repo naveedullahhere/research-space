@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export const Deal = ({ img, title, link }) => {
     return (
@@ -11,9 +12,9 @@ export const Deal = ({ img, title, link }) => {
                 </div>
                 <div class="col-lg-8 col-md-8 col-sm-8 col-8 my-2">
                     <div class="side-pd-content">
-                        <a class="text-dark" href={link}>
+                        <Link class="text-dark" to={`/single-coupon/${link}`}>
                             <p class="fw-normal fs-6 m-0 text-start" >{title}</p>
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>

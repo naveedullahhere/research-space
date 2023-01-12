@@ -1,8 +1,6 @@
 import { Pagination, Segmented } from 'antd';
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { AppstoreOutlined, BarsOutlined } from '@ant-design/icons';
-import { useParams, useSearchParams } from 'react-router-dom'
-import { toast } from 'react-toastify';
 import { Filter } from '../Filter/Filter';
 import { Spinner } from '../Spinner';
 import { List } from '../Coupon/List';
@@ -10,17 +8,13 @@ import { AppContext } from '../../context/AppContext';
 
 export const SearchCouponDeals = () => {
 
-    const { URL, user, dispatch, addUserData, WishlistItems } = useContext(AppContext);
+    const { URL, user, dispatch, style, setStyle } = useContext(AppContext);
 
     const [category, setCategory] = useState([]);
     const [discount, setDiscount] = useState([]);
     const refMinPrice = useRef([null]);
     const refMaxPrice = useRef([]);
     const [sort, setSort] = useState(0);
-    const [store, setStore] = useState("");
-    const [style, setStyle] = useState("List");
-    // const query = useParams();
-    // const searchedData = query.searchedData;
     const [isLoading, setIsLoading] = useState(true);
     const [data, setData] = useState([]);
     const [searchedCoupons, setSearchedCoupons] = useState([]);
@@ -33,7 +27,6 @@ export const SearchCouponDeals = () => {
     const search = window.location.search;
     const params = new URLSearchParams(search);
     const query = params.get('query_search');
-
 
     const LoadMore = (e) => {
 
@@ -56,7 +49,6 @@ export const SearchCouponDeals = () => {
             setIsLoading(false);
         }, 2000);
         setIsLoading(true);
-
     }
 
 
@@ -65,7 +57,7 @@ export const SearchCouponDeals = () => {
             <div class="container-fluid">
                 <div class="row shadow-sm">
                     <div class="col-md-12 py-3">
-                        <h1 class="text-uppercase text-black m-0">Coupon & Deals</h1>
+                        <h1 class="text-uppercase text-black m-0">{query.length === 0 ? "Coupon & Deals" : `Search Results for "${query}"`}</h1>
                     </div>
                 </div>
             </div>
@@ -78,7 +70,7 @@ export const SearchCouponDeals = () => {
                                 <div></div>
                                 <div>
                                     <Segmented
-                                        onChange={(e) => setStyle(e)}
+                                        onChange={(e) => dispatch(setStyle(e))}
                                         options={[
                                             {
                                                 value: 'List',
@@ -108,7 +100,7 @@ export const SearchCouponDeals = () => {
                                             setSort={setSort}
                                             sort={sort}
                                             setStore={setSort}
-                                            store={store}
+                                            store={''}
                                             refMinPrice={refMinPrice}
                                             refMaxPrice={refMaxPrice}
 
@@ -136,7 +128,7 @@ export const SearchCouponDeals = () => {
 
 
                                             {searchedCoupons.length > 0 ? (searchedCoupons.slice(dataFrom, dataTo).map((item) => {
-                                                return <List style={style} item={item} user={user} singleurl={item.coupon.slug} image={`${item.image_path}/${item.media.image}`} title={item.coupon.title} discount={item.coupon.discount} rprice={item.coupon.regular_price} cprice={item.coupon.compare_price} />
+                                                return <List style={style} key={item.coupon.id} item={item} user={user} singleurl={item.coupon.slug} image={`${item.image_path}/${item.media.image}`} title={item.coupon.title} discount={item.coupon.discount} rprice={item.coupon.regular_price} cprice={item.coupon.compare_price} />
                                             })) :
 
                                                 <div className="col-12">

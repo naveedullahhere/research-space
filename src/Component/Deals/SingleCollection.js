@@ -10,7 +10,7 @@ export const SingleCollection = () => {
 
     const params = useParams();
     const singleCollections = params.singleCollection;
-    const { URL, user } = useContext(AppContext);
+    const { URL, user, dispatch, setStyle, style } = useContext(AppContext);
 
 
     const [data, setData] = useState([]);
@@ -26,8 +26,6 @@ export const SingleCollection = () => {
                 setIsLoading(false);
             });
     }, []);
-    const [style, setStyle] = useState("List");
-
     const [dataFrom, setDataFrom] = useState(0);
     const [dataTo, setDataTo] = useState(30);
     var len = Math.ceil(data.length / 30);
@@ -73,11 +71,11 @@ export const SingleCollection = () => {
                     <div className="row">
                         <div className="col-12">
                             <div className="d-flex justify-content-between">
-<div></div>
+                                <div></div>
 
                                 <div>
                                     <Segmented
-                                        onChange={(e) => setStyle(e)}
+                                        onChange={(e) => dispatch(setStyle(e))}
                                         options={[
                                             {
                                                 value: 'List',

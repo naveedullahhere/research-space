@@ -145,11 +145,11 @@ export const SingleCoupon = () => {
         postData(`${SITE_URL}api/web/reaction-post`, { type: typec, user_token: user && user.data.user_token, reference_type: "coupon", comment: "", reference_id: data.coupon.id })
             .then(res => {
                 if (res.success != false) {
-                    toast.success("Successfully Added!");
+                    toast.success(`${typp} successfully!`);
                     data[typp] = true;
                 } else {
                     data[typp] = false;
-                    toast.error("Item Removed!");
+                    toast.success(`Remove ${typp} successfully!`);
                 }
                 fetch(`${SITE_URL}api/web/react-items?user_id=${user ? user.data.id : ""}&user_token=${user.data.user_token}&type=${typp}`)
                     .then((response) => response.json())

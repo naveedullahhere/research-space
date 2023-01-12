@@ -68,7 +68,7 @@ export const Register = () => {
     return (
         <motion.div initial={{ opacity: 0, x: 100 }} animate={{ opacity: 1, x: 0 }} exit={{ transition: { duration: 0.3 }, opacity: 0, x: 100 }}>
             <div className="loginMain">
-                <form onSubmit={handleSubmit(onSubmit)} className="login-box" autocomplete="on">
+                <form autoComplete="off" onSubmit={handleSubmit(onSubmit)} className="login-box">
                     <div className="fs-5">
                         <h1 className='fs-4 fw-bold'> CREATE YOUR ACCOUNT</h1>
                     </div>
@@ -88,14 +88,14 @@ export const Register = () => {
                             className={`input pass-input ${errors.password ? 'is-invalid' : ''}`} />
                         <img src="assets/img/view.png" className="view-pass" alt="" />
                         <label htmlFor="password">Password</label>
-                        <div className="invalid-feedback text-white">{errors.password?.message}</div>
+                        <div className="invalid-feedback text-dark">{errors.password?.message}</div>
                     </div>
                     <div className="input-box">
                         <input type="password" name="cpassword"  {...register('confirmPwd')}
                             className={`input pass-input ${errors.confirmPwd ? 'is-invalid' : ''}`} id="cpassword" />
                         <img src="assets/img/view.png" className="view-pass" alt="" />
                         <label htmlFor="cpassword">Confirm Password</label>
-                        <div className="invalid-feedback text-white">{errors.confirmPwd?.message}</div>
+                        <div className="invalid-feedback text-dark">{errors.confirmPwd?.message}</div>
                     </div>
                     {/* <div className="remember-me">
                         <input type="checkbox" checked name="" id="checkbox" />

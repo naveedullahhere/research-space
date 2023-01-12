@@ -10,7 +10,7 @@ export const Stores = () => {
 
     const params = useParams();
     const singleStore = params.singleStore;
-    const { URL, user } = useContext(AppContext);
+    const { URL, user, dispatch, style, setStyle } = useContext(AppContext);
 
 
     const [data, setData] = useState([]);
@@ -26,9 +26,6 @@ export const Stores = () => {
                 setIsLoading(false);
             });
     }, []);
-
-    console.log(data);
-    const [style, setStyle] = useState("List");
 
     const [dataFrom, setDataFrom] = useState(0);
     const [dataTo, setDataTo] = useState(30);
@@ -73,11 +70,11 @@ export const Stores = () => {
                 <div className="container">
                     <div className="row">
                         <div className="col-12">
-                            <div className="d-flex justify-content-between"> 
-                            <div></div>
+                            <div className="d-flex justify-content-between">
+                                <div></div>
                                 <div>
                                     <Segmented
-                                        onChange={(e) => setStyle(e)}
+                                        onChange={(e) => dispatch(setStyle(e))}
                                         options={[
                                             {
                                                 value: 'List',

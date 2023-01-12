@@ -9,20 +9,20 @@ import { useState, useEffect } from 'react';
 import { URL, APP_NAME, API_TOKEN, SITE_URL } from './config'
 import { Toaster } from "react-hot-toast";
 import { useSelector, useDispatch } from 'react-redux';
-import { removeUserData, addUserData, updateUserData } from './actions';
+import { removeUserData, addUserData, updateUserData, setStyle } from './actions';
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 
 function App() {
   const dispatch = useDispatch();
 
-  const wishlistData = useSelector((state) => { return state.userReducer.user[0] ? state.userReducer.user[0].wishlist : [] });
+  const style = useSelector((state) => { return state.styleReducer.style });
   const user = useSelector((state) => state.userReducer.user[0]);
   // const items = useSelector((state) => state.userReducer.items);
-
+ 
 
   // dispatch(wishlistItems({ "name": "Mannan" }));
-
+  // var style = "list";
   // console.log(items);
   const [couponItems, setCouponItems] = useState([]);
   const [FilterCategory, setFilterCategory] = useState([]);
@@ -40,9 +40,8 @@ function App() {
 
   // var APP_NAME = APP_NAME;
 
-
   var values = {
-    SITE_URL, API_TOKEN, teams, teamsImgPath, couponItems, setCouponItems, SavedItems, setSavedItems, WishlistItems, LikedItems, setLikedItems, setWishlistItems, search, setSearch, setNoteValue, noteValue, FilterCategory, setFilterCategory, FilterStore, setFilterStore, setTitle, Title, APP_NAME, URL, data, setData, img, setImg, removeUserData, addUserData, updateUserData, dispatch, user
+    SITE_URL, API_TOKEN, teams, teamsImgPath, couponItems, setCouponItems, setStyle, style, SavedItems, setSavedItems, WishlistItems, LikedItems, setLikedItems, setWishlistItems, search, setSearch, setNoteValue, noteValue, FilterCategory, setFilterCategory, FilterStore, setFilterStore, setTitle, Title, APP_NAME, URL, data, setData, img, setImg, removeUserData, addUserData, updateUserData, dispatch, user
   }
 
   useEffect(() => {
