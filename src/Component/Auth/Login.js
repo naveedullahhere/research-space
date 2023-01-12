@@ -29,9 +29,10 @@ export const Login = () => {
         setIsLoading(true);
         postData(`${URL}api/signin`, { email: emailD, password: passwordD })
             .then(data => {
+                // console.log(data.data.user_token);
                 if (data.success != false) {
 
-                    fetch(`${URL}api/web/react-items?user_token=${user.data.user_token}&type=wishlist&api_token=${API_TOKEN}`)
+                    fetch(`${URL}api/web/react-items?user_token=${data.data.user_token}&type=wishlist&api_token=${API_TOKEN}`)
                         .then((response) => response.json())
                         .then((actualData) => { setWishlistItems(actualData); })
 
@@ -46,6 +47,7 @@ export const Login = () => {
                 setIsLoading(false);
             }).catch((err) => {
                 setIsLoading(false);
+                console.log(err);
                 toast.error("Something went wrong!");
 
             });
