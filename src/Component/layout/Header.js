@@ -96,7 +96,7 @@ export const Header = () => {
                                     <div className='d-flex mx-auto'>
                                         <div className="col-md-12 col-sm-2">
                                             <form class="m-0 searchbar position-relative" action='/search/&'>
-                                                <div class="search ps-3 w-100 d-flex justify-content-between mx-2 rounded-5 border border-white shadow overflow-hidden">
+                                                <div class="search ps-3 w-100 d-flex justify-content-between mx-2 rounded-3 border border-white shadow overflow-hidden">
                                                     <div class="fields  my-auto">
                                                         <input type="text" name="query_search" class="searchbar mx-2 w-100 border-0" onChange={(e) => setSearch(e.target.value)} placeholder="Search Coupons &amp; Deals" id="show-user" />
                                                     </div>
@@ -147,7 +147,7 @@ export const Header = () => {
                                                     <Link to={'/login'} class="btn log text-dark  py-2">
                                                         LOGIN
                                                     </Link>
-                                                    <Link to="register" class="btn bg-signature text-white px-4 py-2 rounded-5">
+                                                    <Link to="register" class="btn bg-signature text-white px-4 py-2 rounded-3">
                                                         SIGNUP
                                                     </Link>
                                                 </div>
@@ -166,7 +166,9 @@ export const Header = () => {
                                         <form class="m-0 searchbar position-relative" action='/search/&'>
                                             <div class="search ps-2 d-flex justify-content-between mx-2 rounded-3 border border-white shadow overflow-hidden">
                                                 <div class="fields">
+
                                                     <input type="text" name="query_search" class="ps-3" onChange={(e) => setSearch(e.target.value)} placeholder="Search Coupons &amp; Deals" id="show-user" />
+
                                                 </div>
                                                 <button type="submit" class="search-btn main-header-search border-0 py-2 px-3">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#fff" class="bi bi-search" viewBox="0 0 16 16">
@@ -262,7 +264,7 @@ export const Header = () => {
 
                                         <li class="px-3 py-3">
                                             <div class="side-nav-buttons d-flex">
-                                                <Link to="/login" class="log rounded-pill mx-1 px-4 text-center text-black">Login</Link>
+                                                <Link to="/login" class="log rounded-3 mx-1 px-4 text-center text-black">Login</Link>
                                                 <Link to="/register" class="sign bg-signature px-4 mx-1 text-center rounded-3">Signup</Link>
                                             </div>
                                         </li>
@@ -276,7 +278,7 @@ export const Header = () => {
             </div >
             <div class="top-links bg-black nav-2 container-fluid">
                 <div class="row">
-                    <div class="col-12 d-flex justify-content-center ">
+                    <div class="col-12 d-flex justify-content-center bg-main">
                         <div class="custom-dropdown-area cat-dropdown mx-4 text-uppercase">
                             <li class="list-unstyled  dropdown-toggle py-3" data-bs-toggle="dropdown"><Link to="#jgggg">CATEGORIES</Link></li>
 

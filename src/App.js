@@ -11,6 +11,8 @@ import { Toaster } from "react-hot-toast";
 import { useSelector, useDispatch } from 'react-redux';
 import { removeUserData, addUserData, updateUserData, setStyle } from './actions';
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+import { Footer1 } from './Component/layout/Footer1';
+import { Footer2 } from './Component/layout/Footer2';
 
 
 function App() {
@@ -88,7 +90,7 @@ function App() {
       <BrowserRouter>
         <Header />
         <MainRoutes />
-        <Footer />
+        <Footer2 />
         <Toaster position="top-right" containerStyle={{ "transform": "translateY(104px)" }} />
       </BrowserRouter>
     </AppContext.Provider>

@@ -39,14 +39,13 @@ export const Footer = () => {
                 toast.error("Something Went Wrong!");
                 setIsLoading(false);
             })
-    };
-    const userid = 1;
+    }; 
     return (
         <footer>
             <div class="container my-3">
                 <div class="row ">
                     <div class="col-md-11 mx-auto">
-                        <div class="card shadow border-0 rounded-5 py-4">
+                        <div class="card shadow border-0 rounded-3 py-4">
                             <div class="card-body">
                                 <div class="row align-items-center">
                                     <div class="col-md-3 text-center">

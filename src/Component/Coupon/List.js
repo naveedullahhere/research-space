@@ -91,7 +91,7 @@ export const List = ({ title, style, discount, rprice, cprice, image, singleurl,
                                         </Link>
                                         <p className="para text-muted d-flex align-items-center">
                                             <strike className="text-black">${rprice} </strike>
-                                            <span className="tag mb-0 text-white rounded-pill mx-2">
+                                            <span className="tag mb-0 text-white rounded-3 mx-2">
 
                                                 -{discount}%
 
@@ -316,7 +316,7 @@ export const List = ({ title, style, discount, rprice, cprice, image, singleurl,
                                     </a>
                                     <p className="para text-muted d-flex align-items-center mb-0">
                                         <strike className="text-black">${rprice} </strike>
-                                        <span className="tag mb-0 text-white rounded-pill mx-2">
+                                        <span className="tag mb-0 text-white rounded-3 mx-2">
 
                                             -{discount}%
 

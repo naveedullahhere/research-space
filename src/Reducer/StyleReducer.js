@@ -1,5 +1,5 @@
 const initialData = {
-    style: 'List',
+    style: 'Grid',
 }
 const styleReducer = (state = initialData, action) => {
     switch (action.type) {

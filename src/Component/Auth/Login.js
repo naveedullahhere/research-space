@@ -83,7 +83,8 @@ export const Login = () => {
 
                     <div className="input-box">
                         <input type="password" name="password" autoComplete="off" className="input pass-input" id="password" required {...register('password', { minLength: 8 })} onChange={(e) => setPassword(e.target.value)} />
-                        <img src="assets/img/view.png" className="view-pass" alt="" />
+
+                        <div></div>
                         <label htmlFor="password">Password</label>
                     </div>
                     {errors.password && <span className='para-sm text-dark'>Password Must 8 Character</span>}

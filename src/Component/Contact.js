@@ -120,7 +120,7 @@ export const Contact = () => {
 
                                         </div>
                                         <div className="col-12">
-                                            <button className="bg-signature btn py-0 rounded-pill text-white px-md-4 px-3" type="submit">
+                                            <button className="bg-signature btn py-0 rounded-3 text-white px-md-4 px-3" type="submit">
                                                 <PromiseButton title={"Submit"} loading={isLoading} typ={'text-white fs-5'} />
                                             </button>
                                         </div>

@@ -250,13 +250,13 @@ export const SingleCoupon = () => {
                                     <div className="d-flex gap-2 pt-3 align-items-center">
                                         <img src={`${data.country && data.flag_url}/${(data.country.iso).toLowerCase()}.svg`} alt="" width={'30px'} />
                                         <p className="para mb-0 light-black">{data.category && data.category.title}</p>
-                                        <button href="#" class="btn bg-white text-dark bg-white fullfill-btn px-2 py-1 rounded-5">
+                                        <button href="#" class="btn bg-white text-dark bg-white fullfill-btn px-2 py-1 rounded-3">
                                             Fullfilled By {data.store && data.store.title}
                                         </button>
                                     </div>
                                     <div className="d-flex gap-2 pt-4 align-items-center">
                                         <strike className="para mb-0 light-black">${data.coupon.compare_price}</strike>
-                                        <button href="#" class="btn bg-signature px-3 py-1 rounded-5">
+                                        <button href="#" class="btn bg-signature px-3 py-1 rounded-3">
                                             -{data.coupon.discount}%
                                         </button>
                                         <h4 className="para mb-0 couponprice ">${data.coupon.regular_price}</h4>
@@ -329,7 +329,7 @@ export const SingleCoupon = () => {
                                     <ul className={`${ReadMore ? 'showless' : ''}`}>
                                         <div dangerouslySetInnerHTML={{ __html: data.coupon.long_description }}></div>
                                     </ul>
-                                    <button href="#" class="btn text-dark bg-white shadow-sm bg-white fullfill-btn px-5 py-2 rounded-5" onClick={showmore}>
+                                    <button href="#" class="btn text-dark bg-white shadow-sm bg-white fullfill-btn px-5 py-2 rounded-3" onClick={showmore}>
                                         {ReadMore ? 'Read More' : 'Read Less'}
                                     </button>
                                 </div>
@@ -391,7 +391,7 @@ export const SingleCoupon = () => {
                                     <div class="row">
                                         <div class="col-12 my-md-3 my-0 text-end">
                                             <div class="submit_btn">
-                                                <button type="button" onClick={onPostComment} class="btn custom_btn rounded-pill p-0 shadow-none bg-signature"><PromiseButton loading={isLoading} title={'Submit'} typ={'text-white'} /></button>
+                                                <button type="button" onClick={onPostComment} class="btn custom_btn rounded-3 p-0 shadow-none bg-signature"><PromiseButton loading={isLoading} title={'Submit'} typ={'text-white'} /></button>
                                             </div>
                                         </div>
                                     </div>
@@ -419,7 +419,7 @@ export const SingleCoupon = () => {
 
                         <div className="col-12">
                             <div className="col-12">
-                                <div class="shadow py-md-3 py-3 px-md-4 px-1 d-flex justify-content-center rounded-5">
+                                <div class="shadow py-md-3 py-3 px-md-4 px-1 d-flex justify-content-center rounded-3">
                                     <div class="row w-100">
                                         <div class="col-lg-2 px-0 col-md-2 col-12 left-content d-flex justify-content-center align-items-center">
                                             <div class="img">
@@ -435,11 +435,11 @@ export const SingleCoupon = () => {
                                         <div class="right-content col-lg-4 px-0 col-md-4 col-12 d-flex justify-content-center align-items-center mt-md-0 mt-2">
                                             <div class="btns d-flex">
                                                 <div class="login mx-1">
-                                                    <Link to="/login" class="text-dark btn shadow-none border-0 outline-none px-3 py-2 rounded-pill">Log
+                                                    <Link to="/login" class="text-dark btn shadow-none border-0 outline-none px-3 py-2 rounded-3">Log
                                                         in</Link>
                                                 </div>
                                                 <div class="signup">
-                                                    <Link to="/register" class="bg-signature text-white btn shadow-none border-0 outline-none px-3 py-2 rounded-pill">Sign
+                                                    <Link to="/register" class="bg-signature text-white btn shadow-none border-0 outline-none px-3 py-2 rounded-3">Sign
                                                         up</Link>
                                                 </div>
                                             </div>
