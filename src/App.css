@@ -1580,15 +1580,7 @@ textarea.input:not(:placeholder-shown)+label {
   color: var(--dark) !important;
 }
 
-.login-box .input-box label {
-  position: absolute;
-  top: 20px;
-  left: 5px;
-  padding: 14px 5px;
-  display: block;
-  pointer-events: none;
-  transition: 0.2s;
-}
+
 
 .login-box .input-box input:focus~label,
 .login-box .input-box input:valid~label {
@@ -1607,6 +1599,16 @@ textarea.input:not(:placeholder-shown)+label {
   padding: 7px 12px;
   backdrop-filter: blur(3px);
   display: none;
+}
+
+.login-box .input-box label {
+  position: absolute;
+  top: 20px;
+  left: 5px;
+  padding: 14px 5px;
+  display: block;
+  pointer-events: none;
+  transition: 0.2s;
 }
 
 .login-box button[type="submit"] {
@@ -5518,14 +5520,7 @@ img {
   width: 100%;
 }
 
-.subscribe__input {
-  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAASCAYAAABSO15qAAAAAXNSR0IArs4c6QAAAPhJREFUOBHlU70KgzAQPlMhEvoQTg6OPoOjT+JWOnRqkUKHgqWP4OQbOPokTk6OTkVULNSLVc62oJmbIdzd95NcuGjX2/3YVI/Ts+t0WLE2ut5xsQ0O+90F6UxFjAI8qNcEGONia08e6MNONYwCS7EQAizLmtGUDEzTBNd1fxsYhjEBnHPQNG3KKTYV34F8ec/zwHEciOMYyrIE3/ehKAqIoggo9inGXKmFXwbyBkmSQJqmUNe15IRhCG3byphitm1/eUzDM4qR0TTNjEixGdAnSi3keS5vSk2UDKqqgizLqB4YzvassiKhGtZ/jDMtLOnHz7TE+yf8BaDZXA509yeBAAAAAElFTkSuQmCC');
-  background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-size: 16px 18px;
-  background-position: 98% 50%;
-  cursor: auto;
-}
+
 
 .para {
   font-size: 14px;

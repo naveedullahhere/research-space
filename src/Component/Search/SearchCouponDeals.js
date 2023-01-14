@@ -8,7 +8,7 @@ import { AppContext } from '../../context/AppContext';
 
 export const SearchCouponDeals = () => {
 
-    const { URL, user, dispatch, style, setStyle } = useContext(AppContext);
+    const { setTitle, APP_NAME, user, dispatch, style, setStyle } = useContext(AppContext);
 
     const [category, setCategory] = useState([]);
     const [discount, setDiscount] = useState([]);
@@ -27,6 +27,11 @@ export const SearchCouponDeals = () => {
     const search = window.location.search;
     const params = new URLSearchParams(search);
     const query = params.get('query_search');
+
+
+    useEffect(() => {
+        setTitle(`${query.charAt(0).toUpperCase() + query.slice(1)}${APP_NAME}`);
+    }, [])
 
     const LoadMore = (e) => {
 

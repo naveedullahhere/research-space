@@ -10,7 +10,7 @@ import { AppstoreOutlined, BarsOutlined } from '@ant-design/icons';
 import { Spinner } from '../Spinner';
 
 export const Coupon = () => {
-    const { URL, user, dispatch, addUserData, WishlistItems, setStyle, style } = useContext(AppContext);
+    const { user, dispatch, APP_NAME, setTitle, setStyle, style } = useContext(AppContext);
 
     const [category, setCategory] = useState([]);
     const [discount, setDiscount] = useState([]);
@@ -27,9 +27,14 @@ export const Coupon = () => {
     const [filterState, setFilterState] = useState(true);
     const [dataFrom, setDataFrom] = useState(0);
     const [dataTo, setDataTo] = useState(30);
-
     var len = Math.ceil(data.length / 30);
     const [vll, setvll] = useState(1);
+
+
+    useEffect(() => {
+        setTitle(`Coupons${APP_NAME}`);
+    }, []);
+
 
     const LoadMore = (e) => {
 

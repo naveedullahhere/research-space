@@ -13,7 +13,7 @@ import { AppContext } from '../../context/AppContext';
 
 
 export const Deals = () => {
-    const { URL, user, dispatch, addUserData, WishlistItems, style, setStyle } = useContext(AppContext);
+    const { user, dispatch, setTitle, APP_NAME, style, setStyle } = useContext(AppContext);
 
     const [category, setCategory] = useState([]);
     const [discount, setDiscount] = useState([]);
@@ -31,6 +31,10 @@ export const Deals = () => {
     const [dataTo, setDataTo] = useState(30);
     var len = Math.ceil(data.length / 30);
     const [vll, setvll] = useState(1);
+
+    useEffect(() => {
+        setTitle(`Deals${APP_NAME}`);
+    }, [])
 
     const LoadMore = (e) => {
 

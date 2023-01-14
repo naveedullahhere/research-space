@@ -11,6 +11,7 @@ export const Blog = () => {
 
 
     useEffect(() => {
+        setTitle(`Blog${APP_NAME}`)
         fetch(`${URL}api/web/blog`)
             .then((response) => response.json())
             .then((actualData) => { setData(actualData.data); setImg(actualData.image_path); })
@@ -22,13 +23,13 @@ export const Blog = () => {
     return (
         <>
             <div class="container-fluid">
-                    <div class="row shadow-sm">
-                        <div class="col-md-12 py-3">
-                            <h1 class="text-uppercase text-black m-0">Blogs</h1>
-                        </div>
+                <div class="row shadow-sm">
+                    <div class="col-md-12 py-3">
+                        <h1 class="text-uppercase text-black m-0">Blogs</h1>
                     </div>
                 </div>
-            <div className="container sect py-md-5 py-3 text-start"> 
+            </div>
+            <div className="container sect py-md-5 py-3 text-start">
                 <div className="row">
                     <div className="col-md-8 col-12">
 
@@ -40,16 +41,16 @@ export const Blog = () => {
                                 return <div className="blog-detail blog-grid-view">
                                     <Link to={`/blog/${item.slug}`}><img className='b-img rounded-5 mb-3' src={`${img}/${item.image}`} alt={item.title} /></Link>
 
-                                    <p className='text-start p-0 heading-md-h'>{item.title}</p>
+                                    <Link to={`/blog/${item.slug}`}> <p className='text-start p-0 heading-md-h'>{item.title}</p></Link>
                                     <div className="by-time f d-flex justify-content-between">
                                         <small><p>{item["username "]}</p></small>
                                         <small><p>{item.updated_at.split("T")[0]}</p></small>
                                     </div>
 
                                     <p className='pata-text' dangerouslySetInnerHTML={{ __html: item.short_description }}></p>
-                                    <button href="#" class="btn bg-signature text-white mb-4 px-4 py-2 rounded-5">
+                                    <Link to={`/blog/${item.slug}`} href="#" class="btn bg-signature text-white mb-4 px-4 py-2 rounded-5">
                                         Read More
-                                    </button>
+                                    </Link>
                                 </div>
                             })
 

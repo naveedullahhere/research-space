@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import toast from "react-hot-toast";
 import { AppContext } from '../../context/AppContext';
 import { motion } from 'framer-motion';
@@ -10,12 +10,15 @@ import { PromiseButton } from '../Buttons/PromiseButton';
 
 export const Register = () => {
 
-    const { URL, addUserData, dispatch, user, WishlistItems, API_TOKEN } = useContext(AppContext);
+    const { URL, addUserData, dispatch, setTitle, APP_NAME, API_TOKEN } = useContext(AppContext);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [userName, setUsername] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
+    useEffect(() => {
+        setTitle(`Signup${APP_NAME}`);
+    }, [])
 
     const formSchema = Yup.object().shape({
         password: Yup.string()
@@ -74,24 +77,25 @@ export const Register = () => {
                     </div>
                     <div className="input-box">
                         <input type="hidden" {...register('domain')} name="domain" value={window.location.href} />
-                        <input type="text" name="username" class={`inputLogin ${errors.username && "form-control is-invalid"}`} id="username"  {...register('username', { required: true })} onChange={(e) => setUsername(e.target.value)} />
+                        <input type="text" required name="username" class={`inputLogin ${errors.username && "form-control is-invalid"}`} id="username"  {...register('username', { required: true })} onChange={(e) => setUsername(e.target.value)} />
                         <label htmlFor="username">Username</label>
                     </div>
                     <div className="input-box">
-                        <input type="email" name="email" class={`inputLogin ${errors.email && "form-control is-invalid"}`} {...register('email', { required: true, pattern: /^\S+@\S+$/i })} onChange={(e) => setEmail(e.target.value)} />
+                        <input type="email" required name="email" class={`inputLogin ${errors.email && "form-control is-invalid"}`} {...register('email', { required: true, pattern: /^\S+@\S+$/i })} onChange={(e) => setEmail(e.target.value)} />
                         <label htmlFor="email">Email</label>
                     </div>
+
                     {/* {errors.email && <span className='para-sm text-white'>Please Enter a Valid Email</span>} */}
 
                     <div className="input-box">
-                        <input type="password" name="password" id="password"  {...register('password')} onChange={(e) => setPassword(e.target.value)}
+                        <input type="password" required name="password" id="password"  {...register('password')} onChange={(e) => setPassword(e.target.value)}
                             className={`input pass-input ${errors.password ? 'is-invalid' : ''}`} />
                         <img src="assets/img/view.png" className="view-pass" alt="" />
                         <label htmlFor="password">Password</label>
                         <div className="invalid-feedback text-dark">{errors.password?.message}</div>
                     </div>
                     <div className="input-box">
-                        <input type="password" name="cpassword"  {...register('confirmPwd')}
+                        <input type="password" required name="cpassword"  {...register('confirmPwd')}
                             className={`input pass-input ${errors.confirmPwd ? 'is-invalid' : ''}`} id="cpassword" />
                         <img src="assets/img/view.png" className="view-pass" alt="" />
                         <label htmlFor="cpassword">Confirm Password</label>

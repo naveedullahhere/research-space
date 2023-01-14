@@ -19,7 +19,7 @@ function App() {
   const style = useSelector((state) => { return state.styleReducer.style });
   const user = useSelector((state) => state.userReducer.user[0]);
   // const items = useSelector((state) => state.userReducer.items);
- 
+
 
   // dispatch(wishlistItems({ "name": "Mannan" }));
   // var style = "list";
@@ -30,7 +30,7 @@ function App() {
   const [WishlistItems, setWishlistItems] = useState([]);
   const [LikedItems, setLikedItems] = useState([]);
   const [SavedItems, setSavedItems] = useState([]);
-  const [Title, setTitle] = useState(`${APP_NAME}Home`);
+  const [Title, setTitle] = useState(`Home${APP_NAME}`);
   const [data, setData] = useState([]);
   const [teams, setTeams] = useState([]);
   const [teamsImgPath, setTeamsImgPath] = useState("");

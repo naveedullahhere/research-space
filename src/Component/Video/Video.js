@@ -6,7 +6,7 @@ import { VideoItem } from './VideoItem'
 export const Video = () => {
 
 
-    const { URL } = useContext(AppContext);
+    const { setTitle, APP_NAME, URL } = useContext(AppContext);
 
 
 
@@ -16,7 +16,7 @@ export const Video = () => {
     const [videoPath, setVideoPath] = useState('');
 
     useEffect(() => {
-
+        setTitle(`Video${APP_NAME}`);
         fetch(`${URL}api/web/videos`)
             .then((response) => response.json())
             .then((actualData) => { setVideos(actualData.data); setImg(actualData.thumbnail_path); setVideoPath(actualData.video_path); setIsLoading(false) })

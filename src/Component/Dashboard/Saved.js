@@ -14,11 +14,11 @@ import { AppstoreOutlined, BarsOutlined } from '@ant-design/icons';
 import { Segmented } from 'antd';
 
 export const Saved = () => {
-    const { URL, user, SavedItems, setSavedItems, API_TOKEN, style, setStyle, dispatch } = useContext(AppContext);
+    const { URL, user, SavedItems, setSavedItems, APP_NAME, setTitle, style, setStyle, dispatch } = useContext(AppContext);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-
+        setTitle(`Saved${APP_NAME}`);
         fetch(`${URL}api/web/react-items?user_id=${user ? user.data.id : ""}&user_token=${user.data.user_token}&type=save`)
             .then((response) => response.json())
             .then((actualData) => { setSavedItems(actualData); setIsLoading(false); })

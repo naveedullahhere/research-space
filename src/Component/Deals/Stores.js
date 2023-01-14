@@ -10,7 +10,7 @@ export const Stores = () => {
 
     const params = useParams();
     const singleStore = params.singleStore;
-    const { URL, user, dispatch, style, setStyle } = useContext(AppContext);
+    const { URL, user, dispatch, style, setStyle, APP_NAME, setTitle } = useContext(AppContext);
 
 
     const [data, setData] = useState([]);
@@ -18,6 +18,7 @@ export const Stores = () => {
 
 
     useEffect(() => {
+        setTitle(`Store - ${singleStore.charAt(0).toUpperCase() + singleStore.slice(1)}${APP_NAME}`);
         fetch(`${URL}api/web/coupons?user_id=${user ? user.data.id : ""}&store_slug=${singleStore}`)
             .then((response) => response.json())
             .then((actualData) => { setData(actualData); setIsLoading(false); })

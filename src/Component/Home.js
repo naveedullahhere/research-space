@@ -10,7 +10,7 @@ import { AppstoreOutlined, BarsOutlined } from '@ant-design/icons';
 
 export const Home = () => {
 
-    const { URL, API_TOKEN, user, dispatch, style, setStyle } = useContext(AppContext);
+    const { URL, API_TOKEN, user, dispatch, style, setStyle, APP_NAME, setTitle } = useContext(AppContext);
 
 
     const [isLoading, setIsLoading] = useState(true);
@@ -28,6 +28,7 @@ export const Home = () => {
     var len = Math.ceil(data.length / 30);
 
     useEffect(() => {
+        setTitle(`Home${APP_NAME}`);
         fetch(`${URL}public/api/web/coupons?user_id=${user ? user.data.id : ""}&type=&category_ids=&store_id=&discount=&sort=0&min_price=&max_price=&type=deals&graph=featured&api_token=${API_TOKEN}`)
             .then((response) => response.json())
             .then((actualData) => { setData(actualData); setIsLoading(false); setImg(actualData.media_path); })

@@ -11,7 +11,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 
 export const MyAccount = () => {
-    const { URL, user, dispatch, addUserData } = useContext(AppContext);
+    const { URL, user, dispatch, addUserData, APP_NAME, setTitle } = useContext(AppContext);
 
     const [isActiveEdit, setActiveEdit] = useState("false");
     const [userName, setUserName] = useState(user.data.name);
@@ -20,6 +20,11 @@ export const MyAccount = () => {
     const [isActiveEditPass, setisActiveEditPass] = useState("false");
     const [isLoading, setIsLoading] = useState(false);
     const [isProfileLoading, setIsProfileLoading] = useState(false);
+
+
+    useEffect(() => {
+        setTitle(`My Account${APP_NAME}`);
+    }, [])
 
     const enableEditPass = () => {
         setisActiveEditPass(!isActiveEditPass);

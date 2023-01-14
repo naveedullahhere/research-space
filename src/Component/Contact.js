@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import email from "./assets/email0.png";
 import { motion } from 'framer-motion';
 import phone from "./assets/phone0.png";
@@ -12,7 +12,7 @@ export const Contact = () => {
 
     const [isLoading, setIsLoading] = useState(false);
 
-    const { APP_NAME, URL, API_TOKEN } = useContext(AppContext);
+    const { APP_NAME, URL, API_TOKEN, setTitle } = useContext(AppContext);
     // setTitle(`${APP_NAME}Contact`);
 
     const {
@@ -21,6 +21,10 @@ export const Contact = () => {
         reset,
         formState: { errors },
     } = useForm();
+    useEffect(() => {
+
+        setTitle(`Contact${APP_NAME}`);
+    }, [])
 
     const onSubmit = (data) => {
         setIsLoading(true)

@@ -20,10 +20,11 @@ export const SingleVideo = () => {
     useEffect(() => {
         fetch(`${URL}api/web/videos/${singleVideo}`)
             .then((response) => response.json())
-            .then((actualData) => { setData(actualData); setIsLoading(false); setImg(actualData.image_path); })
+            .then((actualData) => { setData(actualData); setIsLoading(false); setImg(actualData.image_path);setTitle(`${actualData.data.title ? actualData.data.title : "Blog"}${APP_NAME}`); })
             .catch((err) => {
                 setData([]);
                 setIsLoading(false);
+                setTitle(`${"Video"}${APP_NAME}`);
                 toast.error("something went wrong!");
             });
     }, []);

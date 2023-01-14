@@ -44,14 +44,14 @@ export const Sidebar = ({ pageid }) => {
                             </li>
                             <li>
                                 <Link to={'/like'} className={`${pageid === "like" && "active"}`}>
-                                    <i class='fa fa-file-invoice' ></i>
+                                    <i class='fa fa-thumbs-up' ></i>
                                     <span className="link_names">Like</span>
                                 </Link>
                                 <span className="tooltip">Like</span>
                             </li>
                             <li>
                                 <Link to={'/saved'} className={`${pageid === "saved" && "active"}`}>
-                                    <i class='fa fa-file-invoice'></i>
+                                    <i class='fa fa-save'></i>
                                     <span className="link_names">Saved</span>
                                 </Link>
                                 <span className="tooltip">Saved</span>

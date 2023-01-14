@@ -94,11 +94,12 @@ export const Footer = () => {
                 <div class="row">
                     <div class="col-12 text-center py-2">
                         <ul class="list-inline text-black fw-bold py-2 fs-6">
+
                             <li class="list-inline-item">
                                 <a href="#" class="text-black"> ABOUT US</a>
                             </li>
                             <li class="list-inline-item">
-                                <a href="#" class="text-black"> CONTACT US</a>
+                                <Link to="/contact" class="text-black"> CONTACT US</Link>
                             </li>
                             <li class="list-inline-item">
                                 <a href="#" class="text-black"> FAQ's</a>

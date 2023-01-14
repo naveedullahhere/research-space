@@ -15,17 +15,16 @@ export const BlogDetails = () => {
     const [isLoading, setIsLoading] = useState(true);
     const { APP_NAME, setTitle, URL, API_TOKEN } = useContext(AppContext);
 
-
-
     useEffect(() => {
         fetch(`${URL}api/web/single-blog/${singleBlog}`)
             .then((response) => response.json())
-            .then((actualData) => { setData(actualData.data); setIsLoading(false); setImg(actualData.image_path); })
+            .then((actualData) => { setData(actualData.data); setIsLoading(false); setImg(actualData.image_path); setTitle(`${actualData.data.title ? actualData.data.title : "Blog"}${APP_NAME}`); })
             .catch((err) => {
                 setData([]);
                 setIsLoading(false);
                 toast.error("something went wrong!");
-            });
+                setTitle(`${"Blog"}${APP_NAME}`);
+            })
     }, []);
 
 

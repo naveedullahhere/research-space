@@ -15,11 +15,11 @@ import { Segmented } from 'antd';
 
 
 export const Wishlist = () => {
-    const { URL, user, WishlistItems, setWishlistItems, API_TOKEN, dispatch, style, setStyle } = useContext(AppContext);
+    const { URL, user, WishlistItems, setWishlistItems, API_TOKEN, dispatch, style, setStyle, APP_NAME, setTitle } = useContext(AppContext);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-
+        setTitle(`Wishlist${APP_NAME}`);
         fetch(`${URL}api/web/react-items?user_id=${user ? user.data.id : ""}&user_token=${user.data.user_token}&type=wishlist`)
             .then((response) => response.json())
             .then((actualData) => { setWishlistItems(actualData); setIsLoading(false) })
@@ -44,7 +44,7 @@ export const Wishlist = () => {
 
                                                 <div>
                                                     <Segmented
-                                                        onChange={(e) => dispatch(setStyle(e))} 
+                                                        onChange={(e) => dispatch(setStyle(e))}
                                                         defaultValue={style}
                                                         options={[
                                                             {

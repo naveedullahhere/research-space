@@ -10,7 +10,7 @@ export const SingleCollection = () => {
 
     const params = useParams();
     const singleCollections = params.singleCollection;
-    const { URL, user, dispatch, setStyle, style } = useContext(AppContext);
+    const { URL, user, dispatch, setStyle, style, setTitle, APP_NAME } = useContext(AppContext);
 
 
     const [data, setData] = useState([]);
@@ -18,6 +18,7 @@ export const SingleCollection = () => {
 
 
     useEffect(() => {
+        setTitle(`Category - ${singleCollections.charAt(0).toUpperCase() + singleCollections.slice(1)}${APP_NAME}`);
         fetch(`${URL}api/web/coupons?user_id=${user ? user.data.id : ""}&category_slug=${singleCollections}`)
             .then((response) => response.json())
             .then((actualData) => { setData(actualData); setIsLoading(false); })

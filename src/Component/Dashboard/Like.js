@@ -14,11 +14,11 @@ import { AppstoreOutlined, BarsOutlined } from '@ant-design/icons';
 import { Segmented } from 'antd';
 
 export const Like = () => {
-    const { URL, user, LikedItems, setLikedItems, API_TOKEN, dispatch, style, setStyle } = useContext(AppContext);
+    const { URL, user, LikedItems, setLikedItems, APP_NAME, setTitle, dispatch, style, setStyle } = useContext(AppContext);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-
+        setTitle(`Liked${APP_NAME}`);
         fetch(`${URL}api/web/react-items?user_id=${user ? user.data.id : ""}&user_token=${user.data.user_token}&type=like`)
             .then((response) => response.json())
             .then((actualData) => { setLikedItems(actualData); setIsLoading(false) })

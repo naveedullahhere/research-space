@@ -21,8 +21,9 @@ import { HeartOutlined, HeartFilled, LikeFilled, LikeOutlined, BookFilled, BookO
 export const SingleCoupon = () => {
     const params = useParams();
     const { user, API_TOKEN, SITE_URL, setWishlistItems
-        , setLikedItems
-        , setSavedItems } = useContext(AppContext);
+        , setLikedItems, setTitle
+        , setSavedItems, APP_NAME
+    } = useContext(AppContext);
 
     const singleCoupon = params.singleCoupon;
     const [isLoading, setIsLoading] = useState(false);
@@ -40,14 +41,15 @@ export const SingleCoupon = () => {
 
         fetch(`${SITE_URL}api/web/single-coupon/${singleCoupon}`)
             .then((response) => response.json())
-            .then((actualData) => { setData(actualData[0]); setBaseImg(actualData[0].image_path); setMedia(actualData[0].media) })
+            .then((actualData) => { setData(actualData[0]); setBaseImg(actualData[0].image_path); setMedia(actualData[0].media); setTitle(`${actualData[0].coupon.title ? actualData[0].coupon.title : "Coupon"}${APP_NAME}`); })
             .catch((err) => {
                 setData([]);
+                setTitle(`Coupon${APP_NAME}`);
+                toast.error("Something went wrong!");
             });
     }, [])
 
     const [image, setImage] = useState(null);
-
 
     const onImageChange = (event) => {
         if (event.target.files && event.target.files[0]) {

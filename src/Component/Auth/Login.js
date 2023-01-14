@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { AppContext } from '../../context/AppContext';
 import toast from "react-hot-toast";
 import { motion } from 'framer-motion';
@@ -8,13 +8,15 @@ import { PromiseButton } from '../Buttons/PromiseButton';
 
 export const Login = () => {
 
-    const { URL, dispatch, addUserData, user, API_TOKEN, WishlistItems, setWishlistItems } = useContext(AppContext);
+    const { URL, dispatch, addUserData, setTitle, API_TOKEN, APP_NAME, setWishlistItems } = useContext(AppContext);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     // user && navigate("/my-account");
-
+    useEffect(() => {
+        setTitle(`Login${APP_NAME}`);
+    }, [])
     const {
         register,
         reset,
