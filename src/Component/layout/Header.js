@@ -304,7 +304,7 @@ export const Header = () => {
                     </div>
                 </div>
             </div >
-            <div class="top-links bg-5 nav-2 container-fluid">
+            <div class="top-links bg-main nav-2 container-fluid">
                 <div class="row">
                     <div class="col-12 d-flex justify-content-center ">
                         <div class="custom-dropdown-area cat-dropdown mx-4 text-uppercase">
