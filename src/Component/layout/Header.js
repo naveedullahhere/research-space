@@ -166,9 +166,7 @@ export const Header = () => {
                                         <form class="m-0 searchbar position-relative" action='/search/&'>
                                             <div class="search ps-2 d-flex justify-content-between mx-2 rounded-3 border border-white shadow overflow-hidden">
                                                 <div class="fields">
-
                                                     <input type="text" name="query_search" class="ps-3" onChange={(e) => setSearch(e.target.value)} placeholder="Search Coupons &amp; Deals" id="show-user" />
-
                                                 </div>
                                                 <button type="submit" class="search-btn main-header-search border-0 py-2 px-3">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#fff" class="bi bi-search" viewBox="0 0 16 16">
@@ -185,7 +183,15 @@ export const Header = () => {
 
                                     </li>
                                     <li>
-                                        <a href="#" onClick={toggleMobNav} class="comm-btn"  >Category
+                                        <a href="#" onClick={toggleMobNav} class="comm-btn"  >
+                                            <svg width="18" height="18" fill="black" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="m5.07 4.5.337.668L5.82 6H9v3.75H3V4.5h2.07ZM5.535 3H2.25a.75.75 0 0 0-.75.75v6.75a.75.75 0 0 0 .75.75h7.5a.75.75 0 0 0 .75-.75V5.25a.75.75 0 0 0-.75-.75h-3l-.54-1.087A.75.75 0 0 0 5.535 3Z"></path>
+                                                <path d="m17.07 4.5.337.668.413.832H21v3.75h-6V4.5h2.07Zm.465-1.5H14.25a.75.75 0 0 0-.75.75v6.75a.75.75 0 0 0 .75.75h7.5a.75.75 0 0 0 .75-.75V5.25a.75.75 0 0 0-.75-.75h-3l-.54-1.087A.75.75 0 0 0 17.535 3Z"></path>
+                                                <path d="m5.07 14.25.337.668.413.832H9v3.75H3v-5.25h2.07Zm.465-1.5H2.25a.75.75 0 0 0-.75.75v6.75a.75.75 0 0 0 .75.75h7.5a.75.75 0 0 0 .75-.75V15a.75.75 0 0 0-.75-.75h-3l-.54-1.088a.75.75 0 0 0-.675-.412Z"></path>
+                                                <path d="m17.07 14.25.337.668.413.832H21v3.75h-6v-5.25h2.07Zm.465-1.5H14.25a.75.75 0 0 0-.75.75v6.75a.75.75 0 0 0 .75.75h7.5a.75.75 0 0 0 .75-.75V15a.75.75 0 0 0-.75-.75h-3l-.54-1.088a.75.75 0 0 0-.675-.412Z"></path>
+                                            </svg>
+                                            &nbsp;
+                                            Category
                                             <span class={` ${ismobnav ? "fas fa-caret-down third" : "fas fa-caret-down third rotate"}`} aria-hidden="true"></span>
                                         </a>
                                         <ul class={` ${ismobnav ? "comm-show" : "comm-show show2"}`}>
@@ -207,7 +213,12 @@ export const Header = () => {
                                         </ul>
                                     </li>
                                     <li>
-                                        <a href="#" onClick={toggleMobNavStore} class="comm-btn"  >Store
+                                        <a href="#" onClick={toggleMobNavStore} class="comm-btn"  >
+
+                                            <svg width="18" height="18" fill="black" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="m22.5 8.011-1.5-4.5a.75.75 0 0 0-.75-.51H3.75a.75.75 0 0 0-.75.51l-1.5 4.5c-.01.08-.01.16 0 .24v4.5a.75.75 0 0 0 .75.75H3v7.5h1.5v-7.5H9v7.5h12v-7.5h.75a.75.75 0 0 0 .75-.75v-4.5a.877.877 0 0 0 0-.24Zm-3 11.49h-9v-6h9v6Zm1.5-7.5h-3v-3h-1.5v3h-3.75v-3h-1.5v3H7.5v-3H6v3H3v-3.63l1.29-3.87h15.42L21 8.371v3.63Z"></path>
+                                            </svg> &nbsp;
+                                            Store
                                             <span class={` ${ismobnavstore ? "fas fa-caret-down third" : "fas fa-caret-down third rotate"}`} aria-hidden="true"></span>
                                         </a>
                                         <ul class={` ${ismobnavstore ? "comm-show" : "comm-show show2"}`}>
@@ -229,19 +240,36 @@ export const Header = () => {
                                         </ul>
                                     </li>
                                     <li class=" linkz  ">
-                                        <Link to="coupons">Coupons</Link>
+                                        <Link to="coupons">  <svg width="18" height="18" fill="black" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M21.75 10.5a.75.75 0 0 0 .75-.75V6A1.5 1.5 0 0 0 21 4.5H3A1.5 1.5 0 0 0 1.5 6v3.75a.75.75 0 0 0 .75.75 1.5 1.5 0 1 1 0 3 .75.75 0 0 0-.75.75V18A1.5 1.5 0 0 0 3 19.5h18a1.5 1.5 0 0 0 1.5-1.5v-3.75a.75.75 0 0 0-.75-.75 1.5 1.5 0 1 1 0-3ZM21 14.902V18h-5.25v-2.25h-1.5V18H3v-3.098a3 3 0 0 0 0-5.804V6h11.25v2.25h1.5V6H21v3.098a3 3 0 0 0 0 5.804Z"></path>
+                                            <path d="M15.75 9.75h-1.5v4.5h1.5v-4.5Z"></path>
+                                        </svg>&nbsp;Coupons</Link>
                                     </li>
                                     <li class=" linkz">
-                                        <Link to="deals">Deals</Link>
+                                        <Link to="deals"> <img src="https://img.icons8.com/ios/50/null/handshake--v1.png" width={18} height={18} />&nbsp;
+                                            Deals</Link>
                                     </li>
                                     <li class=" linkz  ">
-                                        <Link to="/video">Video</Link>
+                                        <Link to="/video"> <svg width="18" height="18" fill="black" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M15.75 19.5H3A1.5 1.5 0 0 1 1.5 18V6A1.5 1.5 0 0 1 3 4.5h12.75a1.5 1.5 0 0 1 1.5 1.5v3.045l4.065-2.902a.75.75 0 0 1 1.185.607v10.5a.75.75 0 0 1-1.185.608l-4.065-2.903V18a1.5 1.5 0 0 1-1.5 1.5ZM3 6v12h12.75v-4.5a.75.75 0 0 1 1.185-.607L21 15.794v-7.59l-4.065 2.902a.75.75 0 0 1-1.185-.607V6H3Z"></path>
+                                        </svg>&nbsp;Video</Link>
                                     </li>
                                     <li class="linkz  ">
-                                        <Link to="/blog">Blog</Link>
+                                        <Link to="/blog">  <svg width="18" height="18" fill="black" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M10.5 18H3v1.5h7.5V18Z"></path>
+                                            <path d="M10.5 13.5H3V15h7.5v-1.5Z"></path>
+                                            <path d="M19.5 10.5h-15A1.5 1.5 0 0 1 3 9V4.5A1.5 1.5 0 0 1 4.5 3h15A1.5 1.5 0 0 1 21 4.5V9a1.5 1.5 0 0 1-1.5 1.5Zm-15-6V9h15V4.5h-15Z"></path>
+                                            <path d="M19.5 21H15a1.5 1.5 0 0 1-1.5-1.5V15a1.5 1.5 0 0 1 1.5-1.5h4.5A1.5 1.5 0 0 1 21 15v4.5a1.5 1.5 0 0 1-1.5 1.5ZM15 15v4.5h4.5V15H15Z"></path>
+                                        </svg> &nbsp;Blog</Link>
                                     </li>
                                     <li class="linkz  ">
-                                        <Link to="/contact">Contact</Link>
+                                        <Link to="/contact">  <svg width="22" height="22" fill="black" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M10 9a2 2 0 1 1 4 0 2 2 0 0 1-4 0Z"></path>
+                                            <path d="M11 12.5a3 3 0 0 0-3 3 1 1 0 0 0 1 1h6a1 1 0 0 0 1-1 3 3 0 0 0-3-3h-2Z"></path>
+                                            <path fill-rule="evenodd" d="M7.543 2.883a31.331 31.331 0 0 1 8.913 0 3.196 3.196 0 0 1 2.73 2.874l.126 1.396c.293 3.225.293 6.47 0 9.694l-.127 1.396a3.197 3.197 0 0 1-2.729 2.874 31.334 31.334 0 0 1-8.913 0 3.197 3.197 0 0 1-2.728-2.874l-.127-1.396a53.504 53.504 0 0 1 0-9.694l.127-1.396a3.197 3.197 0 0 1 2.728-2.874Zm8.7 1.484a29.832 29.832 0 0 0-8.486 0 1.697 1.697 0 0 0-1.448 1.526l-.127 1.396a52.003 52.003 0 0 0 0 9.422l.127 1.396c.07.783.67 1.414 1.448 1.526a29.86 29.86 0 0 0 8.486 0 1.696 1.696 0 0 0 1.448-1.526l.127-1.396a52.009 52.009 0 0 0 0-9.422l-.127-1.396a1.697 1.697 0 0 0-1.448-1.526Z" clip-rule="evenodd"></path>
+                                        </svg>
+
+                                            &nbsp;Contact</Link>
                                     </li>
 
 
@@ -264,7 +292,7 @@ export const Header = () => {
 
                                         <li class="px-3 py-3">
                                             <div class="side-nav-buttons d-flex">
-                                                <Link to="/login" class="log rounded-3 mx-1 px-4 text-center text-black">Login</Link>
+                                                <Link to="/login" class="log rounded-pill mx-1 px-4 text-center text-black">Login</Link>
                                                 <Link to="/register" class="sign bg-signature px-4 mx-1 text-center rounded-3">Signup</Link>
                                             </div>
                                         </li>
@@ -276,11 +304,18 @@ export const Header = () => {
                     </div>
                 </div>
             </div >
-            <div class="top-links bg-black nav-2 container-fluid">
+            <div class="top-links bg-5 nav-2 container-fluid">
                 <div class="row">
-                    <div class="col-12 d-flex justify-content-center bg-main">
+                    <div class="col-12 d-flex justify-content-center ">
                         <div class="custom-dropdown-area cat-dropdown mx-4 text-uppercase">
-                            <li class="list-unstyled  dropdown-toggle py-3" data-bs-toggle="dropdown"><Link to="#jgggg">CATEGORIES</Link></li>
+                            <li class="list-unstyled  dropdown-toggle py-3" data-bs-toggle="dropdown"><Link to="#jgggg">
+                                <svg width="18" height="18" fill="white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="m5.07 4.5.337.668L5.82 6H9v3.75H3V4.5h2.07ZM5.535 3H2.25a.75.75 0 0 0-.75.75v6.75a.75.75 0 0 0 .75.75h7.5a.75.75 0 0 0 .75-.75V5.25a.75.75 0 0 0-.75-.75h-3l-.54-1.087A.75.75 0 0 0 5.535 3Z"></path>
+                                    <path d="m17.07 4.5.337.668.413.832H21v3.75h-6V4.5h2.07Zm.465-1.5H14.25a.75.75 0 0 0-.75.75v6.75a.75.75 0 0 0 .75.75h7.5a.75.75 0 0 0 .75-.75V5.25a.75.75 0 0 0-.75-.75h-3l-.54-1.087A.75.75 0 0 0 17.535 3Z"></path>
+                                    <path d="m5.07 14.25.337.668.413.832H9v3.75H3v-5.25h2.07Zm.465-1.5H2.25a.75.75 0 0 0-.75.75v6.75a.75.75 0 0 0 .75.75h7.5a.75.75 0 0 0 .75-.75V15a.75.75 0 0 0-.75-.75h-3l-.54-1.088a.75.75 0 0 0-.675-.412Z"></path>
+                                    <path d="m17.07 14.25.337.668.413.832H21v3.75h-6v-5.25h2.07Zm.465-1.5H14.25a.75.75 0 0 0-.75.75v6.75a.75.75 0 0 0 .75.75h7.5a.75.75 0 0 0 .75-.75V15a.75.75 0 0 0-.75-.75h-3l-.54-1.088a.75.75 0 0 0-.675-.412Z"></path>
+                                </svg>
+                                &nbsp; CATEGORIES</Link></li>
 
                             <ul class="custom-Dropdown dd" id="style-1" style={{ display: 'block' }}>
 
@@ -305,7 +340,11 @@ export const Header = () => {
 
 
                         <div class="custom-dropdown-area cat-dropdown mx-4 text-uppercase">
-                            <li class="list-unstyled  dropdown-toggle py-3" data-bs-toggle="dropdown"><Link to="#jgggg">Stores</Link></li>
+                            <li class="list-unstyled  dropdown-toggle py-3" data-bs-toggle="dropdown"><Link to="#jgggg">
+                                <svg width="18" height="18" fill="white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="m22.5 8.011-1.5-4.5a.75.75 0 0 0-.75-.51H3.75a.75.75 0 0 0-.75.51l-1.5 4.5c-.01.08-.01.16 0 .24v4.5a.75.75 0 0 0 .75.75H3v7.5h1.5v-7.5H9v7.5h12v-7.5h.75a.75.75 0 0 0 .75-.75v-4.5a.877.877 0 0 0 0-.24Zm-3 11.49h-9v-6h9v6Zm1.5-7.5h-3v-3h-1.5v3h-3.75v-3h-1.5v3H7.5v-3H6v3H3v-3.63l1.29-3.87h15.42L21 8.371v3.63Z"></path>
+                                </svg> &nbsp;
+                                Stores</Link></li>
 
                             <ul class="custom-Dropdown dd" id="style-1" style={{ display: 'block' }}>
 
@@ -330,19 +369,45 @@ export const Header = () => {
 
                         <Link to="coupons" class="mx-4 text-uppercase py-3
                          list-unstyled li-links py-2
-                        ">Coupons</Link>
+                        ">
+                            <svg width="18" height="18" fill="white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M21.75 10.5a.75.75 0 0 0 .75-.75V6A1.5 1.5 0 0 0 21 4.5H3A1.5 1.5 0 0 0 1.5 6v3.75a.75.75 0 0 0 .75.75 1.5 1.5 0 1 1 0 3 .75.75 0 0 0-.75.75V18A1.5 1.5 0 0 0 3 19.5h18a1.5 1.5 0 0 0 1.5-1.5v-3.75a.75.75 0 0 0-.75-.75 1.5 1.5 0 1 1 0-3ZM21 14.902V18h-5.25v-2.25h-1.5V18H3v-3.098a3 3 0 0 0 0-5.804V6h11.25v2.25h1.5V6H21v3.098a3 3 0 0 0 0 5.804Z"></path>
+                                <path d="M15.75 9.75h-1.5v4.5h1.5v-4.5Z"></path>
+                            </svg>&nbsp;
+                            Coupons</Link>
                         <Link to="deals" class="mx-4 text-uppercase py-3
                          list-unstyled li-links py-2
-                        ">Deals</Link>
+                        ">
+                            <img src="https://img.icons8.com/ios/50/null/handshake--v1.png" width={18} height={18} style={{ filter: "invert(1)" }} />&nbsp;
+                            Deals</Link>
                         <Link to="video" class="mx-4 text-uppercase py-3
                            list-unstyled li-links py-2
-                           ">Video Show</Link>
+                           ">
+                            <svg width="18" height="18" fill="white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M15.75 19.5H3A1.5 1.5 0 0 1 1.5 18V6A1.5 1.5 0 0 1 3 4.5h12.75a1.5 1.5 0 0 1 1.5 1.5v3.045l4.065-2.902a.75.75 0 0 1 1.185.607v10.5a.75.75 0 0 1-1.185.608l-4.065-2.903V18a1.5 1.5 0 0 1-1.5 1.5ZM3 6v12h12.75v-4.5a.75.75 0 0 1 1.185-.607L21 15.794v-7.59l-4.065 2.902a.75.75 0 0 1-1.185-.607V6H3Z"></path>
+                            </svg>&nbsp;
+                            Video Show</Link>
                         <Link to="blog" class="mx-4 text-uppercase py-3
                         list-unstyled li-links py-2
-                          ">blog</Link>
+                          ">
+                            <svg width="18" height="18" fill="white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10.5 18H3v1.5h7.5V18Z"></path>
+                                <path d="M10.5 13.5H3V15h7.5v-1.5Z"></path>
+                                <path d="M19.5 10.5h-15A1.5 1.5 0 0 1 3 9V4.5A1.5 1.5 0 0 1 4.5 3h15A1.5 1.5 0 0 1 21 4.5V9a1.5 1.5 0 0 1-1.5 1.5Zm-15-6V9h15V4.5h-15Z"></path>
+                                <path d="M19.5 21H15a1.5 1.5 0 0 1-1.5-1.5V15a1.5 1.5 0 0 1 1.5-1.5h4.5A1.5 1.5 0 0 1 21 15v4.5a1.5 1.5 0 0 1-1.5 1.5ZM15 15v4.5h4.5V15H15Z"></path>
+                            </svg> &nbsp;
+                            blog</Link>
                         <Link to="contact" class="mx-4 text-uppercase py-3
                         list-unstyled li-links py-2
-                          ">contact</Link>
+                          ">
+                            <svg width="22" height="22" fill="white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10 9a2 2 0 1 1 4 0 2 2 0 0 1-4 0Z"></path>
+                                <path d="M11 12.5a3 3 0 0 0-3 3 1 1 0 0 0 1 1h6a1 1 0 0 0 1-1 3 3 0 0 0-3-3h-2Z"></path>
+                                <path fill-rule="evenodd" d="M7.543 2.883a31.331 31.331 0 0 1 8.913 0 3.196 3.196 0 0 1 2.73 2.874l.126 1.396c.293 3.225.293 6.47 0 9.694l-.127 1.396a3.197 3.197 0 0 1-2.729 2.874 31.334 31.334 0 0 1-8.913 0 3.197 3.197 0 0 1-2.728-2.874l-.127-1.396a53.504 53.504 0 0 1 0-9.694l.127-1.396a3.197 3.197 0 0 1 2.728-2.874Zm8.7 1.484a29.832 29.832 0 0 0-8.486 0 1.697 1.697 0 0 0-1.448 1.526l-.127 1.396a52.003 52.003 0 0 0 0 9.422l.127 1.396c.07.783.67 1.414 1.448 1.526a29.86 29.86 0 0 0 8.486 0 1.696 1.696 0 0 0 1.448-1.526l.127-1.396a52.009 52.009 0 0 0 0-9.422l-.127-1.396a1.697 1.697 0 0 0-1.448-1.526Z" clip-rule="evenodd"></path>
+                            </svg>
+
+                            &nbsp;
+                            contact</Link>
                     </div>
                 </div>
             </div>

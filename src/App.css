@@ -6347,7 +6347,7 @@ button#dropdownMenuButton1::after {
   color: white;
   transition: color 0.2s;
 }
- 
+
 .footer1 .about-company i {
   font-size: 25px;
 }
@@ -6356,7 +6356,7 @@ button#dropdownMenuButton1::after {
   color: white;
   transition: color 0.2s;
 }
- 
+
 .footer1 .location i {
   font-size: 18px;
 }
@@ -6368,3 +6368,19 @@ button#dropdownMenuButton1::after {
 
 
 
+
+.top-links a {
+  font-size: 14px;
+}
+
+.top-links a:hover {
+  color: #eee !important;
+}
+
+.top-links .custom-Dropdown a:hover {
+  color: var(--primary) !important;
+}
+
+.top-links svg {
+  vertical-align: sub;
+}
