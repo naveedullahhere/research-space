@@ -1,10 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
-import email from "./assets/email0.png";
 import { motion } from 'framer-motion';
-import phone from "./assets/phone0.png";
 import { useForm } from 'react-hook-form';
 import toast from "react-hot-toast";
-import address from "./assets/location0.png";
 import { AppContext } from '../context/AppContext';
 import { PromiseButton } from './Buttons/PromiseButton';
 

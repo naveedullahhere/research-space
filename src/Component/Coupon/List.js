@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { HeartOutlined, HeartFilled, LikeFilled, LikeOutlined, BookFilled, BookOutlined } from '@ant-design/icons';
 import { AppContext } from '../../context/AppContext';
 import { toast } from 'react-hot-toast';
+import getCode from '../assets/coupon/getcode.png'
 
 
 export const List = ({ title, style, discount, rprice, cprice, image, singleurl, item, hasCustom }) => {
@@ -124,7 +125,7 @@ export const List = ({ title, style, discount, rprice, cprice, image, singleurl,
                                         <div className="d-flex cpnDcImg col-md-12 justify-content-lg-end justify-content-md-center justify-content-end" style={{ marginBottom: '102px' }}>
                                             <div className="getCode w-75 position-relative">
                                                 <a href={item.coupon.affiliate_url} target="_blank" className="getCodeCouponTopLayer" data-coupon-code="Hello">
-                                                    <img src="https://discounts-space.com/frontend/img/getcode.png" alt="getCoupon" className="w-100 position-relative h-100" style={{ zIndex: 8 }} />
+                                                    <img src={getCode} alt="getCoupon" className="w-100 position-relative h-100" style={{ zIndex: 8 }} />
 
                                                 </a>
                                             </div>
@@ -349,7 +350,7 @@ export const List = ({ title, style, discount, rprice, cprice, image, singleurl,
 
                                     <div className="getCode position-relative w-75 mx-auto">
                                         <a href={item.coupon.affiliate_url} target="_blank" className="getCodeCouponTopLayer" data-coupon-code="Hello">
-                                            <img src="https://discounts-space.com/frontend/img/getcode.png" alt="getCoupon" className="w-100 position-relative h-100" style={{ zIndex: 8 }} />
+                                            <img src={getCode} alt="getCoupon" className="w-100 position-relative h-100" style={{ zIndex: 8 }} />
 
                                         </a>
                                     </div>

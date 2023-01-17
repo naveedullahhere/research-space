@@ -547,30 +547,7 @@ h2 {
   min-height: 100%;
 }
 
-.about {
-  background-image: url(./Component/assets/about-banner.jpg);
-}
-
-.graphic-design {
-  background-image: url(./Component/assets/graphic-banner.jpg);
-}
-
-.web-development {
-  background-image: url(./Component/assets/web-development.jpg);
-}
-
-.seo {
-  background-image: url(./Component/assets/seo-banner.jpg);
-}
-
-.digital-marketing {
-  background-image: url(./Component/assets/digital-marketing.jpg);
-}
-
-.content-writing {
-  background-image: url(./Component/assets/content-writing.jpg);
-}
-
+ 
 .basic-cards .crd-image img {
   border-radius: 12px;
   overflow: hidden;
@@ -2080,22 +2057,7 @@ div.section.layout_padding.mobile-padding-top_0 {
 .text-align_left {
   text-align: left;
 }
-
-.process_step h4 {
-  background-image: url(./Component/assets/step_no.png);
-  background-repeat: no-repeat;
-  width: 178px;
-  height: 165px;
-  background-size: auto 100%;
-  color: #fff;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 65px;
-  font-weight: 500;
-}
-
+ 
 .process_step h3 {
   font-size: 45px;
   font-weight: 300;
@@ -2241,9 +2203,7 @@ img {
   background-color: #000000;
 }
 
-.services {
-  background: url(./Component/assets/bg-services.png) no-repeat top/cover;
-}
+ 
 
 .servicez {
   margin-bottom: 30px;
