@@ -64,7 +64,7 @@ function App() {
         body: JSON.stringify({ user_token: user.data.user_token })
       })
         .then((response) => response.json())
-        .then((actualData) => { setHeartedTags(JSON.parse(actualData[0].keywords)); heartedTags.length === 0 && setShowPopup(true); })
+        .then((actualData) => { setHeartedTags(JSON.parse(actualData[0].keywords)); JSON.parse(actualData[0].keywords).length === 0 ? setShowPopup(true) : setShowPopup(false); })
     }
     fetch(`${URL}api/web/keywords`)
       .then((response) => response.json())
