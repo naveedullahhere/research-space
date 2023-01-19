@@ -426,9 +426,7 @@ export const Header = () => {
                     </div>
                 </div>
             </div>
-            {user && heartedTags.length != 0 ?
-                <TagsHeader /> :""
-            }
+          
         </>
     )
 }

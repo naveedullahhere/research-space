@@ -19,7 +19,7 @@ export const TagsList = ({ title, style, discount, rprice, cprice, image, single
                             <div className="col-8">
                                 <div className="d-flex flex-column justify-content-evenly h-100">
                                     <Link className="text-black" to={`/single-coupon/${singleurl}`}>
-                                        <h4 className="heading fs-4 mb-0">
+                                        <h4 className="heading fs-4 mb-0 tagsList">
                                             {title}
                                         </h4>
                                     </Link>

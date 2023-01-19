@@ -5,24 +5,21 @@ import { AppContext } from '../../context/AppContext';
 import { Sidebar } from './Sidebar';
 import { AutoComplete } from 'antd';
 import { Select } from 'antd';
+import { PromiseButton } from '../Buttons/PromiseButton';
 
 
 export const Goals = () => {
-    const { URL, user, setHeartedTags, setLikedItems, APP_NAME, setTitle, keywords, heartedTags, style, setStyle } = useContext(AppContext);
-    const [isLoading, setIsLoading] = useState(true);
+    const { URL, user, setHeartedTags, setLikedItems, APP_NAME, setTitle, keywords, setKeywords, heartedTags, style, setStyle } = useContext(AppContext);
+    const [isLoading, setIsLoading] = useState(false);
     const [values, setValues] = useState([]);
 
+
     useEffect(() => {
-        setTitle(`Liked${APP_NAME}`);
-        fetch(`${URL}api/web/react-items?user_id=${user ? user.data.id : ""}&user_token=${user.data.user_token}&type=like`)
-            .then((response) => response.json())
-            .then((actualData) => { setLikedItems(actualData); setIsLoading(false) })
-        setIsLoading(false)
-
-    }, []);
-
+        setTitle(`Goals${APP_NAME}`);
+    }, [])
 
     const handleSubmit = () => {
+        setIsLoading(true);
         var data = { user_id: user.data.user_token, values: values };
         console.log(data);
         fetch(`${URL}api/web/goals`, {
@@ -32,7 +29,7 @@ export const Goals = () => {
             },
             body: JSON.stringify(data)
         }).then(res => res.json()).then(json => {
-            console.log(json);
+            setIsLoading(false);
             if (json.success) {
                 toast.success(json.message);
                 fetch(`${URL}api/web/getgoals`, {
@@ -46,6 +43,7 @@ export const Goals = () => {
                     .then((actualData) => { setHeartedTags(JSON.parse(actualData[0].keywords)); })
             }
         }).catch(err => {
+            setIsLoading(false);
             toast.error("Something went wrong!");
             console.log(err);
         })
@@ -68,7 +66,8 @@ export const Goals = () => {
                                     <div class="row shadow-sm">
                                         <div class="col-md-12 py-3">
                                             <div className="d-flex justify-content-between">
-                                                <h1 class="text-uppercase text-black m-0">Like</h1>
+
+                                                <h1 class="text-uppercase text-black m-0">Goals</h1>
 
                                                 <div>
                                                     {/* <Segmented
@@ -112,7 +111,7 @@ export const Goals = () => {
                                                         ?
 
                                                         <Select
-                                                            mode="multiple"
+                                                            mode="tags"
                                                             allowClear
                                                             style={{ width: '100%' }}
                                                             placeholder="Please select"
@@ -126,7 +125,7 @@ export const Goals = () => {
 
 
                                                         <Select
-                                                            mode="multiple"
+                                                            mode="tags"
                                                             allowClear
                                                             style={{ width: '100%' }}
                                                             placeholder="Please select"
@@ -141,8 +140,13 @@ export const Goals = () => {
 
 
                                                     <div class="btn-group">
-                                                        <button type="submit" class="btn submit" onClick={handleSubmit}>Submit</button>
-                                                        <button class="btn cancel">Reset</button>
+
+                                                        <button type="submit" class="p-0 btn submit" disabled={isLoading} onClick={handleSubmit}>
+
+                                                            <PromiseButton loading={isLoading} title="Set Goal" typ={"text-white"}
+                                                            />
+
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>

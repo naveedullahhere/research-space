@@ -1,6 +1,6 @@
 
 import './App.css';
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Link } from "react-router-dom";
 import { Header } from './Component/layout/Header';
 import { Footer } from './Component/layout/Footer';
 import { MainRoutes } from './MainRoutes';
@@ -41,6 +41,7 @@ function App() {
   const [search, setSearch] = useState("");
   const [noteValue, setNoteValue] = useState("");
   const [img, setImg] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
 
   // var APP_NAME = APP_NAME;
 
@@ -63,7 +64,7 @@ function App() {
         body: JSON.stringify({ user_token: user.data.user_token })
       })
         .then((response) => response.json())
-        .then((actualData) => { setHeartedTags(JSON.parse(actualData[0].keywords)); })
+        .then((actualData) => { setHeartedTags(JSON.parse(actualData[0].keywords)); heartedTags.length === 0 && setShowPopup(true); })
     }
     fetch(`${URL}api/web/keywords`)
       .then((response) => response.json())
@@ -108,6 +109,20 @@ function App() {
   return (
     <AppContext.Provider value={values}>
       <BrowserRouter>
+        {
+          showPopup &&
+          <>
+            <div className="popup-overlay"></div>
+            <div class="popup">
+              <button id="close" onClick={() => setShowPopup(false)}>&times;</button>
+              <h2 className='mb-0'>Can't Use Our New Free Goals Feature?</h2>
+              <p>
+                Hurry!!! Go And Add Some Goals TO Improve Your Experience with Discount Space!
+              </p>
+              <Link to="/goals" className='btn bg-signature text-white' onClick={() => setShowPopup(false)}>Let's Goooo</Link>
+            </div>
+          </>
+        }
         <Header />
         <MainRoutes />
         <Footer1 />

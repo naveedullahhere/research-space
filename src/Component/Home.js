@@ -8,11 +8,15 @@ import { List } from './Coupon/List';
 import { Deal } from './Deals/Deal';
 import { Spinner } from './Spinner';
 import { AppstoreOutlined, BarsOutlined } from '@ant-design/icons';
+import { TagsHeader } from './layout/TagsHeader';
+
+
 
 export const Home = () => {
 
-    const { URL, API_TOKEN, user, dispatch, style, setStyle, APP_NAME, setTitle } = useContext(AppContext);
+    const { URL, API_TOKEN, user, dispatch, style, setStyle, APP_NAME, setTitle, heartedTags } = useContext(AppContext);
 
+ 
 
     const [isLoading, setIsLoading] = useState(true);
     const [isStoreLoading, setIsStoreLoading] = useState(true);
@@ -90,6 +94,9 @@ export const Home = () => {
 
     return (
         <motion.div initial={{ transition: { duration: 1 }, opacity: 0 }} animate={{ transition: { duration: 1 }, opacity: 1 }} exit={{ transition: { duration: 1 }, opacity: 0 }}>
+            {user && heartedTags.length != 0 ?
+                <TagsHeader /> : ""
+            }
             {slider.data ?
 
                 <div className="section sec-1" ref={page}>
@@ -117,6 +124,7 @@ export const Home = () => {
                 </div>
 
                 : ""}
+
             <div className="sect py-md-5 py-3">
                 <div className="container">
                     <div className="row">

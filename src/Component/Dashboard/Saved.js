@@ -40,7 +40,7 @@ export const Saved = () => {
                                     <div class="row shadow-sm">
                                         <div class="col-md-12 py-3">
                                             <div className="d-flex justify-content-between">
-                                                <h1 class="text-uppercase text-black m-0">Saved</h1>
+                                                <h1 class="text-uppercase text-black m-0">My Cart</h1>
 
 
                                                 <div>
