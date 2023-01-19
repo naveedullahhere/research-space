@@ -21,7 +21,7 @@ export const Grid = ({ title, style, discount, rprice, cprice, image, singleurl 
                 </a>
                 <p className="para text-muted d-flex align-items-center mb-0">
                   <strike className="text-black">${rprice} </strike>
-                  <span className="tag mb-0 text-white rounded-3 mx-2">
+                  <span className="tag mb-0 text-white rounded-pill mx-2">
 
                     -{discount}%
 
@@ -64,7 +64,7 @@ export const Grid = ({ title, style, discount, rprice, cprice, image, singleurl 
                     Save
                   </p>
 
-                  <Tooltip title="save">
+                  <Tooltip title="Add to Cart">
 
 
                     <div className="wishlist like-container d-fle align-items-center btn bg-white">

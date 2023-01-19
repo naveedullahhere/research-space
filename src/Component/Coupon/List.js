@@ -1,10 +1,13 @@
 import { Button, Tooltip } from 'antd'
 import React, { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { HeartOutlined, HeartFilled, LikeFilled, LikeOutlined, BookFilled, BookOutlined } from '@ant-design/icons';
+import { HeartOutlined, HeartFilled, LikeFilled, LikeOutlined, ShoppingCartOutlined } from '@ant-design/icons';
+import { createFromIconfontCN } from '@ant-design/icons';
 import { AppContext } from '../../context/AppContext';
 import { toast } from 'react-hot-toast';
-import getCode from '../assets/coupon/getcode.png'
+
+import getCode from './../assets/coupon/getcode.png';
+import getDeal from './../assets/coupon/getcoupon.png';
 
 
 export const List = ({ title, style, discount, rprice, cprice, image, singleurl, item, hasCustom }) => {
@@ -17,7 +20,6 @@ export const List = ({ title, style, discount, rprice, cprice, image, singleurl,
             toast.error("Please Login!");
             return navigate('/login');
         }
-        console.log(isLoading[data], data);
         var typp = data;
         setIsLoading({ ...isLoading, [typp]: true });
         postData(`${URL}api/web/reaction-post`, { type: data, user_token: user && user.data.user_token, reference_type: "coupon", comment: "", reference_id: item.coupon.id })
@@ -25,11 +27,11 @@ export const List = ({ title, style, discount, rprice, cprice, image, singleurl,
                 if (data.success != false) {
 
                     item[typp] = true;
-                    toast.success(`${typp} successfully!`);
+                    toast.success(`Item ${typp === 'save' ? "Add to Cart" : typp} Successfully!`);
 
                 } else {
                     item[typp] = false;
-                    toast.success(`Remove ${typp} successfully!`);
+                    toast.success(`Item Removed from ${typp === 'save' ? "Cart" : typp} Successfully!`);
                 }
                 fetch(`${URL}api/web/react-items?user_id=${user ? user.data.id : ""}&user_token=${user.data.user_token}&type=${typp}`)
                     .then((response) => response.json())
@@ -66,6 +68,13 @@ export const List = ({ title, style, discount, rprice, cprice, image, singleurl,
 
     // console.log(item);
 
+    const IconFont = createFromIconfontCN({
+        scriptUrl: [
+            '//at.alicdn.com/t/font_1788044_0dwu4guekcwr.js', // icon-javascript, icon-java, icon-shoppingcart (overrided)
+            '//at.alicdn.com/t/font_1788592_a5xf2bdic3u.js', // icon-shoppingcart, icon-python <Space>
+        ],
+    });
+
     if (style === "List")
         return (
             <>
@@ -91,14 +100,14 @@ export const List = ({ title, style, discount, rprice, cprice, image, singleurl,
                                             </h4>
                                         </Link>
                                         <p className="para text-muted d-flex align-items-center">
-                                            <strike className="text-black">${rprice} </strike>
-                                            <span className="tag mb-0 text-white rounded-3 mx-2">
+                                            <strike className="text-black">${cprice} </strike>
+                                            <span className="tag mb-0 text-white rounded-pill mx-2">
 
                                                 -{discount}%
 
                                             </span>
                                             <span className="priz fs-5">
-                                                ${cprice}
+                                                ${rprice}
 
 
                                             </span>
@@ -125,8 +134,7 @@ export const List = ({ title, style, discount, rprice, cprice, image, singleurl,
                                         <div className="d-flex cpnDcImg col-md-12 justify-content-lg-end justify-content-md-center justify-content-end" style={{ marginBottom: '102px' }}>
                                             <div className="getCode w-75 position-relative">
                                                 <a href={item.coupon.affiliate_url} target="_blank" className="getCodeCouponTopLayer" data-coupon-code="Hello">
-                                                    <img src={getCode} alt="getCoupon" className="w-100 position-relative h-100" style={{ zIndex: 8 }} />
-
+                                                    <img src={item.coupon.coupon_type === 'deals' ? getDeal : getCode} alt="getCoupon" className="w-100 position-relative h-100" style={{ zIndex: 8 }} />
                                                 </a>
                                             </div>
                                         </div>
@@ -189,7 +197,7 @@ export const List = ({ title, style, discount, rprice, cprice, image, singleurl,
                                                 Like
                                             </p>
 
-                                            <Tooltip title="save">
+                                            <Tooltip title="Add to Cart">
                                                 <div className="btn p-0">
 
                                                     {isLoading.save ? <div className="spinner d-flex justify-content-center align-items-center">
@@ -198,11 +206,11 @@ export const List = ({ title, style, discount, rprice, cprice, image, singleurl,
                                                         </div>
                                                     </div> : item.save ?
 
-                                                        <BookFilled />
+                                                        <IconFont type="icon-shoppingcart" />
 
                                                         :
 
-                                                        <BookOutlined />
+                                                        <ShoppingCartOutlined />
 
                                                     }
                                                 </div>
@@ -213,10 +221,10 @@ export const List = ({ title, style, discount, rprice, cprice, image, singleurl,
                                         <div className="widgets flex-md-column flex-row">
                                             <div style={{ gap: '8px' }} className="d-flex align-items-center justify-content-end card-icon-pack" onClick={() => handleItem("save")}>
                                                 <p className="mb-0 fs-12 d-md-block d-none">
-                                                    Save
+                                                    Cart
                                                 </p>
 
-                                                <Tooltip title="save">
+                                                <Tooltip title="Add to Cart">
 
 
                                                     <div className="btn p-0">
@@ -227,11 +235,11 @@ export const List = ({ title, style, discount, rprice, cprice, image, singleurl,
                                                             </div>
                                                         </div> : item.save ?
 
-                                                            <BookFilled />
+                                                            <IconFont type="icon-shoppingcart" />
 
                                                             :
 
-                                                            <BookOutlined />
+                                                            <ShoppingCartOutlined />
                                                         }
                                                     </div>
                                                 </Tooltip>
@@ -299,7 +307,7 @@ export const List = ({ title, style, discount, rprice, cprice, image, singleurl,
         )
     else {
         return (
-            <div className="col-md-4 col-sm-6 p-0 grid px-2 my-2 mainview">
+            <div className={`col-md-4 col-sm-6 p-0 grid px-2 my-2 mainview`}>
                 <div className="main-list-card shadow bg-white h-100">
                     <div className="my-sm-2 my-1 px-3 pt-md-3 px-md-3 pt-2">
                         <div className="align-items-center">
@@ -310,20 +318,20 @@ export const List = ({ title, style, discount, rprice, cprice, image, singleurl,
                             </div>
                             <div className="">
                                 <div className="card-txt h-100 d-flex justify-content-between flex-column gap-3">
-                                    <a className="text-black" href={`/single-coupon/${singleurl}`}>
+                                    <Link className="text-black" to={`/single-coupon/${singleurl}`}>
                                         <h4 className="heading fs-4 mb-0">
                                             {title}
                                         </h4>
-                                    </a>
+                                    </Link>
                                     <p className="para text-muted d-flex align-items-center mb-0">
-                                        <strike className="text-black">${rprice} </strike>
-                                        <span className="tag mb-0 text-white rounded-3 mx-2">
+                                        <strike className="text-black">${cprice} </strike>
+                                        <span className="tag mb-0 text-white rounded-pill mx-2">
 
                                             -{discount}%
 
                                         </span>
                                         <span className="priz fs-5">
-                                            ${cprice}
+                                            ${rprice}
 
 
                                         </span>
@@ -350,7 +358,7 @@ export const List = ({ title, style, discount, rprice, cprice, image, singleurl,
 
                                     <div className="getCode position-relative w-75 mx-auto">
                                         <a href={item.coupon.affiliate_url} target="_blank" className="getCodeCouponTopLayer" data-coupon-code="Hello">
-                                            <img src={getCode} alt="getCoupon" className="w-100 position-relative h-100" style={{ zIndex: 8 }} />
+                                            <img src={item.coupon.coupon_type === 'deals' ? getDeal : getCode} alt="getCoupon" className="w-100 position-relative h-100" style={{ zIndex: 8 }} />
 
                                         </a>
                                     </div>
@@ -409,10 +417,10 @@ export const List = ({ title, style, discount, rprice, cprice, image, singleurl,
                                     {hasCustom && hasCustom === 'save' &&
                                         <div style={{ gap: '8px' }} className="d-flex align-items-center justify-content-end card-icon-pack" onClick={() => handleItem("save")}>
                                             <p className="mb-0 fs-12 d-md-block d-none">
-                                                Save
+                                                Cart
                                             </p>
 
-                                            <Tooltip title="save">
+                                            <Tooltip title="Add to Cart">
                                                 <div className="btn p-0">
 
                                                     {isLoading.save ? <div className="spinner d-flex justify-content-center align-items-center">
@@ -421,11 +429,11 @@ export const List = ({ title, style, discount, rprice, cprice, image, singleurl,
                                                         </div>
                                                     </div> : item.save ?
 
-                                                        <BookFilled />
+                                                        <IconFont type="icon-shoppingcart" />
 
                                                         :
 
-                                                        <BookOutlined />
+                                                        <ShoppingCartOutlined />
 
                                                     }
                                                 </div>
@@ -437,10 +445,10 @@ export const List = ({ title, style, discount, rprice, cprice, image, singleurl,
                                         <div className="widgets top-50 start-50 translate-middle flex-md-column flex-row">
                                             <div style={{ gap: '8px' }} className="d-flex align-items-center justify-content-end card-icon-pack" onClick={() => handleItem("save")}>
                                                 <p className="mb-0 fs-12 d-md-block d-none">
-                                                    Save
+                                                    Cart
                                                 </p>
 
-                                                <Tooltip title="save">
+                                                <Tooltip title="Add to Cart">
 
 
                                                     <div className="btn p-0">
@@ -450,11 +458,11 @@ export const List = ({ title, style, discount, rprice, cprice, image, singleurl,
                                                             </div>
                                                         </div> : item.save ?
 
-                                                            <BookFilled />
+                                                            <IconFont type="icon-shoppingcart" />
 
                                                             :
 
-                                                            <BookOutlined />
+                                                            <ShoppingCartOutlined />
                                                         }
                                                     </div>
                                                 </Tooltip>

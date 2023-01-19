@@ -39,7 +39,7 @@ export const Footer = () => {
                 toast.error("Something Went Wrong!");
                 setIsLoading(false);
             })
-    }; 
+    };
     return (
         <footer>
             <div class="container my-3">

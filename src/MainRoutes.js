@@ -24,6 +24,7 @@ import { SingleCollection } from './Component/Deals/SingleCollection';
 import { Stores } from './Component/Deals/Stores';
 import { Saved } from './Component/Dashboard/Saved';
 import { SingleVideo } from './Component/Video/SingleVideo';
+import { Goals } from './Component/Dashboard/Goals';
 
 
 export const MainRoutes = () => {
@@ -60,6 +61,7 @@ export const MainRoutes = () => {
                         <Route path="/my-account" element={<MyAccount />} exact />
                         <Route path="/wishlist" element={<Wishlist />} exact />
                         <Route path="/like" element={<Like />} exact />
+                        <Route path="/goals" element={<Goals />} exact />
                         {/*  <Route path="/projects" element={user && user.data.user_type === "user" && user.data.is_varified ? <Projects /> : <NotFound />} />
                         <Route path="/projects/:singleProject" element={user && user.data.user_type === "user" && user.data.is_varified ? <SingleProject /> : <NotFound />} />
                         <Route path="/invoices" element={user && user.data.user_type === "user" && user.data.is_varified ? < Invoices /> : <NotFound />} />

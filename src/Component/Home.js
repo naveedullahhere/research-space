@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import { toast } from 'react-hot-toast';
 import { AppContext } from '../context/AppContext';
 import slider0 from "./assets/DiscountSp/slider.png";
+import { motion } from 'framer-motion';
 import { List } from './Coupon/List';
 import { Deal } from './Deals/Deal';
 import { Spinner } from './Spinner';
@@ -20,8 +21,9 @@ export const Home = () => {
     const [isErr, setIsError] = useState(false);
     const [currTab, setCurrTab] = useState(1);
     const [vll, setvll] = useState(1);
-    const [data, setData] = useState([]);
+    const [slider, setSlider] = useState([]);
     const [dataDeal, setDealData] = useState([]);
+    const [data, setData] = useState([]);
     const [img, setImg] = useState(null);
     const [imgDeal, setDealImg] = useState(null);
 
@@ -36,6 +38,14 @@ export const Home = () => {
                 setData([]);
                 setIsError(true);
                 setIsLoading(false);
+                toast.error("something went wrong!");
+            }
+            );
+        fetch(`${URL}public/api/web/slider`)
+            .then((response) => response.json())
+            .then((actualData) => { setSlider(actualData); })
+            .catch((err) => {
+                setSlider([]);
                 toast.error("something went wrong!");
             }
             );
@@ -77,29 +87,36 @@ export const Home = () => {
         }, 1000);
         setIsLoading(true);
     }
-    return (
-        <>
-            <div className="section sec-1" ref={page}>
 
-                <div className="slider">
-                    <div id="carouselExample" className="carousel slide">
-                        <div className="carousel-inner">
-                            <div className="carousel-item active">
-                                <img src={slider0} className="d-block w-100" alt="..." />
-                            </div>
+    return (
+        <motion.div initial={{ transition: { duration: 1 }, opacity: 0 }} animate={{ transition: { duration: 1 }, opacity: 1 }} exit={{ transition: { duration: 1 }, opacity: 0 }}>
+            {slider.data ?
+
+                <div className="section sec-1" ref={page}>
+
+                    <div className="slider">
+                        <div id="carouselExample" className="carousel slide">
+                            {slider.data.map((item) => {
+                                return <div className="carousel-inner" key={item.id}>
+                                    <div className="carousel-item active">
+                                        <img src={`${slider.image_path}/${item.image}`} className="d-block w-100" alt="..." />
+                                    </div>
+                                </div>
+                            })}
+
+                            <button className="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                                <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span className="visually-hidden">Previous</span>
+                            </button>
+                            <button className="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                                <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span className="visually-hidden">Next</span>
+                            </button>
                         </div>
-                        <button className="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                            <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span className="visually-hidden">Previous</span>
-                        </button>
-                        <button className="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                            <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span className="visually-hidden">Next</span>
-                        </button>
                     </div>
                 </div>
-            </div>
 
+                : ""}
             <div className="sect py-md-5 py-3">
                 <div className="container">
                     <div className="row">
@@ -152,7 +169,7 @@ export const Home = () => {
                                 }
                             </div>
                         </div>
-                        <div className="col-lg-4 col-md-4 col-sm-12 p-md-0">
+                        <div className="col-lg-4 col-md-4 col-sm-12 p-md-0 mt-md-0 mt-5">
                             <div className='row w-100 mx-auto'>
                                 <div className="col-12">
                                     <h1 className="heading">
@@ -181,6 +198,6 @@ export const Home = () => {
                     </div>
                 </div>
             </div>
-        </>
+        </motion.div>
     )
 }

@@ -4,9 +4,10 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AppContext } from '../../context/AppContext';
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import { Spinner } from '../Spinner';
+import { TagsHeader } from './TagsHeader';
 
 export const Header = () => {
-    const { user, removeUserData, dispatch, API_TOKEN, URL } = useContext(AppContext);
+    const { user, removeUserData, dispatch, heartedTags, URL } = useContext(AppContext);
 
     const [data, setData] = useState([]);
     const [stores, setStores] = useState([]);
@@ -61,9 +62,23 @@ export const Header = () => {
         navigate("/login")
     }
 
+    // var tabsBox = useRef(null);
+    // var allTabs = useRef(null);
+    // var arrowIcons = useRef(null);
+    // console.log(allTabs.current);
+    // tabsBox = tabsBox.current;
+    // allTabs = allTabs.current;
+    // arrowIcons = arrowIcons.current;
+
+    // console.log(tabsBox,
+    //     allTabs,
+    //     arrowIcons);
+
+
+
     return (
         <>
-            <div className="navigation-wrap bg-white start-header start-style">
+            <div className={`navigation-wrap bg-white start-header start-style ${isActive && "position-fixed"}`}>
                 <div className="">
                     <div className="row w-100 ">
                         <div className="col-12">
@@ -129,7 +144,7 @@ export const Header = () => {
                                             {user ?
 
                                                 <div class="custom-dropdown-area cat-dropdown text-uppercase">
-                                                    <li class="list-unstyled dropdown-toggle" data-bs-toggle="dropdown"><Link to="#">{user.data.name}</Link></li>
+                                                    <li class="list-unstyled dropdown-toggle" data-bs-toggle="dropdown"><Link to="#"><i className='fa fa-user-alt me-3'></i>{user.data.name}</Link></li>
 
                                                     <ul class="custom-Dropdown dd" id="style-1" style={{ display: 'block' }}>
 
@@ -276,7 +291,7 @@ export const Header = () => {
                                     {user ?
 
                                         <li>
-                                            <a href="#" onClick={toggleMobNavProfile} class="comm-btn"  >{user.data.name}
+                                            <a href="#" onClick={toggleMobNavProfile} class="comm-btn"  ><i className='fa fa-user-alt me-3'></i>{user.data.name}
                                                 <span class={` ${ismobprofile ? "fas fa-caret-down third" : "fas fa-caret-down third rotate"}`} aria-hidden="true"></span>
                                             </a>
                                             <ul class={` ${ismobprofile ? "comm-show" : "comm-show show2"}`}>
@@ -411,6 +426,9 @@ export const Header = () => {
                     </div>
                 </div>
             </div>
+            {user && heartedTags.length != 0 ?
+                <TagsHeader /> :""
+            }
         </>
     )
 }

@@ -8,7 +8,7 @@ import { PromiseButton } from '../Buttons/PromiseButton';
 
 export const Login = () => {
 
-    const { URL, dispatch, addUserData, setTitle, API_TOKEN, APP_NAME, setWishlistItems } = useContext(AppContext);
+    const { URL, dispatch, addUserData, setTitle, API_TOKEN, APP_NAME, setWishlistItems, setHeartedTags, user } = useContext(AppContext);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
@@ -37,6 +37,18 @@ export const Login = () => {
                     fetch(`${URL}api/web/react-items?user_token=${data.data.user_token}&type=wishlist&api_token=${API_TOKEN}`)
                         .then((response) => response.json())
                         .then((actualData) => { setWishlistItems(actualData); })
+
+
+                    fetch(`${URL}api/web/getgoals`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ user_token: user.data.user_token })
+                    })
+                        .then((response) => response.json())
+                        .then((actualData) => { setHeartedTags(JSON.parse(actualData[0].keywords)); })
+
 
                     dispatch(addUserData(data.data));
 

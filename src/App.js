@@ -7,7 +7,7 @@ import { MainRoutes } from './MainRoutes';
 import { AppContext } from "./context/AppContext.js";
 import { useState, useEffect } from 'react';
 import { URL, APP_NAME, API_TOKEN, SITE_URL } from './config'
-import { Toaster } from "react-hot-toast";
+import { toast, Toaster } from "react-hot-toast";
 import { useSelector, useDispatch } from 'react-redux';
 import { removeUserData, addUserData, updateUserData, setStyle } from './actions';
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
@@ -26,7 +26,10 @@ function App() {
   // var style = "list";
   // console.log(items);
   const [couponItems, setCouponItems] = useState([]);
+  const [currentTag, setCurrentTag] = useState('');
+  const [heartedTags, setHeartedTags] = useState([]);
   const [FilterCategory, setFilterCategory] = useState([]);
+  const [keywords, setKeywords] = useState([]);
   const [FilterStore, setFilterStore] = useState([]);
   const [WishlistItems, setWishlistItems] = useState([]);
   const [LikedItems, setLikedItems] = useState([]);
@@ -42,15 +45,33 @@ function App() {
   // var APP_NAME = APP_NAME;
 
   var values = {
-    SITE_URL, API_TOKEN, teams, teamsImgPath, couponItems, setCouponItems, setStyle, style, SavedItems, setSavedItems, WishlistItems, LikedItems, setLikedItems, setWishlistItems, search, setSearch, setNoteValue, noteValue, FilterCategory, setFilterCategory, FilterStore, setFilterStore, setTitle, Title, APP_NAME, URL, data, setData, img, setImg, removeUserData, addUserData, updateUserData, dispatch, user
+    SITE_URL, API_TOKEN, teams, teamsImgPath, currentTag, setCurrentTag, keywords, couponItems, heartedTags, setHeartedTags, setCouponItems, setStyle, style, SavedItems, setSavedItems, WishlistItems, LikedItems, setLikedItems, setWishlistItems, search, setSearch, setNoteValue, noteValue, FilterCategory, setFilterCategory, FilterStore, setFilterStore, setTitle, Title, APP_NAME, URL, data, setData, img, setImg, removeUserData, addUserData, updateUserData, dispatch, user
   }
-
   useEffect(() => {
     fetchTeams();
     let store = `${URL}api/web/top-stores?token=${user && user.data.user_token}&since_id=0&paginate=20&api_token=${API_TOKEN}`;
     let categ = `${URL}api/web/category?token=${user && user.data.user_token}&type=coupon&api_token=${API_TOKEN}`;
     fetchStore(store);
     fetchCateg(categ);
+
+    if (user) {
+      fetch(`${URL}api/web/getgoals`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ user_token: user.data.user_token })
+      })
+        .then((response) => response.json())
+        .then((actualData) => { setHeartedTags(JSON.parse(actualData[0].keywords)); })
+    }
+    fetch(`${URL}api/web/keywords`)
+      .then((response) => response.json())
+      .then((actualData) => { setKeywords(actualData); })
+      .catch((err) => {
+        toast.error("something went wrong!");
+      }
+      );
   }, []);
 
   const fetchStore = async (url) => {
