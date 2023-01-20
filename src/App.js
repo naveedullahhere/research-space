@@ -12,6 +12,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { removeUserData, addUserData, updateUserData, setStyle } from './actions';
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import { Footer1 } from './Component/layout/Footer1';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+
 
 
 function App() {
@@ -107,28 +109,31 @@ function App() {
 
   document.title = Title;
   return (
-    <AppContext.Provider value={values}>
-      <BrowserRouter>
-        {
-          showPopup &&
-          <>
-            <div className="popup-overlay"></div>
-            <div class="popup">
-              <button id="close" onClick={() => setShowPopup(false)}>&times;</button>
-              <h2 className='mb-0'>Can't Use Our New Free Goals Feature?</h2>
-              <p>
-                Hurry!!! Go And Add Some Goals TO Improve Your Experience with Discount Space!
-              </p>
-              <Link to="/goals" className='btn bg-signature text-white' onClick={() => setShowPopup(false)}>Let's Goooo</Link>
-            </div>
-          </>
-        }
-        <Header />
-        <MainRoutes />
-        <Footer1 />
-        <Toaster position="top-right" containerStyle={{ "transform": "translateY(104px)" }} />
-      </BrowserRouter>
-    </AppContext.Provider>
+    <GoogleOAuthProvider clientId="191543384667-v96v2vm38b2sib51itnfvsbk1p130ul9.apps.googleusercontent.com">
+
+      <AppContext.Provider value={values}>
+        <BrowserRouter>
+          {
+            showPopup &&
+            <>
+              <div className="popup-overlay"></div>
+              <div class="popup">
+                <button id="close" onClick={() => setShowPopup(false)}>&times;</button>
+                <h2 className='mb-0'>Can't Use Our New Free Goals Feature?</h2>
+                <p>
+                  Hurry!!! Go And Add Some Goals TO Improve Your Experience with Discount Space!
+                </p>
+                <Link to="/goals" className='btn bg-signature text-white' onClick={() => setShowPopup(false)}>Let's Goooo</Link>
+              </div>
+            </>
+          }
+          <Header />
+          <MainRoutes />
+          <Footer1 />
+          <Toaster position="top-right" containerStyle={{ "transform": "translateY(104px)" }} />
+        </BrowserRouter>
+      </AppContext.Provider>
+    </GoogleOAuthProvider>
   );
 }
 
