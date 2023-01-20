@@ -113,7 +113,7 @@ export const Login = () => {
                         <Link to="/register">Sign Up</Link>
                         {/* <Link to="/password/reset">Forget Password?</Link> */}
                     </div>
-                    <div className="my-3">
+                    <div className="mb-3">
                         <GoogleButton where={'login'} />
                     </div>
                     <div className="my-3">

@@ -117,12 +117,12 @@ export const Register = () => {
                         <Link to="/login">Sign In</Link>
                         {/* <a href="#">Forget Password?</a> */}
                     </div>
-                    <div className="my-">
+                    <div className="mb-3 glButton">
 
                         <GoogleButton where={'signup'} />
 
                     </div>
-                    <div className="my-">
+                    <div className="my-3 fbButton">
 
                         <FacebookButton where={'signup'} />
 
