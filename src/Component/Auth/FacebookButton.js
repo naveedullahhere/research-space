@@ -1,5 +1,4 @@
-import React, { useContext } from 'react';
-import FacebookLogin from 'react-facebook-login';
+import React, { useContext } from 'react'; 
 import { AppContext } from '../../context/AppContext';
 import { FacebookLoginButton } from 'react-social-login-buttons';
 import { LoginSocialFacebook } from 'reactjs-social-login';
