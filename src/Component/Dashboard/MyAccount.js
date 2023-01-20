@@ -33,7 +33,6 @@ export const MyAccount = () => {
     const enableEdit = () => {
         setActiveEdit(!isActiveEdit);
     };
-
     const onSubmitProfile = (data) => {
         setIsProfileLoading(true);
         postData(`${URL}api/web/profile-setting`, { about: userAbout, name: userName, phone_number: userPhone, token: user.data.user_token })
@@ -151,54 +150,61 @@ export const MyAccount = () => {
                                                 </div>
                                             </form>
                                         </div>
-                                        <div className="my-5">
+                                        {user.data.type != "google" && user.data.type != "facebook" ?
 
-                                            <h3 className="heading fs-3 mb-3">Change Password</h3>
-                                            <form onSubmit={handleSubmit(onSubmit)} className="row">
-                                                <div className='col-md-6 col-12'>
-                                                    <div className='d-flex gap-3 my-2 flex-column'>
-                                                        <div className="input-box">
-                                                            <input type="password" name="password" id="" {...register('cpassword', { required: true })}
-                                                                className={`form-control text-dark ${errors.cpassword ? 'is-invalid' : ''}`} style={{ "filter": "none" }} placeholder={`Current Password`} disabled={isActiveEditPass} />
 
-                                                            <div className="invalid-feedback text-dark">{errors.password?.message}</div>
+                                            <div className="my-5">
+
+                                                <h3 className="heading fs-3 mb-3">Change Password</h3>
+                                                <form onSubmit={handleSubmit(onSubmit)} className="row">
+                                                    <div className='col-md-6 col-12'>
+                                                        <div className='d-flex gap-3 my-2 flex-column'>
+                                                            <div className="input-box">
+                                                                <input type="password" name="password" id="" {...register('cpassword', { required: true })}
+                                                                    className={`form-control text-dark ${errors.cpassword ? 'is-invalid' : ''}`} style={{ "filter": "none" }} placeholder={`Current Password`} disabled={isActiveEditPass} />
+
+                                                                <div className="invalid-feedback text-dark">{errors.password?.message}</div>
+                                                            </div>
+                                                            <div className="input-box">
+                                                                <input type="password" name="password" id="password"  {...register('password')}
+                                                                    className={`form-control text-dark ${errors.password ? 'is-invalid' : ''}`} style={{ "filter": "none" }} placeholder={`Password`} disabled={isActiveEditPass} />
+
+                                                                <div className="invalid-feedback text-dark">{errors.password?.message}</div>
+                                                            </div>
+                                                            <div className="input-box">
+                                                                <input type="password" name="cpassword"  {...register('new_password')}
+                                                                    className={`form-control text-dark ${errors.new_password ? 'is-invalid' : ''}`} disabled={isActiveEditPass} style={{ "filter": "none" }} id="cpassword" placeholder={`Confirm Password`} />
+
+                                                                <div className="invalid-feedback text-dark">{errors.new_password?.message}</div>
+                                                            </div>
+
+                                                            <div className="float-end">
+                                                                <button type={`${!isActiveEditPass ? "button" : "submit"}`} onClick={() => { enableEditPass(); }} className={`btn ${!isActiveEditPass ? "btn-main" : "btn-dark border-0"} d-flex align-items-center gap-2 btn-sm`}>
+
+                                                                    <i className={`fa fa-${!isActiveEditPass ? "save" : "edit"} me-1 ms-0 align-middle`}></i>
+
+                                                                    {!isActiveEditPass ? "Save" : "Edit"}
+
+                                                                    {isLoading &&
+                                                                        <div className="spinner-border" style={{ "float": "right" }} role="status">
+                                                                            <span className="visually-hidden">Loading...</span>
+                                                                        </div>
+                                                                    }
+
+
+                                                                </button>
+                                                            </div>
+
                                                         </div>
-                                                        <div className="input-box">
-                                                            <input type="password" name="password" id="password"  {...register('password')}
-                                                                className={`form-control text-dark ${errors.password ? 'is-invalid' : ''}`} style={{ "filter": "none" }} placeholder={`Password`} disabled={isActiveEditPass} />
 
-                                                            <div className="invalid-feedback text-dark">{errors.password?.message}</div>
-                                                        </div>
-                                                        <div className="input-box">
-                                                            <input type="password" name="cpassword"  {...register('new_password')}
-                                                                className={`form-control text-dark ${errors.new_password ? 'is-invalid' : ''}`} disabled={isActiveEditPass} style={{ "filter": "none" }} id="cpassword" placeholder={`Confirm Password`} />
-
-                                                            <div className="invalid-feedback text-dark">{errors.new_password?.message}</div>
-                                                        </div>
-
-                                                        <div className="float-end">
-                                                            <button type={`${!isActiveEditPass ? "button" : "submit"}`} onClick={() => { enableEditPass(); }} className={`btn ${!isActiveEditPass ? "btn-main" : "btn-dark border-0"} d-flex align-items-center gap-2 btn-sm`}>
-
-                                                                <i className={`fa fa-${!isActiveEditPass ? "save" : "edit"} me-1 ms-0 align-middle`}></i>
-
-                                                                {!isActiveEditPass ? "Save" : "Edit"}
-
-                                                                {isLoading &&
-                                                                    <div className="spinner-border" style={{ "float": "right" }} role="status">
-                                                                        <span className="visually-hidden">Loading...</span>
-                                                                    </div>
-                                                                }
-
-
-                                                            </button>
-                                                        </div>
 
                                                     </div>
+                                                </form>
+                                            </div>
+                                            
+                                            :
 
-
-                                                </div>
-                                            </form>
-                                        </div>
+                                            ""}
                                     </div>
                                 </div>
                             </div>

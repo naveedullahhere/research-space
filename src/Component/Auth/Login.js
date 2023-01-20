@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom';
 import { PromiseButton } from '../Buttons/PromiseButton';
 import { GoogleButton } from './GoogleButton';
+import { FacebookButton } from './FacebookButton';
 
 export const Login = () => {
 
@@ -113,7 +114,10 @@ export const Login = () => {
                         {/* <Link to="/password/reset">Forget Password?</Link> */}
                     </div>
                     <div className="my-3">
-                        <GoogleButton />
+                        <GoogleButton where={'login'} />
+                    </div>
+                    <div className="my-3">
+                        <FacebookButton where={'login'} />
                     </div>
                 </form>
             </div>

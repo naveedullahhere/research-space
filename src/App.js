@@ -1,6 +1,6 @@
 
 import './App.css';
-import { BrowserRouter, Link } from "react-router-dom";
+import { BrowserRouter, Link, useNavigate } from "react-router-dom";
 import { Header } from './Component/layout/Header';
 import { Footer } from './Component/layout/Footer';
 import { MainRoutes } from './MainRoutes';
@@ -47,9 +47,7 @@ function App() {
 
   // var APP_NAME = APP_NAME;
 
-  var values = {
-    SITE_URL, API_TOKEN, teams, teamsImgPath, currentTag, setCurrentTag, keywords, couponItems, heartedTags, setHeartedTags, setCouponItems, setStyle, style, SavedItems, setSavedItems, WishlistItems, LikedItems, setLikedItems, setWishlistItems, search, setSearch, setNoteValue, noteValue, FilterCategory, setFilterCategory, FilterStore, setFilterStore, setTitle, Title, APP_NAME, URL, data, setData, img, setImg, removeUserData, addUserData, updateUserData, dispatch, user
-  }
+
   useEffect(() => {
     fetchTeams();
     let store = `${URL}api/web/top-stores?token=${user && user.data.user_token}&since_id=0&paginate=20&api_token=${API_TOKEN}`;
@@ -108,6 +106,83 @@ function App() {
 
 
   document.title = Title;
+
+  const continueWithSocials = (type, credentials, where, domain) => {
+
+    if (where === 'login') {
+
+      fetch(`${URL}api/web/loginwithsocial`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ credentials: credentials, type: type, domain: domain })
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          if (data.success != false) {
+            dispatch(addUserData(data.data, []));
+            toast.success(data.message);
+          } else {
+            toast.error(data.message);
+          }
+        }).catch((err) => {
+          toast.error("Something went wrong!");
+        })
+    }
+    else if (where === 'signup') {
+      if (type === 'facebook') {
+        fetch(`${URL}api/web/signupwithsocial`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ credentials: credentials, type: type, domain: domain })
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success != false) {
+              dispatch(addUserData(data.data, []));
+              toast.success(data.message);
+            } else {
+              toast.error(data.message);
+            }
+          }).catch((err) => {
+            toast.error("Something went wrong!");
+          })
+      }
+
+      else {
+        fetch(`${URL}api/web/signupwithsocial`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ credentials: credentials, type: type, domain: domain })
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success != false) {
+              dispatch(addUserData(data.data, []));
+              toast.success(data.message);
+            } else {
+              toast.error(data.message);
+            }
+          }).catch((err) => {
+            toast.error("Something went wrong!");
+          })
+      }
+    }
+
+    else {
+      toast.error("Something went wrong!");
+    }
+  }
+
+  var values = {
+    SITE_URL, API_TOKEN, teams, teamsImgPath, currentTag, continueWithSocials, setCurrentTag, keywords, couponItems, heartedTags, setHeartedTags, setCouponItems, setStyle, style, SavedItems, setSavedItems, WishlistItems, LikedItems, setLikedItems, setWishlistItems, search, setSearch, setNoteValue, noteValue, FilterCategory, setFilterCategory, FilterStore, setFilterStore, setTitle, Title, APP_NAME, URL, data, setData, img, setImg, removeUserData, addUserData, updateUserData, dispatch, user
+  }
   return (
     <GoogleOAuthProvider clientId="191543384667-v96v2vm38b2sib51itnfvsbk1p130ul9.apps.googleusercontent.com">
 

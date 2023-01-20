@@ -7,6 +7,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup';
 import { PromiseButton } from '../Buttons/PromiseButton';
+import { GoogleButton } from './GoogleButton';
+import { FacebookButton } from './FacebookButton';
 
 export const Register = () => {
 
@@ -40,6 +42,7 @@ export const Register = () => {
         console.log(data.domain);
         postData(`${URL}api/web/signup`, { email: emailD, password: passwordD, name: usernameD, domain: data.domain })
             .then(data => {
+                console.log(data);
                 if (data.success != false) {
                     dispatch(addUserData(data.data, []));
                     toast.success(data.message);
@@ -47,7 +50,7 @@ export const Register = () => {
                     reset();
 
                 } else {
-                    toast.error(data.message);
+                    toast.error("Something went wrong!");
                 }
                 setIsLoading(false);
             }).catch((err) => {
@@ -113,6 +116,16 @@ export const Register = () => {
                     <div className="auth-action">
                         <Link to="/login">Sign In</Link>
                         {/* <a href="#">Forget Password?</a> */}
+                    </div>
+                    <div className="my-">
+
+                        <GoogleButton where={'signup'} />
+
+                    </div>
+                    <div className="my-">
+
+                        <FacebookButton where={'signup'} />
+
                     </div>
                 </form>
             </div>
