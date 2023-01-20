@@ -28,7 +28,7 @@ export const Wishlist = () => {
     }, [])
 
     return (
-        <div>
+        <motion.div initial={{ transition: { duration: 1 }, opacity: 0 }} animate={{ transition: { duration: 1 }, opacity: 1 }} exit={{ transition: { duration: 1 }, opacity: 0 }}>
             <div className="container-fluid px-0">
                 <div className="row">
                     <div className="col-xl-3 col-lg-3 col-md-4 col-2"><Sidebar pageid={'wishlist'} /></div>
@@ -102,6 +102,6 @@ export const Wishlist = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </motion.div>
     )
 }

@@ -30,7 +30,7 @@ export const Like = () => {
 
 
     return (
-        <div>
+        <motion.div initial={{ transition: { duration: 1 }, opacity: 0 }} animate={{ transition: { duration: 1 }, opacity: 1 }} exit={{ transition: { duration: 1 }, opacity: 0 }}>
             <div className="container-fluid px-0">
                 <div className="row">
 
@@ -91,6 +91,6 @@ export const Like = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </motion.div>
     )
 }

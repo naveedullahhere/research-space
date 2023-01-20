@@ -10,6 +10,7 @@ import { motion } from 'framer-motion';
 import { toast } from 'react-hot-toast';
 import { PromiseButton } from '../Buttons/PromiseButton';
 import { Spinner } from '../Spinner';
+import Logo from '../assets/discount-space-logo.png';
 import { Tooltip } from 'antd';
 import { HeartOutlined, HeartFilled, LikeFilled, LikeOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import { createFromIconfontCN } from '@ant-design/icons';
@@ -463,13 +464,13 @@ export const SingleCoupon = () => {
                                     <div class="row w-100">
                                         <div class="col-lg-2 px-0 col-md-2 col-12 left-content d-flex justify-content-center align-items-center">
                                             <div class="img">
-                                                <img style={{ 'height': '80px', 'width': '120px', 'objectFit': 'contain' }} src="https://eliteblue.net/affiliate/public/frontend/img/discount-space-logo.png" alt="Discount Space" />
+                                                <img style={{ 'height': '80px', 'width': '120px', 'objectFit': 'contain' }} src={Logo} alt="Discount Space" />
                                             </div>
                                         </div>
                                         <div class="col-lg-6 px-0 col-md-6 col-12 left-content d-flex justify-content-center align-items-center">
                                             <p class="fs-6 mb-0 mx-md-4 mx-2">
-                                                <Link to="/login">Log in</Link> or
-                                                <Link to="/register">Sign up</Link> for a <span class="text-uppercase">Discount Space</span> account to post comment.
+                                                <Link to="/login"> Log in</Link> or
+                                                <Link to="/register"> Sign up</Link> for a <span class="text-uppercase"> {APP_NAME.split('-')[1]}</span> account to post comment.
                                             </p>
                                         </div>
                                         <div class="right-content col-lg-4 px-0 col-md-4 col-12 d-flex justify-content-center align-items-center mt-md-0 mt-2">

@@ -5,6 +5,7 @@ import { Pagination, Segmented } from 'antd';
 import { List } from '../Coupon/List';
 import { AppstoreOutlined, BarsOutlined } from '@ant-design/icons';
 import { Spinner } from '../Spinner';
+import { motion } from 'framer-motion';
 
 export const SingleCollection = () => {
 
@@ -59,7 +60,7 @@ export const SingleCollection = () => {
     // console.log(data);
 
     return (
-        <>
+        <motion.div initial={{ transition: { duration: 1 }, opacity: 0 }} animate={{ transition: { duration: 1 }, opacity: 1 }} exit={{ transition: { duration: 1 }, opacity: 0 }}>
             <div class="container-fluid">
                 <div class="row shadow-sm">
                     <div class="col-md-12 py-3">
@@ -131,6 +132,6 @@ export const SingleCollection = () => {
                     </div>
                 </div>
             </div>
-        </>
+        </motion.div>
     )
 }

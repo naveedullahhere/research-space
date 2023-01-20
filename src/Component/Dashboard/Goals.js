@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { AppContext } from '../../context/AppContext';
 import { Sidebar } from './Sidebar';
 import { AutoComplete } from 'antd';
+import { motion } from 'framer-motion';
 import { Select } from 'antd';
 import { PromiseButton } from '../Buttons/PromiseButton';
 
@@ -53,7 +54,7 @@ export const Goals = () => {
 
 
     return (
-        <div>
+        <motion.div initial={{ transition: { duration: 1 }, opacity: 0 }} animate={{ transition: { duration: 1 }, opacity: 1 }} exit={{ transition: { duration: 1 }, opacity: 0 }}>
             <div className="container-fluid px-0">
                 <div className="row">
 
@@ -159,6 +160,6 @@ export const Goals = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </motion.div>
     )
 }

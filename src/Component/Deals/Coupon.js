@@ -8,6 +8,7 @@ import { List } from '../Coupon/List';
 import { Filter } from '../Filter/Filter';
 import { AppstoreOutlined, BarsOutlined } from '@ant-design/icons';
 import { Spinner } from '../Spinner';
+import { motion } from 'framer-motion';
 
 export const Coupon = () => {
     const { user, dispatch, APP_NAME, setTitle, setStyle, style } = useContext(AppContext);
@@ -70,7 +71,7 @@ export const Coupon = () => {
     }, [style])
 
     return (
-        <>
+        <motion.div initial={{ transition: { duration: 1 }, opacity: 0 }} animate={{ transition: { duration: 1 }, opacity: 1 }} exit={{ transition: { duration: 1 }, opacity: 0 }}>
             <div class="container-fluid">
                 <div class="row shadow-sm">
                     <div class="col-md-12 py-3">
@@ -163,6 +164,6 @@ export const Coupon = () => {
                 </div>
             </div>
 
-        </>
+        </motion.div>
     )
 }

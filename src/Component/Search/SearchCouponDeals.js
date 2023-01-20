@@ -5,6 +5,7 @@ import { Filter } from '../Filter/Filter';
 import { Spinner } from '../Spinner';
 import { List } from '../Coupon/List';
 import { AppContext } from '../../context/AppContext';
+import { motion } from 'framer-motion';
 
 export const SearchCouponDeals = () => {
 
@@ -58,7 +59,7 @@ export const SearchCouponDeals = () => {
 
 
     return (
-        <>
+        <motion.div initial={{ transition: { duration: 1 }, opacity: 0 }} animate={{ transition: { duration: 1 }, opacity: 1 }} exit={{ transition: { duration: 1 }, opacity: 0 }}>
             <div class="container-fluid">
                 <div class="row shadow-sm">
                     <div class="col-md-12 py-3">
@@ -160,6 +161,6 @@ export const SearchCouponDeals = () => {
                     </div>
                 </div>
             </div>
-        </>
+        </motion.div>
     )
 }

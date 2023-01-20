@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { List } from '../Coupon/List';
 import { Filter } from '../Filter/Filter';
 import { Spinner } from '../Spinner';
+import { motion } from 'framer-motion';
 
 import { Pagination, Segmented } from 'antd';
 import { AppstoreOutlined, BarsOutlined } from '@ant-design/icons';
@@ -61,7 +62,7 @@ export const Deals = () => {
     }
 
     return (
-        <>
+        <motion.div initial={{ transition: { duration: 1 }, opacity: 0 }} animate={{ transition: { duration: 1 }, opacity: 1 }} exit={{ transition: { duration: 1 }, opacity: 0 }}>
             <div class="container-fluid">
                 <div class="row shadow-sm">
                     <div class="col-md-12 py-3">
@@ -158,6 +159,6 @@ export const Deals = () => {
                 </div>
             </div>
 
-        </>
+        </motion.div>
     )
 }

@@ -1629,8 +1629,12 @@ textarea.input:not(:placeholder-shown)+label {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  /* height: 100vh; */
 
+}
+
+.loginMain form {
+  margin-top: 3rem;
 }
 
 
@@ -6636,7 +6640,7 @@ button#dropdownMenuButton1::after {
 
 .fbButton button {
   margin: 0 !important;
-  width: 100%!important;
+  width: 100% !important;
 }
 
 .fbButton>div {
