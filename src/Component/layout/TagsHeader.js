@@ -6,6 +6,7 @@ import { List } from '../Coupon/List';
 import { Spinner } from '../Spinner';
 import { toast } from 'react-hot-toast';
 import { TagsList } from '../Coupon/TagsList';
+import { Link } from 'react-router-dom';
 
 export const TagsHeader = () => {
 
@@ -36,24 +37,22 @@ export const TagsHeader = () => {
 
 
     const handleTag = (item) => {
+
         setIsLoading(true);
         setData([]);
-
         fetch(`${URL}api/web/react-items?user_token=${user.data.user_token}&type=save&search=${item}`).then(res => res.json()).then(json => {
             if (json.length) {
-                // toast.success("Item Found");
                 setItemFrom("cart");
                 setData(json);
                 setIsLoading(false);
-
             }
             else {
-
-                setIsLoading(false);
                 setItemFrom("global");
                 fetch(`${URL}api/web/coupons?user_id=${user ? user.data.id : ""}&search=${item}`).then(res => res.json()).then(json => {
-                    setData(json)
+                    setIsLoading(false);
+                    setData(json);
                 }).catch(err => {
+                    setIsLoading(false);
                     toast.error("Something went wrong!");
                 })
             }
@@ -122,33 +121,45 @@ export const TagsHeader = () => {
                     </div>
                     <div className="col-12 mx-auto">
                         <div className='row w-100 mx-auto'>
-
                             {isLoading ?
 
                                 <Spinner />
 
                                 :
                                 <>
-                                    {data && data.slice(0, itmsFrom === "cart" ? data.length : 10).map((item) => {
-                                        return <TagsList style={"Grid"} singleurl={item.coupon.slug} itemPerRow={'3'} key={item.coupon.id} item={item} user={user} image={`${item.image_path}/${item.media.image}`} title={item.coupon.title} discount={item.coupon.discount} rprice={item.coupon.regular_price} cprice={item.coupon.compare_price} />
-                                    })}
 
 
-                                    {itmsFrom === "global" && data.length ?
+
+
+
+                                    {
+                                        !data.length && isLoading === false ?
+                                            "No Data!" : data && data.slice(0, itmsFrom === "cart" ? data.length : 10).map((item) => {
+                                                return <TagsList style={"Grid"} singleurl={item.coupon.slug} itemPerRow={'3'} key={item.coupon.id} item={item} user={user} image={`${item.image_path}/${item.media.image}`} title={item.coupon.title} discount={item.coupon.discount} rprice={item.coupon.regular_price} cprice={item.coupon.compare_price} />
+                                            })
+                                    }
+
+                                    {data.length > 10 ?
                                         <div className='w-100 text-center mt-3'>
 
-                                            <a className="bg-signature text-white btn">
-                                                See More
-                                            </a>
+                                            {itmsFrom === "global"
+
+                                                ?
+
+                                                <a href={`/search/&?query_search=${currentTag}`} className="bg-signature text-white btn">
+                                                    See More
+                                                </a>
+
+                                                :
+
+                                                <Link to={'/saved'} className="bg-signature text-white btn">
+                                                    See More
+                                                </Link>
+
+                                            }
 
                                         </div>
                                         : ""
-                                    }
-
-                                    {
-                                        !data.length &&
-                                        "No Data!"
-
                                     }
 
                                 </>

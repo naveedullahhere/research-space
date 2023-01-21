@@ -83,43 +83,47 @@ export const Login = () => {
     return (
         <motion.div initial={{ transition: { duration: 1 }, opacity: 0 }} animate={{ transition: { duration: 1 }, opacity: 1 }} exit={{ transition: { duration: 1 }, opacity: 0 }}>            <div className="loginMain">
 
-                <form onSubmit={handleSubmit(onSubmit)} className="login-box" method='POST' autoComplete="off">
-                    <div className="fs-5">
-                        <h1 className='fs-4 fw-bold'>LOGIN YOUR ACCOUNT</h1>
-                    </div>
-                    <div className="input-box">
-                        <input type="text" name="email" autoComplete={`false`} className={`inputLogin ${errors.email && " is-invalid"}`} id="username" required {...register('email', { pattern: /^\S+@\S+$/i })} onChange={(e) => setEmail(e.target.value)} />
-                        <label htmlFor="username">Email</label>
-                    </div>
+            <form onSubmit={handleSubmit(onSubmit)} className="login-box" method='POST' autoComplete="off">
+                <div className="fs-5">
+                    <h1 className='fs-4 fw-bold'>LOGIN YOUR ACCOUNT</h1>
+                </div>
+                <div className="input-box">
+                    <input type="text" name="email" autoComplete={`false`} className={`inputLogin ${errors.email && " is-invalid"}`} id="username" required {...register('email', { pattern: /^\S+@\S+$/i })} onChange={(e) => setEmail(e.target.value)} />
+                    <label htmlFor="username">Email</label>
+                </div>
 
-                    {errors.email && <span className='para-sm text-dark'>Please Enter a Valid Email</span>}
+                {errors.email && <span className='para-sm text-dark'>Please Enter a Valid Email</span>}
 
-                    <div className="input-box">
-                        <input type="password" name="password" autoComplete="off" className="input pass-input" id="password" required {...register('password', { minLength: 8 })} onChange={(e) => setPassword(e.target.value)} />
+                <div className="input-box">
+                    <input type="password" name="password" autoComplete="off" className="input pass-input" id="password" required {...register('password', { minLength: 8 })} onChange={(e) => setPassword(e.target.value)} />
 
-                        <div></div>
-                        <label htmlFor="password">Password</label>
-                    </div>
-                    {errors.password && <span className='para-sm text-dark'>Password Must 8 Character</span>}
-                    {/* <div className="remember-me">
+                    <div></div>
+                    <label htmlFor="password">Password</label>
+                </div>
+                {errors.password && <span className='para-sm text-dark'>Password Must 8 Character</span>}
+                {/* <div className="remember-me">
                         <input type="checkbox" checked name="" id="checkbox" />
                         <label htmlFor="checkbox" className='ps-2'>Remember Me</label>
                     </div> */}
-                    <button type='submit' className='py-2'>
-                        <PromiseButton title={"Login"} typ='text-white' loading={isLoading} />
-                    </button>
-                    <div className="auth-action">
-                        <Link to="/register">Sign Up</Link>
-                        {/* <Link to="/password/reset">Forget Password?</Link> */}
-                    </div>
-                    <div className="mb-3">
-                        <GoogleButton where={'login'} />
-                    </div>
-                    <div className="my-3">
-                        <FacebookButton where={'login'} />
-                    </div>
-                </form>
-            </div>
+                <button type='submit' className='py-2'>
+                    <PromiseButton title={"Login"} typ='text-white' loading={isLoading} />
+                </button>
+                <div className="auth-action">
+                    <Link to="/register">Sign Up</Link>
+                    {/* <Link to="/password/reset">Forget Password?</Link> */}
+                </div>
+                <div className="mb-3 glButton">
+
+                    <GoogleButton where={'login'} />
+
+                </div>
+                <div className="my-3 fbButton">
+
+                    <FacebookButton where={'login'} />
+
+                </div>
+            </form>
+        </div>
 
         </motion.div>
     )

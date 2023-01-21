@@ -6,7 +6,8 @@ export const TagsList = ({ title, style, discount, rprice, cprice, image, single
 
 
     return (
-        <div className={`${itemPerRow ? `col-md-${itemPerRow}` : "col-md-4"} col-sm-6 p-0 grid px-2 my-2 mainview`}>
+        // <div className={`${itemPerRow ? `col-md-${itemPerRow}` : "col-md-4"} col-lg-3 col-md-6 col-sm-6 p-0 grid px-2 my-2 mainview`}>
+        <div className={`col-lg-4 col-md-6 col-sm-6 p-0 grid px-2 my-2 mainview`}>
             <div className="main-list-card shadow bg-white h-100">
                 <div className="my-sm-2 my-1 px-3 pt-md-3 px-md-3 pt-2">
                     <div className="align-items-center">

@@ -1,16 +1,16 @@
 
 import './App.css';
-import { BrowserRouter, Link, useNavigate } from "react-router-dom";
 import { Header } from './Component/layout/Header';
 import { Footer } from './Component/layout/Footer';
 import { MainRoutes } from './MainRoutes';
 import { AppContext } from "./context/AppContext.js";
 import { useState, useEffect } from 'react';
 import { URL, APP_NAME, API_TOKEN, SITE_URL } from './config'
+import { BrowserRouter, Link, useNavigate } from "react-router-dom";
 import { toast, Toaster } from "react-hot-toast";
 import { useSelector, useDispatch } from 'react-redux';
 import { removeUserData, addUserData, updateUserData, setStyle } from './actions';
-import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+
 import { Footer1 } from './Component/layout/Footer1';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
@@ -64,7 +64,16 @@ function App() {
         body: JSON.stringify({ user_token: user.data.user_token })
       })
         .then((response) => response.json())
-        .then((actualData) => { setHeartedTags(JSON.parse(actualData[0].keywords)); JSON.parse(actualData[0].keywords).length === 0 ? setShowPopup(true) : setShowPopup(false); })
+        .then((actualData) => {
+          if (JSON.parse(actualData[0].keywords).length != 0) {
+            setHeartedTags(JSON.parse(actualData[0].keywords));
+          }
+          else {
+            setTimeout(() => {
+              setShowPopup(true);
+            }, 3000);
+          }
+        })
     }
     fetch(`${URL}api/web/keywords`)
       .then((response) => response.json())

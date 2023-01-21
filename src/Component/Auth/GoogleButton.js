@@ -28,7 +28,8 @@ export const GoogleButton = ({ where }) => {
                 size={'large'}
                 logo_alignment={'left'}
                 // width={85%}
-                
+                auto_select="false"
+
                 theme={"filled_blue"}
                 onError={() => {
                     toast.error("Something went wrong!");
