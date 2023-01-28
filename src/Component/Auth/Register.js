@@ -113,10 +113,7 @@ export const Register = () => {
                         <PromiseButton title={"Signup"} typ='text-white' loading={isLoading} />
                     </button>
 
-                    <div className="auth-action">
-                        <Link to="/login">Sign In</Link>
-                        {/* <a href="#">Forget Password?</a> */}
-                    </div>
+                    <div class="or"></div>
                     <div className="mb-3 glButton">
 
                         <GoogleButton where={'signup'} />
@@ -126,6 +123,9 @@ export const Register = () => {
 
                         <FacebookButton where={'signup'} />
 
+                    </div>
+                    <div className="auth-action">
+                        Already have an account? <Link to="/login">Login</Link>
                     </div>
                 </form>
             </div>

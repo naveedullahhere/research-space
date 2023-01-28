@@ -119,26 +119,19 @@ export const Login = () => {
                 <button type='submit' className='py-2'>
                     <PromiseButton title={"Login"} typ='text-white' loading={isLoading} />
                 </button>
-                <div className="auth-action">
-                    <Link to="/register">Sign Up</Link>
-                    {/* <Link to="/password/reset">Forget Password?</Link> */}
-                </div>
+                <div class="or"></div>
                 <div className="mb-3 glButton">
 
                     <GoogleButton where={'login'} />
-                    {/* <div id="gSignInWrapper">
-                        <span class="label">Sign in with:</span>
-                        <div id="customBtn" class="customGPlusSignIn">
-                            <span class="icon"></span>
-                            <span class="buttonText">Google</span>
-                        </div>
-                    </div> */}
 
                 </div>
                 <div className="my-3 fbButton">
 
                     <FacebookButton where={'login'} />
 
+                </div>
+                <div className="auth-action">
+                    Don't have an account? <Link to="/register">Sign Up</Link> 
                 </div>
             </form>
         </div>
