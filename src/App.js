@@ -4,7 +4,7 @@ import { Header } from './Component/layout/Header';
 import { Footer } from './Component/layout/Footer';
 import { MainRoutes } from './MainRoutes';
 import { AppContext } from "./context/AppContext.js";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { URL, APP_NAME, API_TOKEN, SITE_URL } from './config'
 import { BrowserRouter, Link, useNavigate } from "react-router-dom";
 import { toast, Toaster } from "react-hot-toast";
@@ -13,7 +13,7 @@ import { removeUserData, addUserData, updateUserData, setStyle } from './actions
 
 import { Footer1 } from './Component/layout/Footer1';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-
+import { useScript } from './Component/useScript';
 
 
 function App() {
@@ -111,9 +111,6 @@ function App() {
       });
   }
 
-
-
-
   document.title = Title;
 
   const continueWithSocials = (type, credentials, where, domain) => {
@@ -192,6 +189,22 @@ function App() {
   var values = {
     SITE_URL, API_TOKEN, teams, teamsImgPath, currentTag, continueWithSocials, setCurrentTag, keywords, couponItems, heartedTags, setHeartedTags, setCouponItems, setStyle, style, SavedItems, setSavedItems, WishlistItems, LikedItems, setLikedItems, setWishlistItems, search, setSearch, setNoteValue, noteValue, FilterCategory, setFilterCategory, FilterStore, setFilterStore, setTitle, Title, APP_NAME, URL, data, setData, img, setImg, removeUserData, addUserData, updateUserData, dispatch, user
   }
+
+  const googleButtonRef = useRef(null);
+
+  const onGoogleSignIn = (user) => {
+    let userCred = user.credential;
+    console.log(userCred);
+  }
+  // useScript('https://accounts.google.com/gsi/client', () => {
+  //   window.google.accounts.id.initialize({
+  //     client_id: "191543384667-v96v2vm38b2sib51itnfvsbk1p130ul9.apps.googleusercontent.com",
+  //     callback: onGoogleSignIn,
+  //     auto_select: false,
+  //   });
+ 
+
+  // });
   return (
     <GoogleOAuthProvider clientId="191543384667-v96v2vm38b2sib51itnfvsbk1p130ul9.apps.googleusercontent.com">
 
@@ -212,6 +225,7 @@ function App() {
             </>
           }
           <Header />
+          {/* <div ref={googleButtonRef}>custom buttttno</div> */}
           <MainRoutes />
           <Footer1 />
           <Toaster position="top-right" containerStyle={{ "transform": "translateY(104px)" }} />

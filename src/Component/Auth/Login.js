@@ -80,6 +80,17 @@ export const Login = () => {
         });
         return response.json();
     }
+
+
+
+
+
+
+
+
+
+
+
     return (
         <motion.div initial={{ transition: { duration: 1 }, opacity: 0 }} animate={{ transition: { duration: 1 }, opacity: 1 }} exit={{ transition: { duration: 1 }, opacity: 0 }}>            <div className="loginMain">
 
@@ -115,6 +126,13 @@ export const Login = () => {
                 <div className="mb-3 glButton">
 
                     <GoogleButton where={'login'} />
+                    {/* <div id="gSignInWrapper">
+                        <span class="label">Sign in with:</span>
+                        <div id="customBtn" class="customGPlusSignIn">
+                            <span class="icon"></span>
+                            <span class="buttonText">Google</span>
+                        </div>
+                    </div> */}
 
                 </div>
                 <div className="my-3 fbButton">

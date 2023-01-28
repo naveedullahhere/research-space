@@ -6644,7 +6644,7 @@ button#dropdownMenuButton1::after {
 }
 
 .fbButton>div {
-  margin-inline: 10px;
+  /* margin-inline: 10px; */
 }
 
 .popup-overlay {
@@ -6686,21 +6686,21 @@ button#dropdownMenuButton1::after {
 
 
 .google-btn {
-  width: 184px;
+  width: 100%;
   height: 42px;
-  background-color: #4285f4;
-  border-radius: 2px;
+  background-color: var(--primary);
+  border-radius: 12px;
   box-shadow: 0 3px 4px 0 rgba(0, 0, 0, .25);
+  cursor: pointer;
 }
 
 .google-btn .google-icon-wrapper {
   position: absolute;
-  margin-top: 1px;
   margin-left: 1px;
   width: 40px;
   height: 40px;
-  border-radius: 2px;
-  background-color: #fff;
+  border-radius: 12px 2px 2px 12px;
+  background-color: var(--white);
 }
 
 .google-btn .google-icon {
@@ -6712,19 +6712,46 @@ button#dropdownMenuButton1::after {
 }
 
 .google-btn .btn-text {
-  float: right;
+  /* float: right;
   margin: 11px 11px 0 0;
   color: #fff;
   font-size: 14px;
-  letter-spacing: 0.2px;
+  letter-spacing: 0.2px; */
+  margin-left: 54px;
+}
+
+.fbButton>div>button {
+  background: var(--primary) !important;
+  font-size: 16px !important;
+  height: 42px !important;
+  border-radius: 12px !important;
+  padding-inline: 0px !important;
+  position: relative;
+}
+
+.fbButton>div>button svg {
+  position: absolute;
+  margin-left: 6px;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px 2px 2px 12px;
+  top: 1px;
+}
+
+.fbButton>div>button>div>div:nth-child(1) {
+  width: 40px;
+}
+
+.fbButton>div>button>div>div:nth-child(3) {
+  margin-left: 10px;
 }
 
 .google-btn:hover {
-  box-shadow: 0 0 6px #4285f4;
+  /* box-shadow: 0 0 6px #4285f4; */
 }
 
 .google-btn:active {
-  background: #1669f2;
+  /* background: #1669f2; */
 }
 
 .glButton iframe {
@@ -6737,4 +6764,47 @@ button#dropdownMenuButton1::after {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   overflow: hidden;
+}
+
+
+
+
+
+#customBtn {
+  display: inline-block;
+  background: white;
+  color: #444;
+  width: 190px;
+  border-radius: 5px;
+  border: thin solid #888;
+  box-shadow: 1px 1px 1px grey;
+  white-space: nowrap;
+}
+
+#customBtn:hover {
+  cursor: pointer;
+}
+
+span.label {
+  font-family: serif;
+  font-weight: normal;
+}
+
+span.icon {
+  background: url('https://developers-dot-devsite-v2-prod.appspot.com/identity/sign-in/g-normal.png') transparent 5px 50% no-repeat;
+  display: inline-block;
+  vertical-align: middle;
+  width: 42px;
+  height: 42px;
+}
+
+span.buttonText {
+  display: inline-block;
+  vertical-align: middle;
+  padding-left: 42px;
+  padding-right: 42px;
+  font-size: 14px;
+  font-weight: bold;
+  /* Use the Roboto font that is loaded in the <head> */
+  font-family: 'Roboto', sans-serif;
 }
