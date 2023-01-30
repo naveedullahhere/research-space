@@ -8,10 +8,7 @@ import { useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 
 
-export const GoogleButton = ({ where }) => {
-    const { continueWithSocials } = useContext(AppContext);
-
-
+export const GoogleButton = ({ where, continueWithSocials }) => {
 
     const login = useGoogleLogin({
         onSuccess: async response => {
@@ -21,9 +18,7 @@ export const GoogleButton = ({ where }) => {
                 }
             });
 
-
-            console.log(data.data);
-
+ 
             continueWithSocials('google', data.data, where, window.location.href)
 
         },
@@ -32,30 +27,14 @@ export const GoogleButton = ({ where }) => {
 
     return (
         <>
-            {/* <GoogleLogin
-                onSuccess={(credentialResponse) => {
-                    continueWithSocials('google', credentialResponse.credential, where, window.location.href);
-                }}
-                text={'continue_with'}
-                size={'large'}
-                logo_alignment={'left'}
-                // width={85%}
-                auto_select="false"
 
-                theme={"filled_blue"}
-                onError={() => {
-                    toast.error("Something went wrong!");
-                }}
-            /> */}
-
-
-            <div class="google-btn d-flex align-items-center" onClick={login}>
-                <div class="google-icon-wrapper">
-                    <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
+            <div className="google-btn d-flex align-items-center" onClick={login}>
+                <div className="google-icon-wrapper">
+                    <img className="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
                 </div>
                 <div>
 
-                    <p class="btn-text text-white mb-0">{where === "login" ? "Sign in" : "Signup" }  with google</p>
+                    <p className="btn-text text-white mb-0">{where === "login" ? "Sign in" : "Signup"}  with google</p>
 
                 </div>
             </div>

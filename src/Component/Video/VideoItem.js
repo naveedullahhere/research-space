@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 export const VideoItem = ({ image, video, item }) => {
 
 
-    console.log(item);
 
     return (
         <>
@@ -12,16 +11,7 @@ export const VideoItem = ({ image, video, item }) => {
                 <div class="image-container mx-0">
                     <img src={image} class="w-100" />
                     <div class="after">
-                        <div class="vd_controls px-2 d-flex justify-content-between align-items-center">
-
-
-
-
-
-
-
-
-
+                        <div class="vd_controls px-2 d-flex justify-content-between align-items-center"> 
                             <div class="rights">
                                 <div class="two d-flex ms-1 align-items-center">
                                     <img src="https://discounts-space.com/frontend/img/Path 81.png" style={{ 'width': '16px', 'filter': 'invert(1) brightness(1.5)' }} alt="eye" />

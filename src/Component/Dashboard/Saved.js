@@ -36,11 +36,11 @@ export const Saved = () => {
                     <div className="col-xl-9 col-lg-9 col-md-8 col-10 ps-md-0" >
                         <div className='row w-100 mx-0 px-0'>
                             <div className="col-12 mx-0 px-0 text-center">
-                                <div class="container-fluid">
-                                    <div class="row shadow-sm">
-                                        <div class="col-md-12 py-3">
+                                <div className="container-fluid">
+                                    <div className="row shadow-sm">
+                                        <div className="col-md-12 py-3">
                                             <div className="d-flex justify-content-between">
-                                                <h1 class="text-uppercase text-black m-0">My Cart</h1>
+                                                <h1 className="text-uppercase text-black m-0">My Cart</h1>
 
 
                                                 <div>

@@ -36,8 +36,7 @@ export const Filter = ({
             value: item.id,
             label: item.title,
         });
-    })
-
+    }); 
     useEffect(() => {
         fetchitems(category, store, discount, sort, refMinPrice, refMaxPrice, value);
     }, [])

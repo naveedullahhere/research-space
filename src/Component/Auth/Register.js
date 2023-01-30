@@ -10,7 +10,7 @@ import { PromiseButton } from '../Buttons/PromiseButton';
 import { GoogleButton } from './GoogleButton';
 import { FacebookButton } from './FacebookButton';
 
-export const Register = () => {
+export const Register = ({ continueWithSocials }) => {
 
     const { URL, addUserData, dispatch, setTitle, APP_NAME, API_TOKEN } = useContext(AppContext);
     const [email, setEmail] = useState("");
@@ -39,10 +39,8 @@ export const Register = () => {
         let passwordD = password;
         let usernameD = userName;
         setIsLoading(true)
-        console.log(data.domain);
         postData(`${URL}api/web/signup`, { email: emailD, password: passwordD, name: usernameD, domain: data.domain })
             .then(data => {
-                console.log(data);
                 if (data.success != false) {
                     dispatch(addUserData(data.data, []));
                     toast.success(data.message);
@@ -113,15 +111,15 @@ export const Register = () => {
                         <PromiseButton title={"Signup"} typ='text-white' loading={isLoading} />
                     </button>
 
-                    <div class="or"></div>
+                    <div className="or"></div>
                     <div className="mb-3 glButton">
 
-                        <GoogleButton where={'signup'} />
+                        <GoogleButton continueWithSocials={continueWithSocials} where={'signup'} />
 
                     </div>
                     <div className="my-3 fbButton">
 
-                        <FacebookButton where={'signup'} />
+                        <FacebookButton continueWithSocials={continueWithSocials} where={'signup'} />
 
                     </div>
                     <div className="auth-action">

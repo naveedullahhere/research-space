@@ -29,9 +29,7 @@ export const SingleVideo = () => {
             });
     }, []);
 
-
-    console.log(data);
-
+ 
 
     return (
         <motion.div initial={{ transition: { duration: 1 }, opacity: 0 }} animate={{ transition: { duration: 1 }, opacity: 1 }} exit={{ transition: { duration: 1 }, opacity: 0 }}>

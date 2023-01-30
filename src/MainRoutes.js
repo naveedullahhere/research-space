@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { Home } from './Component/Home';
 import { AnimatePresence } from 'framer-motion';
 import { Contact } from './Component/Contact';
@@ -25,12 +25,92 @@ import { Stores } from './Component/Deals/Stores';
 import { Saved } from './Component/Dashboard/Saved';
 import { SingleVideo } from './Component/Video/SingleVideo';
 import { Goals } from './Component/Dashboard/Goals';
+import { toast } from 'react-hot-toast';
 
 
 export const MainRoutes = () => {
-    const { isPageLoading, user } = useContext(AppContext);
+    const { isPageLoading, addUserData, dispatch, URL } = useContext(AppContext);
 
     const { pathname } = useLocation();
+
+    const navigate = useNavigate();
+
+    const continueWithSocials = (type, credentials, where, domain) => {
+
+        if (where === 'login') {
+
+            fetch(`${URL}api/web/loginwithsocial`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ credentials: credentials, type: type, domain: domain })
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.success != false) {
+                        dispatch(addUserData(data.data, []));
+                        toast.success(data.message);
+                        navigate('/');
+                    } else {
+                        toast.error(data.message);
+                    }
+                }).catch((err) => {
+                    toast.error("Something went wrong!");
+                })
+        }
+        else if (where === 'signup') {
+            if (type === 'facebook') {
+                fetch(`${URL}api/web/signupwithsocial`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ credentials: credentials, type: type, domain: domain })
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        if (data.success != false) {
+                            dispatch(addUserData(data.data, []));
+                            toast.success(data.message);
+                            navigate('/');
+
+                        } else {
+                            toast.error(data.message);
+                        }
+                    }).catch((err) => {
+                        toast.error("Something went wrong!");
+                    })
+            }
+
+            else {
+                fetch(`${URL}api/web/signupwithsocial`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ credentials: credentials, type: type, domain: domain })
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        if (data.success != false) {
+                            dispatch(addUserData(data.data, []));
+                            toast.success(data.message);
+                            navigate('/');
+
+                        } else {
+                            toast.error(data.message);
+                        }
+                    }).catch((err) => {
+                        toast.error("Something went wrong!");
+                    })
+            }
+        }
+
+        else {
+            toast.error("Something went wrong!");
+        }
+    }
     return (
         <AnimatePresence>
             {isPageLoading ?
@@ -51,11 +131,11 @@ export const MainRoutes = () => {
                     <Route path="/deals" element={<Deals />} />
                     <Route path="/coupons" element={<Coupon />} />
                     <Route path="/password/reset" element={<Forgot />} />
-                    <Route path="/login" element={<Login />} />
                     <Route path="/video" element={<Video />} />
                     <Route path="/notfound" element={<NotFound />} />
                     <Route path="/*" element={<NotFound />} />
-                    <Route path="/register" element={<Register />} />
+                    <Route path="/login" element={<Login continueWithSocials={continueWithSocials} />} />
+                    <Route path="/register" element={<Register continueWithSocials={continueWithSocials} />} />
                     <Route element={<PrivateRoutes />}>
                         <Route path="/saved" element={<Saved />} />
                         <Route path="/my-account" element={<MyAccount />} exact />

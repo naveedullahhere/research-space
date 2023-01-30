@@ -82,7 +82,7 @@ function App() {
         toast.error("something went wrong!");
       }
       );
-  }, []);
+  }, [user]);
 
   const fetchStore = async (url) => {
     try {
@@ -111,102 +111,15 @@ function App() {
       });
   }
 
+
   document.title = Title;
 
-  const continueWithSocials = (type, credentials, where, domain) => {
-
-    if (where === 'login') {
-
-      fetch(`${URL}api/web/loginwithsocial`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ credentials: credentials, type: type, domain: domain })
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-          if (data.success != false) {
-            dispatch(addUserData(data.data, []));
-            toast.success(data.message);
-          } else {
-            toast.error(data.message);
-          }
-        }).catch((err) => {
-          toast.error("Something went wrong!");
-        })
-    }
-    else if (where === 'signup') {
-      if (type === 'facebook') {
-        fetch(`${URL}api/web/signupwithsocial`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ credentials: credentials, type: type, domain: domain })
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            if (data.success != false) {
-              dispatch(addUserData(data.data, []));
-              toast.success(data.message);
-            } else {
-              toast.error(data.message);
-            }
-          }).catch((err) => {
-            toast.error("Something went wrong!");
-          })
-      }
-
-      else {
-        fetch(`${URL}api/web/signupwithsocial`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ credentials: credentials, type: type, domain: domain })
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            if (data.success != false) {
-              dispatch(addUserData(data.data, []));
-              toast.success(data.message);
-            } else {
-              toast.error(data.message);
-            }
-          }).catch((err) => {
-            toast.error("Something went wrong!");
-          })
-      }
-    }
-
-    else {
-      toast.error("Something went wrong!");
-    }
-  }
-
   var values = {
-    SITE_URL, API_TOKEN, teams, teamsImgPath, currentTag, continueWithSocials, setCurrentTag, keywords, couponItems, heartedTags, setHeartedTags, setCouponItems, setStyle, style, SavedItems, setSavedItems, WishlistItems, LikedItems, setLikedItems, setWishlistItems, search, setSearch, setNoteValue, noteValue, FilterCategory, setFilterCategory, FilterStore, setFilterStore, setTitle, Title, APP_NAME, URL, data, setData, img, setImg, removeUserData, addUserData, updateUserData, dispatch, user
+    SITE_URL, API_TOKEN, teams, teamsImgPath, currentTag, setCurrentTag, keywords, couponItems, heartedTags, setHeartedTags, setCouponItems, setStyle, style, SavedItems, setSavedItems, WishlistItems, LikedItems, setLikedItems, setWishlistItems, search, setSearch, setNoteValue, noteValue, FilterCategory, setFilterCategory, FilterStore, setFilterStore, setTitle, Title, APP_NAME, URL, data, setData, img, setImg, removeUserData, addUserData, updateUserData, dispatch, user
   }
 
-  const googleButtonRef = useRef(null);
-
-  const onGoogleSignIn = (user) => {
-    let userCred = user.credential;
-    console.log(userCred);
-  }
-  // useScript('https://accounts.google.com/gsi/client', () => {
-  //   window.google.accounts.id.initialize({
-  //     client_id: "191543384667-v96v2vm38b2sib51itnfvsbk1p130ul9.apps.googleusercontent.com",
-  //     callback: onGoogleSignIn,
-  //     auto_select: false,
-  //   });
- 
-
-  // });
   return (
-    <GoogleOAuthProvider clientId="191543384667-v96v2vm38b2sib51itnfvsbk1p130ul9.apps.googleusercontent.com">
+    <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
 
       <AppContext.Provider value={values}>
         <BrowserRouter>

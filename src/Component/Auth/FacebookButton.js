@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'; 
+import React, { useContext } from 'react';
 import { AppContext } from '../../context/AppContext';
 import { FacebookLoginButton } from 'react-social-login-buttons';
 import { LoginSocialFacebook } from 'reactjs-social-login';
@@ -6,8 +6,7 @@ import { toast } from 'react-hot-toast';
 
 
 
-export const FacebookButton = ({ where }) => {
-    const { continueWithSocials } = useContext(AppContext);
+export const FacebookButton = ({ where, continueWithSocials }) => {
 
     return (
         <>
@@ -21,13 +20,8 @@ export const FacebookButton = ({ where }) => {
                     toast.error("Something went wrong!");
                 }} >
 
-                <FacebookLoginButton />
+                <FacebookLoginButton text={`${where === "login" ? "Sign in" : "Signup"}  with facebook`} />
             </LoginSocialFacebook>
-        </>
-
-        // <fb:login-button
-        //     config_id="{730601482029779}"
-        //     onlogin="checkLoginState();">
-        // </fb:login-button>
+        </> 
     )
 }

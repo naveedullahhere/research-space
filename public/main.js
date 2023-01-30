@@ -39,13 +39,11 @@ window.addEventListener('load', function () {
                 // Request scopes in addition to 'profile' and 'email'
                 //scope: 'additional_scope'
             });
-            attachSignin(document.getElementById('customBtn'));
-            console.log(document.getElementById('customBtn'),"asd");
+            attachSignin(document.getElementById('customBtn')); 
         });
     };
 
-    function attachSignin(element) {
-        console.log(element.id);
+    function attachSignin(element) { 
         auth2.attachClickHandler(element, {},
             function (googleUser) {
                 document.getElementById('name').innerText = "Signed in: " +
@@ -74,8 +72,7 @@ window.addEventListener('load', function () {
             }
         });
 
-
-        console.log("ready");
+ 
         const tabsBox = document.querySelector(".tabs-box"),
             allTabs = tabsBox.querySelectorAll(".tab"),
             arrowIcons = document.querySelectorAll(".icon i");
