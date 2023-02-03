@@ -21,6 +21,7 @@ const userReducer = (state = initialData, action) => {
                     // ...state.user,
                     {
                         id: id,
+                        id: id,
                         data: data,
                     }],
             }
