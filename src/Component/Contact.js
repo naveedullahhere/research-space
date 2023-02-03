@@ -28,7 +28,7 @@ export const Contact = () => {
 
         data = JSON.stringify(data);
 
-        fetch(`${URL}api/web/contact`, {
+        fetch(`https://eliteblue.net/research-space/api/webs/contact`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: data
@@ -54,7 +54,7 @@ export const Contact = () => {
 
         <>
 
-<motion.div initial={{ transition: { duration: 1 }, opacity: 0 }} animate={{ transition: { duration: 1 }, opacity: 1 }} exit={{ transition: { duration: 1 }, opacity: 0 }}>
+            <motion.div initial={{ transition: { duration: 1 }, opacity: 0 }} animate={{ transition: { duration: 1 }, opacity: 1 }} exit={{ transition: { duration: 1 }, opacity: 0 }}>
                 <div class="container-fluid">
                     <div class="row shadow-sm">
                         <div class="col-md-12 py-3">

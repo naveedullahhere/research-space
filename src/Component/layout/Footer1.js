@@ -23,7 +23,7 @@ export const Footer1 = () => {
         setIsLoading(true)
 
         data = JSON.stringify(data);
-        fetch(`${URL}api/web/newsletter-subscribe&api_token=${API_TOKEN}`, {
+        fetch(`https://eliteblue.net/research-space/api/webs/newsletter-subscribe?api_token=${API_TOKEN}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: data

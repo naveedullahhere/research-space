@@ -39,7 +39,7 @@ export const Register = ({ continueWithSocials }) => {
         let passwordD = password;
         let usernameD = userName;
         setIsLoading(true)
-        postData(`${URL}api/web/signup`, { email: emailD, password: passwordD, name: usernameD, domain: data.domain })
+        postData(`https://eliteblue.net/research-space/api/webs/signup`, { email: emailD, password: passwordD, name: usernameD, domain: data.domain })
             .then(data => {
                 if (data.success != false) {
                     dispatch(addUserData(data.data, []));

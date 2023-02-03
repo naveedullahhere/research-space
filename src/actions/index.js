@@ -9,16 +9,28 @@ export const addUserData = (data) => {
     }
 }
 
-export const setStyle = (data) => {
+export const setCartItems = (data) => {
+
     return {
-        type: "STYLE",
-        payload: {
-            id: new Date().getTime().toString(),
-            style: data,
-        }
+        type: "CART",
+        payload: data
     }
 }
+export const manageQuantity = (data, type) => {
 
+    return {
+        type: "MANAGE_QUANTITY",
+        is: type,
+        payload: data
+    }
+}
+export const removeCartItems = (data) => {
+
+    return {
+        type: "REMOVE_ITEM",
+        payload: data
+    }
+}
 export const updateUserData = () => {
     return {
         type: "UPDATE_USER"

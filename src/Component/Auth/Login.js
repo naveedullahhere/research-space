@@ -31,25 +31,25 @@ export const Login = ({ continueWithSocials }) => {
         let emailD = email;
         let passwordD = password;
         setIsLoading(true);
-        postData(`${URL}api/signin`, { email: emailD, password: passwordD })
+        postData(`https://eliteblue.net/research-space/api/webs/signin`, { email: emailD, password: passwordD })
             .then(data => {
                 // console.log(data.data.user_token);
+console.log(data);
                 if (data.success != false) {
 
-                    fetch(`${URL}api/web/react-items?user_token=${data.data.user_token}&type=wishlist&api_token=${API_TOKEN}`)
-                        .then((response) => response.json())
-                        .then((actualData) => { setWishlistItems(actualData); })
+                    // fetch(`${URL}api/web/react-items?user_token=${data.data.user_token}&type=wishlist&api_token=${API_TOKEN}`)
+                    //     .then((response) => response.json())
+                    //     .then((actualData) => { setWishlistItems(actualData); })
 
-
-                    fetch(`${URL}api/web/getgoals`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ user_token: user.data.user_token })
-                    })
-                        .then((response) => response.json())
-                        .then((actualData) => { setHeartedTags(JSON.parse(actualData[0].keywords)); })
+                    // fetch(`${URL}api/web/getgoals`, {
+                    //     method: 'POST',
+                    //     headers: {
+                    //         'Content-Type': 'application/json'
+                    //     },
+                    //     body: JSON.stringify({ user_token: user.data.user_token })
+                    // })
+                    //     .then((response) => response.json())
+                    //     .then((actualData) => { setHeartedTags(JSON.parse(actualData[0].keywords)); })
 
 
                     dispatch(addUserData(data.data));
