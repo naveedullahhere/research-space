@@ -342,7 +342,7 @@ export const Header = () => {
             <header className="header">
                 <nav className="navbar">
                     <a href="/" className="nav-logo">
-                        <img src={"https://static.wixstatic.com/media/4309db_218256d4a74648789bb2949765e1d2bb~mv2.png/v1/fill/w_241,h_85,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/4309db_218256d4a74648789bb2949765e1d2bb~mv2.png"} alt="Discount Space" className='blogo' width="180" />
+                        <img src={"https://eliteblue.net/research-space/images/media/subscription16753448347433974236.jpg"} alt="Discount Space" className='blogo' width="180" />
                     </a>
                     <ul className={`${navCurrent && "active"} nav-menu`}>
                         <li className="nav-item">
