@@ -7036,6 +7036,10 @@ span.buttonText {
   }
 }
 
+.fs-16 {
+  font-size: 16px;
+}
+
 .cart .summary {
   background-color: #ddd;
   border-top-right-radius: 1rem;
@@ -7169,7 +7173,7 @@ span.buttonText {
 }
 
 .nav-item {
-  margin-left: 4rem;
+  margin-left: 38px;
 }
 
 .nav-link {

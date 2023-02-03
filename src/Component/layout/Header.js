@@ -357,6 +357,46 @@ export const Header = () => {
                         <li className="nav-item">
                             <Link to="/contact" className="nav-link">Contact</Link>
                         </li>
+
+                        {user ?
+                            <li className="nav-item">
+
+                                <div className="custom-dropdown-area cat-dropdown text-uppercase">
+                                    <li className="list-unstyled dropdown-toggle" data-bs-toggle="dropdown"><Link to="#"><i className='fa fa-user-alt me-3'></i>{user.data.name}</Link></li>
+
+                                    <ul className="custom-Dropdown dd" id="style-1" style={{ display: 'block' }}>
+
+
+
+                                        <li><Link className="dropdown-item" to={'/my-account'}>My Account</Link></li>
+                                        <li><Link className="dropdown-item" onClick={Logout}>Logout</Link></li>
+
+
+
+                                    </ul>
+                                </div>
+                            </li>
+                            :
+                            // <div className="buttons d-flex justify-content-center">
+                            <>
+                                <li className='nav-item'>
+
+                                    <Link to={'/login'} className="btn log text-dark px-0 fs-16 py-2">
+                                        LOGIN
+                                    </Link>
+                                </li>
+                                <li className='nav-item'>
+
+                                    <Link to="register" className="btn bg-signature text-white px-4 py-2 rounded-5 fs-16">
+                                        SIGNUP
+                                    </Link>
+                                </li>
+                            </>
+
+                            // </div>
+
+                        }
+
                     </ul>
                     <div className={`${navCurrent && "active"} hamburger`} onClick={() => setNavCurrent(!navCurrent)}>
                         <span className="bar"></span>

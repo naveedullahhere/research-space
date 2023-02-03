@@ -43,6 +43,7 @@ export const Register = ({ continueWithSocials }) => {
             .then(data => {
                 if (data.success != false) {
                     dispatch(addUserData(data.data, []));
+                    console.log("Heyyyy");
                     toast.success(data.message);
                     navigate("/my-account");
                     reset();

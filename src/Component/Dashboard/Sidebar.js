@@ -33,45 +33,7 @@ export const Sidebar = ({ pageid }) => {
                         </Link>
                         <span className="tooltip">My Account</span>
                     </li>
-                    {user.data.user_type === "user" &&
-                        <>
-                            <li>
-                                <Link to={'/wishlist'} className={`${pageid === "wishlist" && "active"}`}>
-                                    <i class='fa fa-file-invoice' ></i>
-                                    <span className="link_names">Wishlist</span>
-                                </Link>
-                                <span className="tooltip">Wishlist</span>
-                            </li>
-                            <li>
-                                <Link to={'/like'} className={`${pageid === "like" && "active"}`}>
-                                    <i class='fa fa-thumbs-up' ></i>
-                                    <span className="link_names">Like</span>
-                                </Link>
-                                <span className="tooltip">Like</span>
-                            </li>
-                            <li>
-                                <Link to={'/saved'} className={`${pageid === "saved" && "active"}`}>
-                                    <i class='fa fa-save'></i>
-                                    <span className="link_names">My Cart</span>
-                                </Link>
-                                <span className="tooltip">My Cart</span>
-                            </li>
-                            <li>
-                                <Link to={'/goals'} className={`${pageid === "goals" && "active"}`}>
-                                    <i class='fa fa-save'></i>
-                                    <span className="link_names">Goals</span>
-                                </Link>
-                                <span className="tooltip">Goals</span>
-                            </li>
-                            {/* <li>
-                                <Link to={'/completed-projects'} className={`${pageid === "cproject" && "active"}`}>
-                                    <i class='fa fa-project-diagram'></i>
-                                    <span className="link_names">Completed Projects</span>
-                                </Link>
-                                <span className="tooltip">Completed Projects</span>
-                            </li> */}
-                        </>
-                    }
+                     
                     <li>
                         <a href='#' onClick={Logout}>
                             {isLoading ?

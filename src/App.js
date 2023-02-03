@@ -19,8 +19,7 @@ function App() {
 
   const cartItems = useSelector((state) => state.cartReducer);
   const user = useSelector((state) => state.userReducer.user[0]);
-
-  console.log(cartItems);
+ 
 
   const [Title, setTitle] = useState(`Home${APP_NAME}`);
 
