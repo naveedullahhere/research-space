@@ -20,8 +20,7 @@ const userReducer = (state = initialData, action) => {
                 user: [
                     // ...state.user,
                     {
-                        id: id,
-                        id: id,
+                        id: id, 
                         data: data,
                     }],
             }
