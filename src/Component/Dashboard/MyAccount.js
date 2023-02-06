@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 import { AppContext } from '../../context/AppContext';
 import { Sidebar } from './Sidebar';
 import { Link, useNavigate } from 'react-router-dom';
+import { Alert } from 'antd';
 
 
 export const MyAccount = () => {
@@ -110,8 +111,8 @@ export const MyAccount = () => {
                     <div className="col-xl-9 col-lg-9 col-md-8 col-10" >
                         <div className='row w-100 mx-0 px-0'>
                             <div className="col-12 mx-0 px-0 text-center">
-                                <div className="profile-page p-4 text-start">
-                                    <div className="user-profile rounded-3 shadow p-4">
+                                <div className="profile-page   text-start">
+                                    <div className="user-profile   p-4">
                                         {/* <img src="https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTU0NjQzOTk4OTQ4OTkyMzQy/ansel-elgort-poses-for-a-portrait-during-the-baby-driver-premiere-2017-sxsw-conference-and-festivals-on-march-11-2017-in-austin-texas-photo-by-matt-winkelmeyer_getty-imagesfor-sxsw-square.jpg" draggable="false" alt="profile" className='rounded-circle' /> */}
                                         <div className="mb-5 mt-3">
 
@@ -127,7 +128,9 @@ export const MyAccount = () => {
 
                                                     <input type="text" name="phone_number" id="" {...register2('phone_number')}
                                                         className={`form-control text-dark ${errors2.phone_number ? 'is-invalid' : ''}`} style={{ "filter": "none" }} placeholder={`Phone Number`} disabled={isActiveEdit} value={userPhone} onChange={(e) => setUserPhone(e.target.value)} />
-
+                                                    <div className='mb-t'>
+                                                        <Alert message={`Joined Since: ${new Date(user.data.updated_at).toLocaleString("en-us").split(',')[0]}`} type="warning" />
+                                                    </div>
                                                     {/* <textarea type="text" name="about" id="" {...register2('about')}
                                                         className={`form-control text-dark ${errors2.about ? 'is-invalid' : ''}`} style={{ "filter": "none" }} placeholder={`About your self`} disabled={isActiveEdit} onChange={(e) => setUserAbout(e.target.value)} >{userAbout}</textarea> */}
 
@@ -143,7 +146,6 @@ export const MyAccount = () => {
                                                                     <span className="visually-hidden">Loading...</span>
                                                                 </div>
                                                             }
-
 
                                                         </button>
                                                     </div>

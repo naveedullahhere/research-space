@@ -33,7 +33,14 @@ export const Sidebar = ({ pageid }) => {
                         </Link>
                         <span className="tooltip">My Account</span>
                     </li>
-                     
+                    <li>
+                        <Link className={`${pageid === "subscriptions" && "active"}`} to={'/my-subscriptions'}>
+                            <i class='fa fa-user-circle'></i>
+                            <span className="link_names">My Subscriptions</span>
+                        </Link>
+                        <span className="tooltip">My Subscriptions</span>
+                    </li>
+
                     <li>
                         <a href='#' onClick={Logout}>
                             {isLoading ?

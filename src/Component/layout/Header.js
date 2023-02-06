@@ -1,5 +1,4 @@
-import Logo from '../assets/discount-space-logo.png';
-import Logowhite from '../assets/discount-space-logo-whitee.png';
+import Logo from '../assets/research-space-logo.png';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AppContext } from '../../context/AppContext';
 import React, { useState, useEffect, useContext, useRef } from 'react';
@@ -341,19 +340,19 @@ export const Header = () => {
 
             <header className="header">
                 <nav className="navbar">
-                    <a href="/" className="nav-logo">
-                        <img src={"https://static.wixstatic.com/media/4309db_218256d4a74648789bb2949765e1d2bb~mv2.png/v1/fill/w_241,h_85,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/4309db_218256d4a74648789bb2949765e1d2bb~mv2.png"} alt="Discount Space" className='blogo' width="180" />
-                    </a>
+                    <Link to="/" className="nav-logo">
+                        <img src={Logo} alt="Discount Space" className='blogo' width="90" />
+                    </Link>
                     <ul className={`${navCurrent && "active"} nav-menu`}>
                         <li className="nav-item">
                             <Link to="/" className="nav-link">Home</Link>
                         </li>
                         <li className="nav-item">
-                            <Link to="/product" className="nav-link">Products</Link>
+                            <Link to="/product" className="nav-link">Plans</Link>
                         </li>
-                        <li className="nav-item cartNav">
+                        {/* <li className="nav-item cartNav">
                             <Link to="/cart" className="nav-link" data-cart={cartItems.cartItems.length}>Cart</Link>
-                        </li>
+                        </li> */}
                         <li className="nav-item">
                             <Link to="/contact" className="nav-link">Contact</Link>
                         </li>

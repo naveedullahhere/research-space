@@ -4,8 +4,9 @@ import React, { useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from "react-hot-toast";
 import { AppContext } from '../../context/AppContext';
-import { Link } from 'react-router-dom';
-import Logowhite from '../assets/discount-space-logo-whitee.png';
+import { Link } from 'react-router-dom'; 
+import Logowhite from '../assets/research-space-logo-whitee.png';
+
 
 export const Footer1 = () => {
 

@@ -1,7 +1,9 @@
 import React from 'react'
 import { useContext } from 'react';
 import { toast } from 'react-hot-toast';
+import { Link, Route, Routes } from 'react-router-dom';
 import { AppContext } from '../context/AppContext';
+import Checkout from './Chechkout';
 
 const Cart = () => {
 
@@ -11,7 +13,7 @@ const Cart = () => {
         <>
             <div className="sec pt-md-5 pt-3 bg-white">
                 <div className="container">
-                    <div class="card cart">
+                    <div class="card cart shadow-none">
                         <div class="row">
                             <div class={`col-md-${cartItems.cartItems.length > 0 ? "8" : "12"} cart`}>
                                 <div class="title">
@@ -37,6 +39,7 @@ const Cart = () => {
                                 }) : <p>Cart is Empty!</p>}
                             </div>
 
+
                             {cartItems.cartItems.length > 0 &&
                                 <div class="col-md-4 summary">
                                     <div><h5><b>Summary</b></h5></div>
@@ -49,7 +52,7 @@ const Cart = () => {
                                         <div class="col">TOTAL PRICE</div>
                                         <div class="col text-right">$ {cartItems.cartTotalAmount}</div>
                                     </div>
-                                    <button class="btn btn-main">CHECKOUT</button>
+                                    <Link class="btn btn-main" to="/checkout">CHECKOUT</Link>
 
                                 </div>
                             }

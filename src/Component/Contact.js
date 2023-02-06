@@ -18,6 +18,7 @@ export const Contact = () => {
         reset,
         formState: { errors },
     } = useForm();
+
     useEffect(() => {
 
         setTitle(`Contact${APP_NAME}`);

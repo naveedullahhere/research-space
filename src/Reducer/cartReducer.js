@@ -9,6 +9,8 @@ const cartReducer = (state = initialState, action) => {
         case "CART":
             const itemIndex = state.cartItems.findIndex((item) => item.id === action.payload.id);
 
+
+
             // if (itemIndex >= 0) {
             //     state.cartItems[itemIndex].cartQuantity += 1;
             //     state.cartItems[itemIndex].cartAmount += parseInt(action.payload.price);
@@ -33,9 +35,6 @@ const cartReducer = (state = initialState, action) => {
                 state.cartItems.push(tempProduct);
                 state.cartTotalAmount += parseInt(action.payload.price);
             }
-
-
-
 
             return {
                 cartItems: state.cartItems, cartTotalQuantity: state.cartTotalQuantity, cartTotalAmount: state.cartTotalAmount
@@ -77,7 +76,7 @@ const cartReducer = (state = initialState, action) => {
         case "REMOVE_ITEM":
             state.cartItems = state.cartItems.filter(item => item.id != action.payload.id);
             return {
-                cartItems: state.cartItems, cartTotalQuantity: state.cartTotalQuantity, cartTotalAmount: state.cartTotalAmount
+                cartItems: state.cartItems, cartTotalQuantity: state.cartTotalQuantity, cartTotalAmount: state.cartTotalAmount - action.payload.cartAmount
             };
 
         default:

@@ -16,6 +16,15 @@ export const setCartItems = (data) => {
         payload: data
     }
 }
+
+export const setCouponCode = (code, value) => {
+
+    return {
+        type: "DS_CODE",
+        code: code,
+        value: value
+    }
+}
 export const manageQuantity = (data, type) => {
 
     return {

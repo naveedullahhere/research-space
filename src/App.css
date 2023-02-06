@@ -2,8 +2,8 @@
 
 :root {
   --primary: #03204c;
-  --main-light: #035c96;
-  --primary-light: #04396d;
+  --main-light: #04396d;
+  --primary-light: #03204c;
   --secondary: #000;
   --dark: #55595c;
   --black: #000;
@@ -1778,7 +1778,7 @@ textarea.input:not(:placeholder-shown)+label {
 }
 
 .profile-page {
-  background: linear-gradient(180deg, var(--primary)50%, var(--white) 50%);
+  /* background: linear-gradient(180deg, var(--primary)50%, var(--white) 50%); */
 }
 
 .user-profile>img {
@@ -5953,6 +5953,35 @@ button#dropdownMenuButton1::after {
   height: 250px !important;
 }
 
+@media (min-width: 1200px) {
+
+  .container,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container-xl {
+    max-width: 95% !important;
+  }
+}
+
+@media (min-width: 992px) {
+
+  .container,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container-xl {
+    max-width: 98% !important;
+  }
+}
+
+.product-details>p>p {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+}
+
 .image-container img {
   object-fit: cover;
   height: 100%;
@@ -6915,12 +6944,12 @@ span.buttonText {
 }
 
 .product-bottom-details div {
-  float: left;
-  width: 30%;
+  /* float: left; */
+  /* width: 70%; */
 }
 
 .product-bottom-details .product-links {
-  width: 70%;
+  width: 44%;
 }
 
 .product-links {
@@ -6980,10 +7009,34 @@ span.buttonText {
 }
 
 .truncate-1 {
-  display: -webkit-box;
+  display: -webkit-box !important;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
   overflow: hidden;
+}
+
+.btn-main.type-light {
+  background-image: linear-gradient(260deg, var(--main-light) 8%, var(--main-light) 66%)
+}
+
+.card.subscription .ant-list-item {
+  padding: 1em !important;
+}
+
+.card.subscription>div:before {
+  display: none;
+}
+
+.card.subscription>div .ant-divider-inner-text {
+  font-size: 18px;
+}
+
+.text>p {
+  margin-bottom: 0;
+}
+
+.card {
+  cursor: pointer;
 }
 
 .cart .increment button {
@@ -7007,6 +7060,10 @@ span.buttonText {
 
 }
 
+.cart :where(.css-dev-only-do-not-override-26rdvq).ant-form-item {
+  /* margin-bottom: 0px; */
+}
+
 .row.truncate-1>p {
   padding: 0;
   margin: 0;
@@ -7015,6 +7072,14 @@ span.buttonText {
   -webkit-line-clamp: 1;
   overflow: hidden;
   text-align: start;
+}
+
+.truncate-5 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  overflow: hidden;
+
 }
 
 .cart .increment button:hover {
@@ -7041,7 +7106,7 @@ span.buttonText {
 }
 
 .cart .summary {
-  background-color: #ddd;
+  background-color: #ddddddad;
   border-top-right-radius: 1rem;
   border-bottom-right-radius: 1rem;
   padding: 4vh;
@@ -7119,7 +7184,7 @@ span.buttonText {
 .cart input {
   border: 1px solid rgba(0, 0, 0, 0.137);
   padding: 1vh;
-  margin-bottom: 4vh;
+  /* margin-bottom: 4vh; */
   outline: none;
   width: 100%;
   background-color: rgb(247, 247, 247);
@@ -7182,6 +7247,35 @@ span.buttonText {
   color: #475569;
 }
 
+.country span {
+  color: var(--black);
+
+  text-align: start;
+}
+
+.country .ant-select-selector {
+  border-radius: 6px;
+}
+
+.products .words,
+.products .downloads {
+  color: #aaa;
+}
+
+.products .type {
+  color: var(--main-light);
+  border-left: 1px solid var(--main-light);
+  border-right: 1px solid var(--main-light);
+  padding-inline: 4px;
+}
+
+.products .text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
 .nav-link:hover {
   color: #482ff7;
 }
@@ -7202,7 +7296,7 @@ span.buttonText {
 
 @media only screen and (max-width: 768px) {
   .blogo {
-    width: 142px !important;
+    width: 80px !important;
   }
 
   .nav-menu {
