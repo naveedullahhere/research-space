@@ -36,7 +36,10 @@ const Checkout = () => {
 
 
 
-
+    // discountCode = {
+    //     value: 20,
+    //     code : "T645tyhbs"
+    // }
     useEffect(() => {
         setIsDtLoading(true);
         fetch(`https://eliteblue.net/research-space/api/webs/single-subscription`, {
@@ -96,23 +99,26 @@ const Checkout = () => {
         // }
 
 
+
+
         if (discountValue || discountCode.value) {
             if (discountValue) {
                 console.log("if");
-                values.coupon_discount = discountValue ? data.data?.price * discountValue / 100 : 0
-                values.grand_total = data.data?.price - (data.data?.price * discountValue / 100)
-                values.order_total = data.data?.price
+                values.coupon_discount = discountValue ? data.data?.discount_price * discountValue / 100 : 0
+                values.grand_total = data.data?.discount_price - (data.data?.discount_price * discountValue / 100)
+                values.order_total = data.data?.discount_price
             }
             else {
-                values.coupon_discount = discountCode.value ? data.data?.price * discountCode.value / 100 : 0
-                values.grand_total = data.data?.price - (data.data?.price * discountCode.value / 100)
-                values.order_total = data.data?.price
-                // setOtherFields({ ...otherFields, coupon_discount: discountCode.value ? discountCode.value : 0, grand_total: JSON.parse(data.data?.price) - (JSON.parse(data.data?.price) * discountCode.value / 100), order_total: JSON.parse(data.data?.price) })
+                console.log("else");
+                values.coupon_discount = discountCode.value ? data.data?.discount_price * discountCode.value / 100 : 0
+                values.grand_total = data.data?.discount_price - (data.data?.discount_price * discountCode.value / 100)
+                values.order_total = data.data?.discount_price
+                // setOtherFields({ ...otherFields, coupon_discount: discountCode.value ? discountCode.value : 0, grand_total: JSON.parse(data.data?.discount_price) - (JSON.parse(data.data?.discount_price) * discountCode.value / 100), order_total: JSON.parse(data.data?.discount_price) })
             }
         }
         else {
-            values.grand_total = data.data?.price;
-            values.order_total = data.data?.price;
+            values.grand_total = data.data?.discount_price;
+            values.order_total = data.data?.discount_price;
 
             // setOtherFields({ ...otherFields, grand_total: JSON.parse(data.data?.price) })
             // setOtherFields({ ...otherFields, grand_total: JSON.parse(data.data?.price), order_total: JSON.parse(data.data?.price) })
@@ -479,12 +485,13 @@ const Checkout = () => {
 
                                                                     </p>
                                                                     <p className="mb-0 truncate-2 text-start" >
-                                                                        {data.data.subscription_duration}
+                                                                        /{data.data.subscription_duration} Month
                                                                     </p>
                                                                 </div>
-                                                                <div className="col-4 my-auto">
+                                                                <div className="col-4 my-auto text-end">
 
-                                                                    <div class="text-end">$ {data.data.price}</div>
+                                                                    <strike class="text-end fs-sm">$ {data.data.regular_price}</strike>
+                                                                    <div class="text-end">$ {data.data.discount_price}</div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -493,7 +500,7 @@ const Checkout = () => {
                                             </div>
                                             <div class="row" style={{ borderTop: "1px solid rgba(0,0,0,.1)", padding: "2vh 0" }}>
                                                 <div class="col text-start">TOTAL PRICE</div>
-                                                <div class="col text-end">$ {data.data.price}</div>
+                                                <div class="col text-end">$ {data.data.discount_price}</div>
                                             </div>
 
                                             <div className="row my-2">
@@ -511,7 +518,6 @@ const Checkout = () => {
                                                     }
                                                     autoComplete="off"
                                                 >
-
 
                                                     {discountCode.code ?
 
@@ -601,11 +607,11 @@ const Checkout = () => {
                                                     <>
                                                         <div class="row" style={{ borderTop: "1px solid rgba(0,0,0,.1)", padding: "2vh 0" }}>
                                                             <div class="col text-start">DISCOUNT ({discountValue && `${discountValue}%`})</div>
-                                                            <div class="col text-end">- ${(data.data?.price * discountValue / 100)} </div>
+                                                            <div class="col text-end">- ${(data.data?.discount_price * discountValue / 100)} </div>
                                                         </div>
                                                         <div class="row" style={{ borderTop: "1px solid rgba(0,0,0,.1)", padding: "2vh 0" }}>
                                                             <div class="col text-start">GRAND TOTAL</div>
-                                                            <div class="col text-end">${data.data?.price - (data.data?.price * discountValue / 100)} </div>
+                                                            <div class="col text-end">${data.data?.discount_price - (data.data?.discount_price * discountValue / 100)} </div>
                                                         </div>
                                                     </>
 
@@ -614,17 +620,17 @@ const Checkout = () => {
 
                                                         <div class="row" style={{ borderTop: "1px solid rgba(0,0,0,.1)", padding: "2vh 0" }}>
                                                             <div class="col text-start">DISCOUNT ({discountCode.value && `${discountCode.value}%`})</div>
-                                                            <div class="col text-end">- ${(data.data?.price * discountCode.value / 100)} </div>
+                                                            <div class="col text-end">- ${(data.data?.discount_price * discountCode.value / 100)} </div>
                                                         </div>
                                                         <div class="row" style={{ borderTop: "1px solid rgba(0,0,0,.1)", padding: "2vh 0" }}>
                                                             <div class="col text-start">GRAND TOTAL</div>
-                                                            <div class="col text-end">${data.data?.price - (data.data?.price * discountCode.value / 100)} </div>
+                                                            <div class="col text-end">${data.data?.discount_price - (data.data?.discount_price * discountCode.value / 100)} </div>
                                                         </div>
                                                     </>)
                                                 :
                                                 <div class="row" style={{ borderTop: "1px solid rgba(0,0,0,.1)", padding: "2vh 0" }}>
                                                     <div class="col text-start">GRAND TOTAL</div>
-                                                    <div class="col text-end">${data.data?.price} </div>
+                                                    <div class="col text-end">${data.data?.discount_price} </div>
                                                 </div>
                                             }
 

@@ -276,7 +276,7 @@ export const Home = () => {
                                                             }
                                                             <div className='d-flex align-items-center justify-content-between'>
 
-                                                                <div class="product-price">{item.discount_price && <strike>${item.discount_price}&nbsp;&nbsp;</strike>} $<span>{item.regular_price}</span>{item.subscription_duration}</div>
+                                                                <div class="product-price">{item.discount_price && <strike className="fs-sm">${item.discount_price}&nbsp;&nbsp;</strike>} $<span>{item.regular_price}</span> <br /> /{item.subscription_duration} Months</div>
                                                                 <div class="product-links">
                                                                     {
                                                                         item?.stock

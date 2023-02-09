@@ -7440,6 +7440,9 @@ span.buttonText {
   margin-top: 30px;
   line-height: 1.5;
 }
+.fs-sm{
+  font-size: 14px;
+}
 
 @media (min-width: 768px) {
   .process {
