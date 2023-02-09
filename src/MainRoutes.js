@@ -115,8 +115,8 @@ export const MainRoutes = () => {
                     {/* <Route path="/blog" element={<Blog />} />
                     <Route path="/blog/:singleBlog" element={<BlogDetails />} /> */}
                     <Route path="/contact" element={<Contact />} />
-                    <Route path="/product" element={<Product />} />
-                    <Route path="/product/:singleProduct" element={<ProductDetails />} /> 
+                    <Route path="/samples" element={<Product />} />
+                    <Route path="/samples/:singleProduct" element={<ProductDetails />} /> 
                     <Route path="/password/reset" element={<Forgot />} />
                     <Route path="/notfound" element={<NotFound />} />
                     <Route path="/*" element={<NotFound />} />

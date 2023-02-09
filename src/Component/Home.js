@@ -1,11 +1,12 @@
-import { Alert, Empty, Form, Input, InputNumber, Modal, Pagination, Segmented, Skeleton, Tooltip } from 'antd';
+import { Alert, Button, Empty, Form, Input, InputNumber, Modal, Pagination, Segmented, Skeleton, Steps, Tooltip } from 'antd';
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { toast } from 'react-hot-toast';
 import { AppContext } from '../context/AppContext';
 import { motion } from 'framer-motion';
 import { Spinner } from './Spinner';
-import { AppstoreOutlined, BarsOutlined } from '@ant-design/icons';
+import { AppstoreOutlined, BarsOutlined, ArrowRightOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
+import Banner from './assets/banner.png';
 
 
 
@@ -15,19 +16,10 @@ export const Home = () => {
 
 
     const [isLoading, setIsLoading] = useState(true);
-    const [isStoreLoading, setIsStoreLoading] = useState(true);
-    const [dataFrom, setDataFrom] = useState(0);
-    const [dataTo, setDataTo] = useState(30);
     const [isErr, setIsError] = useState(false);
-    const [currTab, setCurrTab] = useState(1);
-    const [vll, setvll] = useState(1);
     const [slider, setSlider] = useState([]);
-    const [dataDeal, setDealData] = useState([]);
     const [data, setData] = useState([]);
     const [img, setImg] = useState(null);
-    const [imgDeal, setDealImg] = useState(null);
-
-    var len = Math.ceil(data.length / 30);
 
     useEffect(() => {
         setTitle(`Home${APP_NAME}`);
@@ -125,7 +117,23 @@ export const Home = () => {
     };
 
 
+    const [current, setCurrent] = useState(0);
 
+    const steps = [
+        {
+            title: 'First',
+        },
+        {
+            title: 'Second',
+        },
+        {
+            title: 'Last',
+        },
+    ];
+
+    const items = steps.map((item) => ({
+        key: item.title,
+    }));
 
     return (
         <motion.div initial={{ transition: { duration: 1 }, opacity: 0 }} animate={{ transition: { duration: 1 }, opacity: 1 }} exit={{ transition: { duration: 1 }, opacity: 0 }}>
@@ -134,7 +142,7 @@ export const Home = () => {
                 title="Inquiry Now"
                 open={open}
                 onOk={handleOk}
-                confirmLoading={confirmLoading} 
+                confirmLoading={confirmLoading}
                 okText="Submit"
                 cancelText="Cancel"
                 onCancel={() => setOpen(false)}
@@ -182,33 +190,66 @@ export const Home = () => {
                     </Form.Item>
                 </Form >
             </Modal >
-            <div className="section py-5 text-whtie sec-1 bg-main" ref={page}>
-                <div className="container">
+            <div className="section py-5 bg-main" ref={page}>
+                <div className="container py-md-5">
                     <div className="row">
-                        <div className="col-12 text-center">
-                            <h1 className="display-2 mb-0 fw-bold text-white">
-                                Shop in style
+                        <div className="col-md-8 text-start my-auto">
+                            <h1 className="display-4 mb-0 fw-bold text-white">
+                                The Biggest Database of Essays
+                                Written in English
                             </h1>
-                            <p className="fs-5 text-muted">
-                                With Research space
+                            <p className="fs-5 text-light">
+                                Find inspiring essay samples today and use them for own papers!
+
                             </p>
+                            <Link to={`${user ? "/contact" : "/register"}`}>
+                                <Button type="default" icon={<ArrowRightOutlined />} size='large'>
+                                    {user ? "Inquire Now" : "Signup Now"}
+                                </Button>
+                            </Link>
+                        </div>
+                        <div className="col-md-4">
+                            <img src={Banner} alt="" className='w-100 p-md-1 p-5' />
                         </div>
                     </div>
                 </div>
             </div>
 
+            <div className="sec py-md-5 py-3 howItWorks">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-12">
+                            <h1 className="heading text-center">
+                                How it works
+                            </h1>
+                            <p className="para">
+                                We’ve simplified the process to its max for you to enjoy!
+
+                            </p>
+                        </div>
+                        <div className="col-md-8 mx-auto my-3">
+                            <Steps direction="horizontal" current={current} items={items} size="large" />
+                        </div>
+                        <div className='my-4'>
+                            <iframe data-src="https://www.youtube.com/embed/r3TLHoXFfHg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" loading="lazy" className="w-100" style={{ height: '50vh' }} src="https://www.youtube.com/embed/r3TLHoXFfHg?enablejsapi=1&amp;origin=https%3A%2F%2Fstudentshare.org"  ></iframe>
+                        </div>
+                        <div>
+                            <Button size='large' type='primary'>START SEARCHING</Button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div className="sect py-md-5 py-3">
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-12 col-md-12 col-sm-12">
                             <div className='row w-100 mx-auto'>
-                                <div className="col-12"> 
-                                    <div className="d-flex justify-content-between"> 
-                                        <h1 className="heading">
-                                            Trending Packages
-                                        </h1>
-                                    </div>
+                                <div className="col-12">
+                                    <h1 className="heading text-center">
+                                        Our Services for Students
+
+                                    </h1>
                                 </div>
                                 {isLoading ? <div className="my-5">
                                     <Skeleton active />
@@ -230,7 +271,7 @@ export const Home = () => {
                                                         <p dangerouslySetInnerHTML={{ __html: item.description }}></p>
                                                         <div class="product-bottom-details">
                                                             {!item.stock &&
-                                                                <div className='mb-3'>                                                                                <Alert message="Our limit is exceed" type="warning" />
+                                                                <div className='mb-3'>                                                                                <Alert message="Our limit is exceed!" type="info" />
                                                                 </div>
                                                             }
                                                             <div className='d-flex align-items-center justify-content-between'>

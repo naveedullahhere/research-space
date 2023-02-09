@@ -69,59 +69,91 @@ export const Product = () => {
 
 
     return (
-        <div className="pt-md-5 pt-3 products">
-            <div className="container">
-                <div className="row">
-                    <div className="col-12 mb-3">
-                        <h1 className='fw-bold display-4'>Product</h1>
+        <>
+            <div className="section py-5 text-whtie sec-1 bg-main papers" >
+                <div className="container">
+                    <div className="row">
+                        <div className="col-md-8 text-start my-auto">
+                            <h1 className="display-4 mb-0 fw-bold text-white">
+                                List of Samples
+                            </h1>
+                            <p className="fs-5 text-light">
+                                Find inspiring essay samples today and use them for own papers!
+                            </p>
+                        </div>
+                        <div className="col-12 mt-md-5 mt-3">
+                            <ul class="process">
+                                <li class="process__item">
+                                    <span class="process__number">1</span>
+                                    <span class="process__title">Search in Free Essays</span>
+                                </li>
+
+                                <li class="process__item">
+                                    <span class="process__number">2</span>
+                                    <span class="process__title">Download a  Free Essay</span>
+                                </li>
+
+                                <li class="process__item">
+                                    <span class="process__number">3</span>
+                                    <span class="process__title">Rewrite / Hide the essays you downloaded</span>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                    {isLoading ? <div className="my-4">
-                        <Skeleton active />
-                    </div>
-                        :
-                        data.map((item) => {
-                            return <div className="col-12 my-3">
-                                <div className="card rounded-3 p-3 border-muted">
-                                    <div className="row">
-                                        <div className="col-2">
-                                            <img src={"https://i1.rgstatic.net/publication/345154413_Why_Is_Python_Programming_Language_Gaining_So_Much_Popularity/links/5f9f9813299bf1b53e59baec/largepreview.png"} alt="Sample" className='w-100' />
-                                        </div>
-                                        <div className="col-10 my-auto">
-                                            <div className="row w-100 mx-auto">
-
-                                                <div className="col-8">
-                                                    <Link to={item.slug} className="fs-3 text-main fw-normal truncate-1">
-                                                        {item.title}
-                                                    </Link>
-                                                    <p className="mb-0 my-2 truncate-1">
-                                                        5  <span className="pages">  pages</span> <span className="words"> (235 words)</span> , <span className="downloads">
-                                                            Download </span>54 , <span className="type">
-                                                            Free
-                                                        </span>
-                                                    </p>
-                                                </div>
-                                                <div className="col-4 text-end">
-                                                    <Link to={item.slug} className="btn btn-main">
-                                                        Preview Sample
-                                                    </Link>
-                                                </div>
-                                                <div className="col-12">
-                                                    <div class="text my-3" dangerouslySetInnerHTML={{ __html: item.summary }}>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        })
-                    }
                 </div>
             </div>
-        </div>
+            <div className="pt-md-5 pt-3 products">
+                <div className="container">
+                    <div className="row">
+                        {isLoading ? <div className="my-4">
+                            <Skeleton active />
+                        </div>
+                            :
+                            data.map((item) => {
+                                return <div className="col-12 my-3">
+                                    <div className="card rounded-3 p-3 border-muted">
+                                        <div className="row">
+                                            <div className="col-2">
+                                                <img src={"https://i1.rgstatic.net/publication/345154413_Why_Is_Python_Programming_Language_Gaining_So_Much_Popularity/links/5f9f9813299bf1b53e59baec/largepreview.png"} alt="Sample" className='w-100' />
+                                            </div>
+                                            <div className="col-10 my-auto">
+
+                                                <div className="row w-100 mx-auto">
+
+                                                    <div className="col-8">
+                                                        <Link to={item.slug} className="fs-3 text-main fw-normal truncate-1">
+                                                            {item.title}
+                                                        </Link>
+                                                        <p className="mb-0 my-2 truncate-1">
+                                                            5  <span className="pages">  pages</span> <span className="words"> (235 words)</span> , <span className="downloads">
+                                                                Download </span>54 , <span className="type">
+                                                                Free
+                                                            </span>
+                                                        </p>
+                                                    </div>
+                                                    <div className="col-4 text-end">
+                                                        <Link to={item.slug} className="btn btn-main">
+                                                            Preview Sample
+                                                        </Link>
+                                                    </div>
+                                                    <div className="col-12">
+                                                        <div class="text my-3" dangerouslySetInnerHTML={{ __html: item.summary }}>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            })
+                        }
+                    </div>
+                </div>
+            </div>
+        </>
     )
 }

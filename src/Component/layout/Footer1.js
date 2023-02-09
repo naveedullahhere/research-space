@@ -4,7 +4,7 @@ import React, { useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from "react-hot-toast";
 import { AppContext } from '../../context/AppContext';
-import { Link } from 'react-router-dom'; 
+import { Link } from 'react-router-dom';
 import Logowhite from '../assets/research-space-logo-whitee.png';
 
 
@@ -48,11 +48,11 @@ export const Footer1 = () => {
 
     return (
         <>
-            <div class="mt-5 pt-5 pb-4 footer1">
-                <div class="container">
+            <div class="mt-5 pt-5 pb-5 footer1">
+                <div class="container py-md-4">
                     <div class="row">
                         <div class="col-lg-5 col-xs-12 about-company">
-                            <img src={Logowhite} alt="" width={232} />
+                            <img src={Logowhite} alt="" width={132} />
                             <p class="pr-5 text-white my-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ac ante mollis quam tristique convallis </p>
                         </div>
                         <div class="col-lg-3 col-xs-12 links">
@@ -87,10 +87,13 @@ export const Footer1 = () => {
                             </div>
                         </div>
                     </div>
-                    <div class="row mt-5">
-                        <div class="col copyright">
-                            <p class="pt-3 mb-0"><small class="text-white">  © Copyright 2022 | All Rights Reserved | Powered By <Link to="//eliteblue.net" target="_blank" class="text-uppercase text-white">eliteblue technologies</Link></small></p>
-                        </div>
+                </div>
+            </div>
+            <div className="">
+
+                <div class="row py-3">
+                    <div class="col copyright text-center">
+                        <p class=" mb-0"><small class="text-dark">  © Copyright 2022 | All Rights Reserved  | Powered By <Link to="//eliteblue.net" target="_blank" class="text-uppercase text-dark">elite blue technologies</Link></small></p>
                     </div>
                 </div>
             </div>

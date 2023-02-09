@@ -35,7 +35,7 @@ export const Sidebar = ({ pageid }) => {
                     </li>
                     <li>
                         <Link className={`${pageid === "subscriptions" && "active"}`} to={'/my-subscriptions'}>
-                            <i class='fa fa-user-circle'></i>
+                            <i class='fa fa-comment-dollar'></i>
                             <span className="link_names">My Subscriptions</span>
                         </Link>
                         <span className="tooltip">My Subscriptions</span>
