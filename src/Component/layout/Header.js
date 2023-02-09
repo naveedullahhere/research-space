@@ -75,7 +75,7 @@ export const Header = () => {
                             <Link to="/" className="nav-link">Home</Link>
                         </li>
                         <li className="nav-item">
-                            <Link to="/samples" className="nav-link">Samples</Link>
+                            <Link to="/samples" className="nav-link">Sample Papers</Link>
                         </li>
                         {/* <li className="nav-item cartNav">
                             <Link to="/cart" className="nav-link" data-cart={cartItems.cartItems.length}>Cart</Link>

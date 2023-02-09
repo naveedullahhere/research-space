@@ -73,9 +73,9 @@ export const Product = () => {
             <div className="section py-5 text-whtie sec-1 bg-main papers" >
                 <div className="container">
                     <div className="row">
-                        <div className="col-md-8 text-start my-auto">
+                        <div className="col-md-12 text-start my-auto text-center">
                             <h1 className="display-4 mb-0 fw-bold text-white">
-                                List of Samples
+                                List of Sample Papers
                             </h1>
                             <p className="fs-5 text-light">
                                 Find inspiring essay samples today and use them for own papers!
@@ -90,12 +90,12 @@ export const Product = () => {
 
                                 <li class="process__item">
                                     <span class="process__number">2</span>
-                                    <span class="process__title">Download a  Free Essay</span>
+                                    <span class="process__title">Download a Free Essay</span>
                                 </li>
 
                                 <li class="process__item">
                                     <span class="process__number">3</span>
-                                    <span class="process__title">Rewrite / Hide the essays you downloaded</span>
+                                    <span class="process__title">Rewrite essays</span>
                                 </li>
                             </ul>
                         </div>

@@ -1,4 +1,4 @@
-import { Alert, Button, Empty, Form, Input, InputNumber, Modal, Pagination, Segmented, Skeleton, Steps, Tooltip } from 'antd';
+import { Alert, Button, Empty, Form, Input, InputNumber, Modal, Pagination, Popover, Segmented, Skeleton, Steps, Tooltip } from 'antd';
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { toast } from 'react-hot-toast';
 import { AppContext } from '../context/AppContext';
@@ -7,7 +7,6 @@ import { Spinner } from './Spinner';
 import { AppstoreOutlined, BarsOutlined, ArrowRightOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import Banner from './assets/banner.png';
-
 
 
 export const Home = () => {
@@ -119,21 +118,6 @@ export const Home = () => {
 
     const [current, setCurrent] = useState(0);
 
-    const steps = [
-        {
-            title: 'First',
-        },
-        {
-            title: 'Second',
-        },
-        {
-            title: 'Last',
-        },
-    ];
-
-    const items = steps.map((item) => ({
-        key: item.title,
-    }));
 
     return (
         <motion.div initial={{ transition: { duration: 1 }, opacity: 0 }} animate={{ transition: { duration: 1 }, opacity: 1 }} exit={{ transition: { duration: 1 }, opacity: 0 }}>
@@ -228,7 +212,23 @@ export const Home = () => {
                             </p>
                         </div>
                         <div className="col-md-8 mx-auto my-3">
-                            <Steps direction="horizontal" current={current} items={items} size="large" />
+                            {/* <Steps direction="horizontal" current={current} items={items} size="large" /> */}
+                            <Steps
+                                current={3}
+                                progressDot={(e) => <div>{e}</div>}
+                                items={[
+                                    {
+                                        description: 'FIND SAMPLES ON YOUR TOPIC',
+                                    },
+                                    {
+                                        description: 'DOWNLOAD ESSAYS IN ONE CLICK',
+                                    },
+                                    {
+                                        description: 'USE SAMPLES FOR INSPIRATION',
+                                    },
+                                ]}
+                            />
+
                         </div>
                         <div className='my-4'>
                             <iframe data-src="https://www.youtube.com/embed/r3TLHoXFfHg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" loading="lazy" className="w-100" style={{ height: '50vh' }} src="https://www.youtube.com/embed/r3TLHoXFfHg?enablejsapi=1&amp;origin=https%3A%2F%2Fstudentshare.org"  ></iframe>
@@ -248,8 +248,11 @@ export const Home = () => {
                                 <div className="col-12">
                                     <h1 className="heading text-center">
                                         Our Services for Students
-
                                     </h1>
+                                    <p className="para text-center">
+                                        One place for everything you need
+
+                                    </p>
                                 </div>
                                 {isLoading ? <div className="my-5">
                                     <Skeleton active />
@@ -276,7 +279,15 @@ export const Home = () => {
                                                             }
                                                             <div className='d-flex align-items-center justify-content-between'>
 
-                                                                <div class="product-price">{item.discount_price && <strike className="fs-sm">${item.discount_price}&nbsp;&nbsp;</strike>} $<span>{item.regular_price}</span> <br /> /{item.subscription_duration} Months</div>
+                                                                <div class="product-price">
+                                                                    {item.discount_price &&
+                                                                        <strike className="fs-sm">${item.regular_price}&nbsp;&nbsp;</strike>}
+
+
+                                                                    $<span>{item.discount_price}</span>
+                                                                    <br /> /{item.subscription_duration} Months
+
+                                                                </div>
                                                                 <div class="product-links">
                                                                     {
                                                                         item?.stock

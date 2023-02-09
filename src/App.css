@@ -7440,8 +7440,41 @@ span.buttonText {
   margin-top: 30px;
   line-height: 1.5;
 }
-.fs-sm{
+
+.fs-sm {
   font-size: 14px;
+}
+
+/* .ant-steps-item:nth-child(1):after {
+  content: 'FIND SAMPLES  ON YOUR TOPIC';
+  position: absolute;
+  top: -17px;
+  color: var(--primary);
+  font-size: 16px;
+} */
+
+/* .steps {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: rgba(0, 0, 0, 0.88);
+  font-size: 0;
+  line-height: 1.5714285714285714;
+  list-style: none;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  display: flex;
+  width: 100%;
+  text-align: initial;
+}
+.steps>.item{
+  position: relative;
+  display: inline-block;
+  flex: 1;
+  overflow: hidden;
+  vertical-align: top;
+} */
+:where(.css-dev-only-do-not-override-1rrkcxx).ant-steps .ant-steps-item {
+  overflow-y: visible !important;
 }
 
 @media (min-width: 768px) {
@@ -7484,4 +7517,14 @@ span.buttonText {
     opacity: 0.2;
     transform: translateY(-50%);
   }
+}
+
+
+/* :where(.css-dev-only-do-not-override-1rrkcxx).ant-steps .ant-steps-item { 
+  overflow-x: clip;
+} */
+.ant-steps-item-description {
+  color: var(--primary) !important;
+  font-size: 12px !important;
+  font-weight: 600;
 }
