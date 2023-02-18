@@ -270,10 +270,10 @@ export const Home = () => {
                                                         <h4><a href="">{item.title}</a></h4>
                                                         <p dangerouslySetInnerHTML={{ __html: item.description }}></p>
                                                         <div class="product-bottom-details">
-                                                            {!item.stock &&
+                                                            {/* {!item.stock &&
                                                                 <div className='mb-3'>                                                                                <Alert message="Our limit is exceed!" type="info" />
                                                                 </div>
-                                                            }
+                                                            } */}
                                                             <div className='d-flex align-items-center justify-content-between'>
 
                                                                 <div class="product-price">
