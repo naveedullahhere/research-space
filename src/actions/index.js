@@ -16,6 +16,13 @@ export const setCartItems = (data) => {
         payload: data
     }
 }
+export const setSubscription = (data) => {
+
+    return {
+        type: "SUBSCRIPTION",
+        payload: data
+    }
+}
 
 export const setCouponCode = (code, value) => {
 

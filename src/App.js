@@ -8,7 +8,7 @@ import { URL, APP_NAME, API_TOKEN, SITE_URL, GOOGLE_CLIENT_ID } from './config'
 import { BrowserRouter, Link, useNavigate } from "react-router-dom";
 import { toast, Toaster } from "react-hot-toast";
 import { useSelector, useDispatch } from 'react-redux';
-import { removeUserData, addUserData, updateUserData, setCartItems, removeCartItems, manageQuantity, setCouponCode } from './actions';
+import { removeUserData, addUserData, updateUserData, setSubscription, setCartItems, removeCartItems, manageQuantity, setCouponCode } from './actions';
 
 import { Footer1 } from './Component/layout/Footer1';
 import { GoogleOAuthProvider } from '@react-oauth/google';
@@ -19,8 +19,12 @@ function App() {
   const dispatch = useDispatch();
 
   const cartItems = useSelector((state) => state.cartReducer);
+  const subscriptions = useSelector((state) => state.subscriptionsReducer);
   const user = useSelector((state) => state.userReducer.user[0]);
   const discountCode = useSelector((state) => state.userReducer.couponCode[0]);
+
+
+  // console.log(subscriptions); 
 
 
   const [Title, setTitle] = useState(`Home${APP_NAME}`);
@@ -29,7 +33,7 @@ function App() {
   document.title = Title;
 
   var values = {
-    setCartItems, cartItems, SITE_URL, API_TOKEN, setTitle, Title, APP_NAME, URL, removeCartItems, setCouponCode, discountCode, manageQuantity, removeUserData, addUserData, updateUserData, dispatch, user
+    setCartItems, cartItems, SITE_URL, API_TOKEN, setSubscription, setTitle, Title, APP_NAME, URL, removeCartItems, setCouponCode, discountCode, manageQuantity, removeUserData, addUserData, updateUserData, dispatch, user
   }
 
   return (

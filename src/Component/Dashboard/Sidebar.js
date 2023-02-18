@@ -7,6 +7,7 @@ export const Sidebar = ({ pageid }) => {
     const { user, removeUserData, dispatch } = useContext(AppContext);
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
+    const [dropdown, setDropdown] = useState(false);
 
     const Logout = () => {
         setIsLoading(true);
@@ -15,6 +16,8 @@ export const Sidebar = ({ pageid }) => {
             navigate("/login")
         }, 2000);
     }
+
+
 
     return (
         <>
@@ -39,6 +42,22 @@ export const Sidebar = ({ pageid }) => {
                             <span className="link_names">My Subscriptions</span>
                         </Link>
                         <span className="tooltip">My Subscriptions</span>
+                    </li>
+                    <li>
+                        <Link className={`${dropdown && "active"} justify-content-between dropdown ${pageid === "order" && "bg-main"}`} onClick={() => setDropdown(!dropdown)} to={'#'}>
+                            <div>
+                                <i class='fa fa-comment-dollar'></i>
+                                <span className="link_names">Manage Orders</span>
+                            </div>
+                            <i class='fa fa-angle-right angle'></i>
+                        </Link>
+                        <span className="tooltip">Manage Orders</span>
+                        <ul className={`dropdownItems ${dropdown && "active"}`} >
+                            <li><Link to="/orders"> Create Project</Link></li>
+                            <li><a href="#"> Manage Project</a></li>
+                            <li><a href="#"> Hello</a></li>
+                            <li><a href="#"> Hello</a></li>
+                        </ul>
                     </li>
 
                     <li>

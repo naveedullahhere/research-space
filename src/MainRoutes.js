@@ -11,13 +11,19 @@ import { PrivateRoutes } from './PrivateRoutes';
 import { NotFound } from './Component/404';
 import { MyAccount } from './Component/Dashboard/MyAccount';
 import { Forgot } from './Component/Auth/Forgot';
-import { toast } from 'react-hot-toast'; 
+import { toast } from 'react-hot-toast';
 import Cart from './Component/Cart';
 import Checkout, { Chechkout } from './Component/Chechkout';
 import { Product } from './Component/Product';
 import { ProductDetails } from './Component/ProductDetails';
 import { MySubscriptions } from './Component/Dashboard/MySubscriptions';
 import SingleSubscription from './Component/SingleSubscription';
+import PrivacyPolicy from './Component/PrivacyPolicy';
+import TermsNConditions from './Component/TermsNConditions';
+import About from './Component/About';
+import Orders from './Component/Dashboard/Orders';
+import SingleOrder from './Component/SingleOrder';
+import ViewSubscription from './Component/ViewSubscription';
 
 
 export const MainRoutes = () => {
@@ -112,33 +118,26 @@ export const MainRoutes = () => {
                 :
                 <Routes key={pathname} location={pathname}>
                     <Route path="/" element={<Home />} />
-                    {/* <Route path="/blog" element={<Blog />} />
-                    <Route path="/blog/:singleBlog" element={<BlogDetails />} /> */}
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/samples" element={<Product />} />
-                    <Route path="/samples/:singleProduct" element={<ProductDetails />} /> 
+                    <Route path="/samples/:singleProduct" element={<ProductDetails />} />
                     <Route path="/password/reset" element={<Forgot />} />
                     <Route path="/notfound" element={<NotFound />} />
                     <Route path="/*" element={<NotFound />} />
                     <Route path="/login" element={<Login continueWithSocials={continueWithSocials} />} />
                     <Route path="/register" element={<Register continueWithSocials={continueWithSocials} />} />
                     <Route path="/cart" element={<Cart />} exact />
-                    {/* <Route path="/cart" element={<  Cart />}  /> */}
+                    <Route path="/about" element={<About />} exact />
+                    <Route path="/view-subscription/:subscription" element={<ViewSubscription />} exact />
+                    <Route path="/privacy-policy" element={<PrivacyPolicy />} exact />
+                    <Route path="/terms-and-conditions" element={<TermsNConditions />} exact />
                     <Route element={<PrivateRoutes />}>
                         <Route path="/checkout/:item" element={<Checkout />} exact />
-                        {/* <Route path="/checkout" element={<Checkout />} exact /> */}
                         <Route path="/my-account" element={<MyAccount />} exact />
+                        <Route path="/orders" element={<Orders />} exact />
+                        <Route path="/single-order/:order" element={<SingleOrder />} />
                         <Route path="/my-subscriptions" element={<MySubscriptions />} exact />
-                        <Route path="/my-subscriptions/:subscription" element={<SingleSubscription />} />
-                        {/*  <Route path="/projects" element={user && user.data.user_type === "user" && user.data.is_varified ? <Projects /> : <NotFound />} />
-                        <Route path="/projects/:singleProject" element={user && user.data.user_type === "user" && user.data.is_varified ? <SingleProject /> : <NotFound />} />
-                        <Route path="/invoices" element={user && user.data.user_type === "user" && user.data.is_varified ? < Invoices /> : <NotFound />} />
-                        <Route path="/invoices/:singleInvoice" element={user && user.data.user_type === "user" && user.data.is_varified ? <SingleInvoice /> : <NotFound />} exact /> */}
-                        {/* <Route path="/completed-projects" element={user && user.data.user_type === "user" ? <CompletedProjects /> : <NotFound />} exact /> */}
-                        {/* <Route path="/private-chat" element={<Chat />} /> */}
-                        {/* <Route path="/project-discussion" element={user && user.data.user_type === "user" && user.data.is_varified ? <ProjectDiscussion /> : <NotFound />} /> */}
-                        {/* <Route path="/project-discussion/:project" element={user && user.data.user_type === "user" ? <SingleProjectDiscussion /> : <NotFound />} exact /> */}
-                        {/* <Route path="/project-discussion/:project" element={<SingleProjectDiscussion />} exact /> */}
+                        <Route path="/my-subscriptions/:subscription" element={<SingleSubscription />} exact />
                     </Route>
                 </Routes>
             }

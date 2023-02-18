@@ -47,7 +47,6 @@ export const Home = () => {
         toast.success("Item added to cart!");
     }
 
-    console.log(data);
 
     const page = useRef(null);
 
@@ -115,8 +114,6 @@ export const Home = () => {
             })
     };
 
-
-    const [current, setCurrent] = useState(0);
 
 
     return (
@@ -280,28 +277,25 @@ export const Home = () => {
                                                             <div className='d-flex align-items-center justify-content-between'>
 
                                                                 <div class="product-price">
-                                                                    {item.discount_price &&
-                                                                        <strike className="fs-sm">${item.regular_price}&nbsp;&nbsp;</strike>}
-
-
-                                                                    $<span>{item.discount_price}</span>
+                                                                    {item.compare_price_per_page &&
+                                                                        <strike className="fs-sm">${parseInt(item.compare_price_per_page) * parseInt(item.minimum_pages_allowed)}&nbsp;&nbsp;</strike>}
+                                                                    $<span>{parseInt(item.actual_price_per_page) * parseInt(item.minimum_pages_allowed)}</span>
                                                                     <br /> /{item.subscription_duration} Months
-
                                                                 </div>
                                                                 <div class="product-links">
-                                                                    {
+                                                                    {/* {
                                                                         item?.stock
-                                                                            ?
-                                                                            <Link className="py-2 btn btn-main" to={`/checkout/${item.slug}`} >
-                                                                                Buy Now
-                                                                            </Link>
-                                                                            :
+                                                                            ? */}
+                                                                    <Link className="py-2 btn btn-main" to={`/view-subscription/${item.slug}`} >
+                                                                        Buy Now
+                                                                    </Link>
+                                                                    {/* :
                                                                             <Tooltip placement="top" title={"Inquire Now"}>
                                                                                 <button className="py-2 btn btn-main type-light text-white" onClick={() => showModal(item.id)}>
                                                                                     Notify Me
                                                                                 </button>
                                                                             </Tooltip>
-                                                                    }
+                                                                    } */}
                                                                     {/* <button className="py-2 btn btn-main" onClick={() => addToCart(item)} >
                                                                             Buy Now
                                                                         </button> */}

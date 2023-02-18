@@ -32,7 +32,6 @@ export const MySubscriptions = () => {
                 if (data.success != false) {
                     toast.success(data.message);
                     setData(data.order);
-
                 } else {
                     toast.error(data.message);
                 }
@@ -89,7 +88,20 @@ export const MySubscriptions = () => {
             },
             render: (subscription_duration) => (
                 <Tooltip placement="topLeft" title={subscription_duration}>
-                    {subscription_duration}
+                    {subscription_duration} /mo
+                </Tooltip>
+            ),
+        },
+        {
+            title: 'No. Of Pages',
+            dataIndex: 'no_of_pages',
+            key: 'no_of_pages',
+            ellipsis: {
+                showTitle: false,
+            },
+            render: (no_of_pages) => (
+                <Tooltip placement="topLeft" title={no_of_pages}>
+                    {no_of_pages}
                 </Tooltip>
             ),
         },
@@ -212,7 +224,7 @@ export const MySubscriptions = () => {
                             <div className="col-12 mx-0 px-0 user-profile h-100">
                                 <div className="profile-page text-start">
                                     <div className="p-4">
-                                        <div className="mb-5 mt-3">
+                                        <div className="mb-5">
 
                                             <h3 className="heading fs-3 mb-3">Manage Subscription</h3>
                                             {isLoading ? <div className="my-4">

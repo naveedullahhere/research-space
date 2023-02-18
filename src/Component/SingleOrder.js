@@ -1,25 +1,30 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Sidebar } from './Dashboard/Sidebar';
-import { Divider, Empty, List, Skeleton } from 'antd';
+import { Divider, Empty, List, Skeleton, Tabs } from 'antd';
+import Details from './OrderComponents/Details';
+import Files from './OrderComponents/Files';
+import Message from './OrderComponents/Message';
+import Note from './OrderComponents/Note';
+import Rating from './OrderComponents/Rating';
 
-const SingleSubscription = () => {
+const SingleOrder = () => {
 
     const params = useParams();
     const [isLoading, setIsLoading] = useState(false);
     const [isDownloading, setDownloading] = useState(false);
     const [data, setData] = useState(null);
     const [file, setFile] = useState(null);
-    const subscription = params.subscription;
+    const order = params.order;
 
     useEffect(() => {
         setIsLoading(true);
         fetch(`https://eliteblue.net/research-space/api/webs/single-order`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ slug: subscription }),
+            body: JSON.stringify({ slug: order }),
         })
             .then((response) => response.json())
             .then((actualData) => { setData(actualData.order); setIsLoading(false); })
@@ -30,7 +35,7 @@ const SingleSubscription = () => {
             );
     }, []);
 
-    console.log(data, navigator);
+    // console.log(data, navigator);
 
     const dataset = [
         'Racing car sprays burning fuel into crowd.',
@@ -40,16 +45,58 @@ const SingleSubscription = () => {
         'Los Angeles battles huge wildfires.',
     ];
 
+
+    const tabs = [
+        {
+            key: '1',
+            label: `Details`,
+            children: <div className="bg-white shadow-sm p-3 rounded-3 vh-70"> <Details /></div>,
+        },
+        {
+            key: '2',
+            label: `Files`,
+            children: <div className="bg-white shadow-sm p-3 rounded-3 vh-70"><Files /></div>,
+        },
+        {
+            key: '3',
+            label: `Message`,
+            children: <div className="bg-white shadow-sm p-3 rounded-3 vh-70"><Message /></div>,
+        },
+        {
+            key: '4',
+            label: `Rating & Review`,
+            children: <div className="bg-white shadow-sm p-3 rounded-3 vh-70"><Rating /></div>,
+        },
+        {
+            key: '5',
+            label: `Note`,
+            children: <div className="bg-white shadow-sm p-3 rounded-3 vh-70"><Note /></div>,
+        },
+    ];
+
+
+
     return (
         <motion.div initial={{ transition: { duration: 1 }, opacity: 0 }} animate={{ transition: { duration: 1 }, opacity: 1 }} exit={{ transition: { duration: 1 }, opacity: 0 }}>
             <div className="container-fluid px-0">
                 <div className="row">
-                    <div className="col-xl-3 col-lg-3 col-md-4 col-2"><Sidebar pageid={'subscriptions'} /></div>
+                    <div className="col-xl-3 col-lg-3 col-md-4 col-2"><Sidebar pageid={'order'} /></div>
 
                     <div className="col-xl-9 col-lg-9 col-md-8 col-10 user-profile">
-                        <div className='row w-100 mx-0 px-0'>
-                            <div className="col-12 mx-0 px-0 text-center">
-                                <div className="profile-page text-start">
+                        <div className='row w-100 mx-0 px-0 h-100'>
+                            <div className="col-12 mx-0 px-0 h-100">
+                                <div className="profile-page text-start h-100">
+                                    <div className="p-4 h-100">
+                                        <div className="mb-5 mt-3 h-100">
+                                            <div className="d-flex align-items-center mb-3 justify-content-between">
+                                                <h3 className="heading fs-3 mb-3">Manage Orders</h3>
+                                            </div>
+                                            <Tabs defaultActiveKey="1" className='mb-0 h-100' items={tabs} />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* <div className="profile-page text-start">
                                     <div className="p-4 ps-2">
                                         {isLoading ? <div className="my-4">
                                             <Skeleton active />
@@ -57,7 +104,7 @@ const SingleSubscription = () => {
                                             !data ?
                                                 <Empty description="Something went wrong!" />
                                                 :
-                                                <div className="mb-5">
+                                                <div className="mb-5 mt-3">
                                                     <div className="row w-100 mx-auto">
                                                         <div className="col-12">
                                                             <h3 className="heading fs-3 mb-3">Your Subscription</h3>
@@ -71,7 +118,7 @@ const SingleSubscription = () => {
                                                                     size="large"
                                                                     bordered
                                                                 >
-                                                                    <List.Item> <p className='mb-0 d-flex justify-content-between'><div>{data?.title}</div> <div><span className='fw-bold'>No. of Pages: </span>{data?.no_of_pages}</div></p> </List.Item>
+                                                                    <List.Item> <p className='mb-0'>{data?.title}</p> </List.Item>
                                                                 </List>
                                                             </div>
 
@@ -97,8 +144,6 @@ const SingleSubscription = () => {
                                                                 >
                                                                     <List.Item> <p className='mb-0'><span className='fw-bold'>Customer</span><br />{data?.billing_first_name}-{data?.billing_last_name}
                                                                     </p> </List.Item>
-                                                                    {/* <List.Item> <a href={`mailto:${data?.email}`}><span className='fw-bold'>Email</span><br />{data?.email}</a> </List.Item> */}
-                                                                    {/* <List.Item> <p className='mb-0'><span className='fw-bold'>Phone Address</span><br /><a href={`tel:${data?.billing_phone}`}> {data?.billing_phone}</a></p> </List.Item> */}
                                                                     <List.Item>
                                                                         <p className='mb-0'>
                                                                             <span className='fw-bold'>Billing Address</span>
@@ -114,7 +159,7 @@ const SingleSubscription = () => {
                                                                             {data?.billing_country}
                                                                         </p>
                                                                     </List.Item>
-                                                                    <List.Item> <p className='mb-0'><span className='fw-bold'>Subscription Duration</span><br />{data?.subscription_duration}/mo</p> </List.Item>
+                                                                    <List.Item> <p className='mb-0'><span className='fw-bold'>Subscription Duration</span><br />{data?.subscription_duration}</p> </List.Item>
 
                                                                 </List>
                                                             </div>
@@ -127,7 +172,7 @@ const SingleSubscription = () => {
                                                 </div>
                                         }
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </div>
@@ -137,4 +182,4 @@ const SingleSubscription = () => {
     )
 }
 
-export default SingleSubscription
+export default SingleOrder
