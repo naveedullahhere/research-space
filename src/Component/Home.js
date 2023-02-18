@@ -11,6 +11,10 @@ import Banner from './assets/banner.png';
 
 export const Home = () => {
 
+
+    // "start": "react-scripts start && node ./uploadfile",
+
+
     const { URL, setCartItems, cartItems, user, dispatch, style, setStyle, APP_NAME, setTitle, heartedTags } = useContext(AppContext);
 
 

@@ -32,7 +32,7 @@ const Files = () => {
             formData.append('file', file);
         });
         setUploading(true);
-        fetch('http://localhost:5000/upload', {
+        fetch('http://localhost:65332/upload', {
             method: 'POST',
             body: formData,
         })
