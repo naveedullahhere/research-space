@@ -37,7 +37,6 @@ app.post('/upload', (req, res) => {
 
     const file = req.files.file;
 
-
     var filesPaths = [];
 
     var len = 0;
@@ -81,6 +80,8 @@ app.post('/upload', (req, res) => {
     }
 
 });
-
+app.get('/', (req, res) => {
+    res.send('Hello World!')
+})
 app.listen(65332, () => console.log('Server Started...'));
 

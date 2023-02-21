@@ -68,7 +68,7 @@ export const Header = () => {
             <header className="header">
                 <nav className="navbar">
                     <Link to="/" className="nav-logo">
-                        <img src={Logo} alt="Discount Space" className='blogo' width="90" />
+                        <img src={Logo} alt="Discount Space" className='blogo' width="160" />
                     </Link>
                     <ul className={`${navCurrent && "active"} nav-menu`}>
                         <li className="nav-item">

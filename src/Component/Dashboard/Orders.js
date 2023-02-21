@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 import { AppContext } from '../../context/AppContext';
 import { Sidebar } from './Sidebar';
 import { Button, Empty, Form, Input, InputNumber, Modal, Select, Skeleton, Table, Tooltip } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 const Orders = () => {
@@ -27,10 +27,12 @@ const Orders = () => {
 
 
 
+
     useEffect(() => {
         setIsLoading(true);
-        postData(`https://eliteblue.net/research-space/api/webs/get-orders`, { user_token: user.data.user_token })
+        postData(`https://eliteblue.net/research-space/api/webs/fetch-orders`, { user_token: user.data.user_token })
             .then(data => {
+                console.log(data);
                 if (data.success != false) {
                     toast.success(data.message);
                     setData(data.order);
@@ -54,7 +56,6 @@ const Orders = () => {
 
     }, [])
 
-    console.log(dropdownsValues);
 
     async function postData(url, data) {
         const response = await fetch(url, {
@@ -73,73 +74,60 @@ const Orders = () => {
 
 
 
-
+    // 'erp_order_topic', 'erp_academic_name', 'erp_resource_materials', 'erp_order_message'
 
 
 
     const columns = [
         {
-            title: 'Title',
-            dataIndex: 'title',
-            key: 'title',
+            title: 'Order Topic',
+            dataIndex: 'erp_order_topic',
+            key: 'erp_order_topic',
             ellipsis: {
                 showTitle: false,
             },
-            render: (title, i) => (
-                <Tooltip placement="topLeft" title={title}>
-                    <Link to={`${data[data.findIndex((item) => item.title === title)].slug}`}>{title}</Link>
+            render: (erp_order_topic) => (
+                <Tooltip placement="topLeft" title={erp_order_topic}>
+                    <Link to={`/single-order/${data[data.findIndex((item) => item.erp_order_topic === erp_order_topic)].id}`}>{erp_order_topic}</Link>
                 </Tooltip>
             ),
         },
         {
-            title: 'Duration',
-            dataIndex: 'subscription_duration',
-            key: 'subscription_duration',
+            title: 'Academic Name',
+            dataIndex: 'erp_academic_name',
+            key: 'erp_academic_name',
             ellipsis: {
                 showTitle: false,
             },
-            render: (subscription_duration) => (
-                <Tooltip placement="topLeft" title={subscription_duration}>
-                    {subscription_duration}
+            render: (erp_academic_name) => (
+                <Tooltip placement="topLeft" title={erp_academic_name}>
+                    {erp_academic_name}
                 </Tooltip>
             ),
         },
         {
-            title: 'Total Discount',
-            dataIndex: 'coupon_discount',
-            key: 'coupon_discount',
+            title: 'Resource Materials',
+            dataIndex: 'erp_resource_materials',
+            key: 'erp_resource_materials',
             ellipsis: {
                 showTitle: false,
             },
-            render: (coupon_discount) => (
-                <Tooltip placement="topLeft" title={coupon_discount}>
-                    {coupon_discount}
+            render: (erp_resource_materials) => (
+                <Tooltip placement="topLeft" title={erp_resource_materials}>
+                    {erp_resource_materials}
                 </Tooltip>
             ),
         },
         {
-            title: 'Total Amount',
-            dataIndex: 'order_total',
-            key: 'order_total',
+            title: 'Order Message',
+            dataIndex: 'erp_order_message',
+            key: 'erp_order_message',
             ellipsis: {
                 showTitle: false,
             },
-            render: (order_total) => (
-                <Tooltip placement="topLeft" title={order_total}>
-                    {order_total}
-                </Tooltip>
-            ),
-        },
-        {
-            title: 'Grand Total',
-            dataIndex: 'grand_total',
-            key: 'grand_total',
-            ellipsis: {
-                showTitle: false,
-            },
-            render: (grand_total) => (
-                <Tooltip placement="topLeft" title={grand_total}>
-                    {grand_total}
+            render: (erp_order_message) => (
+                <Tooltip placement="topLeft" title={erp_order_message}>
+                    {erp_order_message}
                 </Tooltip>
             ),
         },
@@ -171,7 +159,7 @@ const Orders = () => {
 
     const onCreate = (data) => {
         console.log(data);
-        fetch(`https://eliteblue.net/research-space/api/webs/inquire-now`, {
+        fetch(`https://eliteblue.net/research-space/api/webs/create-order`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
@@ -181,9 +169,12 @@ const Orders = () => {
                 form.resetFields();
                 console.log(json);
                 if (json.success) {
-                    setConfirmLoading(false);
                     toast.success(json.message);
                 }
+                else {
+                    toast.error(json.message);
+                }
+                setConfirmLoading(false);
 
             }).catch(err => {
                 setConfirmLoading(false);
@@ -194,38 +185,28 @@ const Orders = () => {
     const [selectedFile, setselectedFile] = useState(null);
 
 
-    const onFileUpload = () => {
-        const formData = new FormData();
-        formData.append("file", selectedFile);
-        console.log(selectedFile);
-        // axios.post("http://localhost:800/api/uploadfile", formData, {
-        //     headers: {
-        //         "content-type": "multipart/form-data",
-        //     },
-        // });
+    // const onFileUpload = () => {
+    //     const formData = new FormData();
+    //     formData.append("file", selectedFile);
+    //     console.log(selectedFile); 
+    //     axios({
+    //         url: 'http://localhost:5000/upload',
+    //         method: 'POST',
+    //         data: formData,
 
-        axios({
-            url: 'http://localhost:5000/upload',
-            method: 'POST',
-            data: formData,
-
-        }).then((res) => {
-            console.log(res);
-        }).catch((err) => {
-            console.log(err);
-        })
-    };
+    //     }).then((res) => {
+    //         console.log(res);
+    //     }).catch((err) => {
+    //         console.log(err);
+    //     })
+    // };
 
 
-
+    // console.log(dropdownsValues);
 
 
     return (
         <motion.div initial={{ transition: { duration: 1 }, opacity: 0 }} animate={{ transition: { duration: 1 }, opacity: 1 }} exit={{ transition: { duration: 1 }, opacity: 0 }}>
-
-            {/* <input type="file" name="" onChange={(e) => setselectedFile(e.target.files[0])} />
-            <Button type='primary' onClick={onFileUpload} >Upload</Button> */}
-
             <Modal
 
                 title="Paper Details:"
@@ -248,6 +229,21 @@ const Orders = () => {
                     layout={'vertical'}
                     style={{ maxWidth: "100%", marginTop: 18 }}
                 >
+                    <div className='d-none'>
+                        <Form.Item
+                            name="erp_user_id"
+                            initialValue={user?.data.user_token}
+                        >
+                            <Input />
+                        </Form.Item>
+
+                        <Form.Item
+                            name="erp_status"
+                            initialValue={user?.data.user_token}
+                        >
+                            <Input />
+                        </Form.Item>
+                    </div>
                     <div className='my-3'>
                         <label className='fs-7'><b className='fs-7'>Subject or Discipline:</b> "If the required type of paper is missing, feel free to
                             pick “Other” and write your specific type of paper in the appeared tab."
@@ -256,7 +252,10 @@ const Orders = () => {
                             <Select
                                 defaultValue="Select an option"
                                 className='text-dark'
-                                options={dropdownsValues ? dropdownsValues.subject_type : []}
+                                options={dropdownsValues ? [dropdownsValues.subject_type, {
+                                    "label": "other",
+                                    "value": "other"
+                                }].flat() : []}
                             />
                         </Form.Item>
                     </div>
@@ -280,7 +279,7 @@ const Orders = () => {
                     <div className='my-3'>
                         <label className='fs-7'><b className='fs-7'>Topic:</b> "Please provide us with a clear topic of your assignment up to 300 symbols. If you don’t have a specific topic, use the default writer’s choice option or use the “Subject or Discipline” chosen above."
                         </label>
-                        <Form.Item name={['topic']} label="Topic:" rules={[{ required: false }]}>
+                        <Form.Item name={['erp_order_topic']} label="Topic:" rules={[{ required: false }]}>
                             <Select
                                 defaultValue="Select an option"
                                 className='text-dark'
@@ -295,14 +294,14 @@ const Orders = () => {
                     <div className='my-3'>
                         <label className='fs-7'><b className='fs-7'>Paper Instructions:</b> "To ensure that the final paper meets your requirements, make sure your instructions are as clear and detailed as possible. This will decrease the chance of revisions in your order."
                         </label>
-                        <Form.Item name={['message']} label="Message:">
+                        <Form.Item name={['erp_order_message']} label="Message:">
                             <Input.TextArea />
                         </Form.Item>
                     </div>
                     <div className='my-3'>
                         <label className='fs-7'><b className='fs-7'>Academic Level:</b> "Please select the option that is the closest to your next obtainable degree."
                         </label>
-                        <Form.Item name={['Academic_Level']} label="Academic Level:" rules={[{ required: false }]}>
+                        <Form.Item name={['erp_academic_name']} label="Academic Level:" rules={[{ required: false }]}>
                             <Select
                                 defaultValue="Select an option"
                                 className='text-dark'
@@ -314,7 +313,7 @@ const Orders = () => {
                         <label className='fs-7'><b className='fs-7'>Type of Paper:</b> "If the required type of paper is missing, feel free to pick “Other” and write your specific type of paper in the appeared tab."
 
                         </label>
-                        <Form.Item name={['Type_of_Paper']} label="Type of Paper:" rules={[{ required: false }]}>
+                        <Form.Item name={['erp_paper_type']} label="Type of Paper:" rules={[{ required: false }]}>
                             <Select
                                 defaultValue="Select an option"
                                 className='text-dark'
@@ -325,7 +324,7 @@ const Orders = () => {
                     <div className='my-3'>
                         <label className='fs-7'><b className='fs-7'>Paper Format:</b> "Format of your in-text citations, references and title page. The         format/citation style also applies to any Works Cited and/or References pages."
                         </label>
-                        <Form.Item name={['Paper_Format']} label="Paper Format:" rules={[{ required: false }]}>
+                        <Form.Item name={['erp_paper_format']} label="Paper Format:" rules={[{ required: false }]}>
                             <Select
                                 defaultValue="Select an option"
                                 className='text-dark'
@@ -334,7 +333,7 @@ const Orders = () => {
                         </Form.Item>
                     </div>
                     <div className='my-3'>
-                        <Form.Item name={['Language_and_spelling']} className='mb-0' label="Language and spelling style:" rules={[{ required: false }]}>
+                        <Form.Item name={['erp_language_name']} className='mb-0' label="Language and spelling style:" rules={[{ required: false }]}>
                             <Select
                                 defaultValue="Select an option"
                                 className='text-dark'
@@ -346,7 +345,7 @@ const Orders = () => {
                     </div>
 
                     <div className='my-3'>
-                        <Form.Item name={['resource_materials']} label="Will you provide any resource materials:" rules={[{ required: false }]}>
+                        <Form.Item name={['erp_resource_materials']} label="Will you provide any resource materials:" rules={[{ required: false }]}>
                             <Select
                                 defaultValue="Select an option"
                                 className='text-dark'
@@ -359,27 +358,28 @@ const Orders = () => {
                     </div>
                     <div className='my-3'>
                         <label className='fs-7'><b className='fs-7'>Number of Pages:</b> "Select the number of pages needed. Do not include Bibliography, Works Cited, or References pages because they are free."</label>
-                        <Form.Item name={['Number_of_Pages']} label="Number of Pages:" rules={[{ required: false }]}>
+                        <Form.Item name={['erp_number_Pages']} label="Number of Pages:" rules={[{ required: false }]}>
                             <InputNumber style={{ width: '100%' }} />
 
                         </Form.Item>
                     </div>
                     <div className='my-3'>
                         <label className='fs-7'><b className='fs-7'>Spacing:</b>  “Double spaced pages contain approximately 300 words each, while single-spaced have 600.”</label>
-                        <Form.Item name={['Spacing']} label="Spacing:" rules={[{ required: false }]}>
-                            <Select
+                        <Form.Item name={['erp_spacing']} label="Spacing:" rules={[{ required: false }]}>
+                            {/* <Select
                                 defaultValue="Select an option"
                                 className='text-dark'
                                 options={[
                                     { value: 'SingleSpacing', label: 'Single Spacing' },
                                     { value: 'DoubleSpacing', label: 'Double Spacing' },
                                 ]}
-                            />
+                            /> */}
+                            <InputNumber style={{ width: '100%' }} />
                         </Form.Item>
                     </div>
                     <div className='my-3'>
                         <label className='fs-7'><b className='fs-7'> PowerPoint Slides:</b>  "The number of Power Point slides that will be delivered to you separately from your paper. Useful for those who need to present in front of class."</label>
-                        <Form.Item name={['PowerPoint_Slides']} label=" PowerPoint Slides:" rules={[{ required: false }]}>
+                        <Form.Item name={['erp_powerPoint_slides']} label=" PowerPoint Slides:" rules={[{ required: false }]}>
                             <InputNumber style={{ width: '100%' }} />
                         </Form.Item>
                     </div>
@@ -399,13 +399,13 @@ const Orders = () => {
                         <label className='fs-7'><b className='fs-7'>   EXTRA SOURCES:</b>      There is an additional cost of $1 per each extra source that exceeds the number of pages that you order. For example, if you order 10 pages and request 15 sources, there will be a total additional cost of $5 for the 5 extra sources.</label>
 
 
-                        <Form.Item name={['EXTRA_SOURCES']} label="No. of EXTRA SOURCES:" rules={[{ required: false }]}>
+                        <Form.Item name={['erp_extra_source']} label="No. of EXTRA SOURCES:" rules={[{ required: false }]}>
                             <InputNumber style={{ width: '100%' }} />
                         </Form.Item>
                     </div>
                     <div className='my-3'>
                         <label className='fs-7'><b className='fs-7'>Deadline:</b>  "The time in which you will receive your completed paper. The countdown starts when we receive payment for your order. Please note that revision requests may exceed your deadline."</label>
-                        <Form.Item name={['Deadline']} label="Deadline:" rules={[{ required: false }]}>
+                        <Form.Item name={['erp_deadline']} label="Deadline:" rules={[{ required: false }]}>
                             <Select
                                 defaultValue="Select an option"
                                 className='text-dark'
@@ -417,7 +417,7 @@ const Orders = () => {
                         </Form.Item>
                     </div>
                     <div className='my-3'>
-                        <Form.Item name={['Copy_of_Sources']} label="Copy of Sources:" rules={[{ required: false }]}>
+                        <Form.Item name={['erp_copy_sources']} label="Copy of Sources:" rules={[{ required: false }]}>
                             <Select
                                 defaultValue="Select an option"
                                 className='text-dark'
@@ -429,7 +429,7 @@ const Orders = () => {
                         </Form.Item>
                     </div>
                     <div className='my-3'>
-                        <Form.Item name={['Page_Summary']} label="1 Page Summary:" rules={[{ required: false }]}>
+                        <Form.Item name={['erp_page_summary']} label="1 Page Summary:" rules={[{ required: false }]}>
                             <Select
                                 defaultValue="Select an option"
                                 className='text-dark'
@@ -441,7 +441,7 @@ const Orders = () => {
                         </Form.Item>
                     </div>
                     <div className='my-3'>
-                        <Form.Item name={['Paper_Outline_in_Bullets']} label="Paper Outline in Bullets:" rules={[{ required: false }]}>
+                        <Form.Item name={['erp_paper_outline']} label="Paper Outline in Bullets:" rules={[{ required: false }]}>
                             <Select
                                 defaultValue="Select an option"
                                 className='text-dark'
@@ -453,7 +453,7 @@ const Orders = () => {
                         </Form.Item>
                     </div>
                     <div className='my-3'>
-                        <Form.Item name={['Abstract_Page']} label="Abstract Page:" rules={[{ required: false }]}>
+                        <Form.Item name={['erp_abstract_page']} label="Abstract Page:" rules={[{ required: false }]}>
                             <Select
                                 defaultValue="Select an option"
                                 className='text-dark'
@@ -466,7 +466,7 @@ const Orders = () => {
                     </div>
                     <div className='my-3'>
                         <label className='fs-7'><b className='fs-7'>Statistical Analysis:</b>  If your order requires statistical analysis or a significant amount of mathematical calculations, there will be an additional charge of 15%. To see a list of features that qualify as "statistical analysis," click here.</label>
-                        <Form.Item name={['Statistical_Analysis']} label="Statistical Analysis:" rules={[{ required: false }]}>
+                        <Form.Item name={['erp_statistical_analysis']} label="Statistical Analysis:" rules={[{ required: false }]}>
                             <Select
                                 defaultValue="Select an option"
                                 className='text-dark'

@@ -55,12 +55,12 @@ const SingleOrder = () => {
         {
             key: '2',
             label: `Files`,
-            children: <div className="bg-white shadow-sm p-3 rounded-3 vh-70"><Files /></div>,
+            children: <div className="bg-white shadow-sm p-3 rounded-3 vh-70"><Files order={order} /></div>,
         },
         {
             key: '3',
             label: `Message`,
-            children: <div className="bg-white shadow-sm p-3 rounded-3 vh-70"><Message /></div>,
+            children: <div className="bg-white shadow-sm p-3 rounded-3 vh-70"><Message order={order} /></div>,
         },
         {
             key: '4',

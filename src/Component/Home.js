@@ -274,10 +274,10 @@ export const Home = () => {
                                                         <h4><a href="">{item.title}</a></h4>
                                                         <p dangerouslySetInnerHTML={{ __html: item.description }}></p>
                                                         <div class="product-bottom-details">
-                                                            {/* {!item.stock &&
+                                                            {!item.stock &&
                                                                 <div className='mb-3'>                                                                                <Alert message="Our limit is exceed!" type="info" />
                                                                 </div>
-                                                            } */}
+                                                            }
                                                             <div className='d-flex align-items-center justify-content-between'>
 
                                                                 <div class="product-price">
@@ -287,22 +287,22 @@ export const Home = () => {
                                                                     <br /> /{item.subscription_duration} Months
                                                                 </div>
                                                                 <div class="product-links">
-                                                                    {/* {
+                                                                    {
                                                                         item?.stock
-                                                                            ? */}
-                                                                    <Link className="py-2 btn btn-main" to={`/view-subscription/${item.slug}`} >
-                                                                        Buy Now
-                                                                    </Link>
-                                                                    {/* :
+                                                                            ?
+                                                                            <Link className="py-2 btn btn-main" to={`/view-subscription/${item.slug}`} >
+                                                                                Buy Now
+                                                                            </Link>
+                                                                            :
                                                                             <Tooltip placement="top" title={"Inquire Now"}>
                                                                                 <button className="py-2 btn btn-main type-light text-white" onClick={() => showModal(item.id)}>
                                                                                     Notify Me
                                                                                 </button>
                                                                             </Tooltip>
-                                                                    } */}
+                                                                    }
                                                                     {/* <button className="py-2 btn btn-main" onClick={() => addToCart(item)} >
-                                                                            Buy Now
-                                                                        </button> */}
+                                                                        Buy Now
+                                                                    </button> */}
                                                                 </div>
                                                             </div>
                                                         </div>
