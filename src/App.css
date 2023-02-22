@@ -1707,14 +1707,6 @@ textarea.input:not(:placeholder-shown)+label {
   z-index: 999;
 }
 
-.public-DraftEditor-content {
-  max-height: 100px;
-}
-
-.rdw-editor-wrapper {
-  background-color: white;
-  position: relative;
-}
 
 .bg-light {
   background-color: var(--light);
@@ -1730,8 +1722,14 @@ textarea.input:not(:placeholder-shown)+label {
   font-weight: 400;
 }
 
-.editor-class {
-  padding: 12px;
+.rdw-editor-main,
+.rdw-editor-toolbar {
+  background: #eeeeee45 !important;
+  border: 1px solid #ddd !important;
+}
+
+.rdw-editor-main {
+  min-height: 40vh;
 }
 
 .profile_content .profile .profile_details {

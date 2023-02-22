@@ -10,11 +10,12 @@ import { Sidebar } from './Sidebar';
 import { Button, Empty, Form, Input, InputNumber, Modal, Select, Skeleton, Table, Tooltip, Upload } from 'antd';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
+import { Note } from '../SummerNote/Note';
 
 const Orders = () => {
 
 
-    const { URL, user, dispatch, addUserData, APP_NAME, setTitle } = useContext(AppContext);
+    const { URL, user, dispatch, noteValue, APP_NAME, setTitle } = useContext(AppContext);
 
     const [data, setData] = useState([]);
     const [userName, setUserName] = useState(user.data.name);
@@ -319,8 +320,10 @@ const Orders = () => {
                     <div className='my-3'>
                         <label className='fs-7'><b className='fs-7'>Paper Instructions:</b> "To ensure that the final paper meets your requirements, make sure your instructions are as clear and detailed as possible. This will decrease the chance of revisions in your order."
                         </label>
-                        <Form.Item name={['erp_order_message']} label="Message:" rules={[{ required: true, message: 'This Field is Required!' }]}>
-                            <Input.TextArea />
+                        <Form.Item name={['erp_order_message']} label="Message:" rules={[{ required: false, message: 'This Field is Required!' }]}>
+                            <Input.TextArea className='d-none' value={noteValue} />
+
+                            <Note />
                         </Form.Item>
                     </div>
                     <div className='my-3'>
@@ -479,8 +482,14 @@ const Orders = () => {
                                 defaultValue="Select an option"
                                 className='text-dark'
                                 options={[
-                                    { value: 'SingleSpacing', label: 'Single Spacing' },
-                                    { value: 'DoubleSpacing', label: 'Double Spacing' },
+                                    { value: 'erp_eight_hrs', label: '8 hours' },
+                                    { value: 'erp_tf_hrs', label: '24 hours' },
+                                    { value: 'erp_fe_hrs', label: '48 hours' },
+                                    { value: 'erp_three_days', label: '  3 days' },
+                                    { value: 'erp_five_days', label: '5 days' },
+                                    { value: 'erp_seven_days', label: '  7 days' },
+                                    { value: 'erp_fourteen_days', label: ' 14 days' },
+                                    { value: 'erp_fourteen_plus_days', label: ' 14+ days' },
                                 ]}
                             />
                         </Form.Item>

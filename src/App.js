@@ -9,7 +9,7 @@ import { BrowserRouter, Link, useNavigate } from "react-router-dom";
 import { toast, Toaster } from "react-hot-toast";
 import { useSelector, useDispatch } from 'react-redux';
 import { removeUserData, addUserData, updateUserData, setSubscription, setCartItems, removeCartItems, manageQuantity, setCouponCode } from './actions';
-
+import { EditorState, ContentState } from 'draft-js';
 import { Footer1 } from './Component/layout/Footer1';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { ConfigProvider, FloatButton } from 'antd';
@@ -24,6 +24,11 @@ function App() {
   const discountCode = useSelector((state) => state.userReducer.couponCode[0]);
 
 
+  const [noteValue, setNoteValue] = useState("");
+  const [editorState, setEditorState] = useState(
+    () => EditorState.createEmpty(),
+  );
+
   // console.log(subscriptions); 
 
 
@@ -33,7 +38,7 @@ function App() {
   document.title = Title;
 
   var values = {
-    setCartItems, cartItems, SITE_URL, API_TOKEN, setSubscription, setTitle, Title, APP_NAME, URL, removeCartItems, setCouponCode, discountCode, manageQuantity, removeUserData, addUserData, updateUserData, dispatch, user
+    EditorState, setNoteValue, ContentState, editorState, setEditorState, noteValue, setCartItems, cartItems, SITE_URL, API_TOKEN, setSubscription, setTitle, Title, APP_NAME, URL, removeCartItems, setCouponCode, discountCode, manageQuantity, removeUserData, addUserData, updateUserData, dispatch, user
   }
 
   return (
