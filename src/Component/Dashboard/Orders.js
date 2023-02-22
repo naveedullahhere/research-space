@@ -33,6 +33,7 @@ const Orders = () => {
         setIsLoading(true);
         postData(`https://eliteblue.net/research-space/api/webs/fetch-orders`, { user_token: user.data.user_token })
             .then(data => {
+                console.log(data);
                 if (data.success != false) {
                     // toast.success(data.message);
                     setData(data.order);
@@ -80,6 +81,20 @@ const Orders = () => {
 
     const columns = [
         {
+            title: 'Order No.',
+            dataIndex: 'id',
+            key: 'id',
+
+            ellipsis: {
+                showTitle: false,
+            },
+            render: (id) => (
+                <p className='mb-0'>
+                    <Link to={`/single-order/${id}`}>{id}</Link>
+                </p>
+            ),
+        },
+        {
             title: 'Order Topic',
             dataIndex: 'erp_order_topic',
             key: 'erp_order_topic',
@@ -100,9 +115,9 @@ const Orders = () => {
                 showTitle: false,
             },
             render: (erp_academic_name) => (
-                <Tooltip placement="topLeft" title={erp_academic_name}>
+                <p className='mb-0'>
                     {erp_academic_name}
-                </Tooltip>
+                </p>
             ),
         },
         {
@@ -113,24 +128,62 @@ const Orders = () => {
                 showTitle: false,
             },
             render: (erp_resource_materials) => (
-                <Tooltip placement="topLeft" title={erp_resource_materials}>
+                <p className='mb-0'>
                     {erp_resource_materials}
-                </Tooltip>
+                </p>
             ),
         },
         {
-            title: 'Order Message',
-            dataIndex: 'erp_order_message',
-            key: 'erp_order_message',
+            title: 'Paper Type',
+            dataIndex: 'erp_paper_type',
+            key: 'erp_paper_type',
             ellipsis: {
                 showTitle: false,
             },
-            render: (erp_order_message) => (
-                <Tooltip placement="topLeft" title={erp_order_message}>
-                    {erp_order_message}
-                </Tooltip>
+            render: (erp_paper_type) => (
+                <p className='mb-0'>
+                    {erp_paper_type}
+                </p>
             ),
         },
+        {
+            title: 'Paper Format',
+            dataIndex: 'erp_paper_format',
+            key: 'erp_paper_format',
+            ellipsis: {
+                showTitle: false,
+            },
+            render: (erp_paper_format) => (
+                <p className='mb-0'>
+                    {erp_paper_format}
+                </p>
+            ),
+        },
+        {
+            title: 'Language',
+            dataIndex: 'erp_language_name',
+            key: 'erp_language_name',
+            ellipsis: {
+                showTitle: false,
+            },
+            render: (erp_language_name) => (
+                <p className='mb-0'>
+                    {erp_language_name}
+                </p>
+            ),
+        },
+
+        // {
+        //     title: 'Order Message',
+        //     dataIndex: 'erp_order_message',
+        //     key: 'erp_order_message',
+        //     ellipsis: {
+        //         showTitle: false,
+        //     },
+        //     render: (erp_order_message) => (
+        //         <p className='mb-0' dangerouslySetInnerHTML={{ __html: erp_order_message }} />
+        //     ),
+        // },
     ];
 
     const [open, setOpen] = useState(false);

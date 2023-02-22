@@ -66,8 +66,6 @@ const Message = ({ order }) => {
     };
 
 
-    console.log(files);
-    // const [fileList, setMessages] = useState([]);
     const [messages, setMessages] = useState([]);
     const [uploading, setUploading] = useState(false);
     const handleUpload = () => {
@@ -199,7 +197,7 @@ const Message = ({ order }) => {
                                 </div>
                             :
                             files.map((item, i) => {
-                                return <div key={i}>
+                                return item.type === 'message' && <div key={i}>
                                     <div className={`fileItem ${item.user_token === user.data.user_token ? 'me' : 'you'}`}>
                                         {/* {
 
@@ -211,7 +209,7 @@ const Message = ({ order }) => {
                                                 {item.user_token === user.data.user_token ? 'You' : item.name}
                                             </p>
                                             <p className=" ">
-                                                {item.createdpdf_at}
+                                                {item.created_at}
                                             </p>
                                         </div>
                                         <div className='w-100 d-flex align-items-end justify-content-between'>
@@ -232,7 +230,7 @@ const Message = ({ order }) => {
                                         <div className="row">
                                             <div className="col-12">
                                                 {item.title &&
-                                                    <p className="mt-3 mb-0">
+                                                    <p className="mb-0">
                                                         {item.title}
                                                     </p>
                                                 }

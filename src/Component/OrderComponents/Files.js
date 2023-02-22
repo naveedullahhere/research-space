@@ -78,6 +78,7 @@ const Files = ({ order }) => {
 
         formData.append('order_id', order);
         formData.append('txt', title);
+        formData.append('type', "file");
         formData.append('user_token', user.data.user_token);
 
 
@@ -220,7 +221,7 @@ const Files = ({ order }) => {
                                 </div>
                             :
                             files.map((item, i) => {
-                                return <div key={i}>
+                                return item.type === 'file' && <div key={i}>
                                     <div className={`fileItem ${item.user_token === user.data.user_token ? 'me' : 'you'}`}>
                                         {/* {
 
@@ -232,7 +233,7 @@ const Files = ({ order }) => {
                                                 {item.user_token === user.data.user_token ? 'You' : item.name}
                                             </p>
                                             <p className=" ">
-                                                {item.createdpdf_at}
+                                                {item.created_at}
                                             </p>
                                         </div>
                                         <div className='w-100 d-flex align-items-end justify-content-between'>
