@@ -1,12 +1,14 @@
 
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { AppContext } from '../../context/AppContext';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 
 export const Sidebar = ({ pageid }) => {
     const { user, removeUserData, dispatch } = useContext(AppContext);
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
+    const [permissions, setPermission] = useState([]);
     const [dropdown, setDropdown] = useState(false);
 
     const Logout = () => {
@@ -18,6 +20,24 @@ export const Sidebar = ({ pageid }) => {
     }
 
 
+
+
+    useEffect(() => {
+        fetch(`https://eliteblue.net/research-space/api/webs/user-permissions`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ user_token: user.data.user_token })
+        })
+            .then(res => res.json())
+            .then(json => {
+                setPermission(json);
+
+            }).catch(err => {
+                toast.error("something went wrong!");
+            })
+    }, [])
+
+    console.log(permissions);
 
     return (
         <>
@@ -43,22 +63,22 @@ export const Sidebar = ({ pageid }) => {
                         </Link>
                         <span className="tooltip">My Subscriptions</span>
                     </li>
-                    <li>
-                        <Link className={`${dropdown && "active"} justify-content-between dropdown ${pageid === "order" && "bg-main"}`} onClick={() => setDropdown(!dropdown)} to={'#'}>
-                            <div>
-                                <i class='fa fa-comment-dollar'></i>
-                                <span className="link_names">Manage Orders</span>
-                            </div>
-                            <i class='fa fa-angle-right angle'></i>
-                        </Link>
-                        <span className="tooltip">Manage Orders</span>
-                        <ul className={`dropdownItems ${dropdown && "active"}`} >
-                            <li><Link to="/orders"> Create Project</Link></li>
-                            <li><a href="#"> Manage Project</a></li>
-                            <li><a href="#"> Hello</a></li>
-                            <li><a href="#"> Hello</a></li>
-                        </ul>
-                    </li>
+                    {permissions.includes("writing-service")
+                        &&
+                        <li>
+                            <Link className={`${dropdown && "active"} justify-content-between dropdown ${pageid === "order" && "bg-main"}`} onClick={() => setDropdown(!dropdown)} to={'#'}>
+                                <div>
+                                    <i class='fa fa-comment-dollar'></i>
+                                    <span className="link_names">Manage Orders</span>
+                                </div>
+                                <i class='fa fa-angle-right angle'></i>
+                            </Link>
+                            <span className="tooltip">Manage Orders</span>
+                            <ul className={`dropdownItems ${dropdown && "active"}`} >
+                                <li><Link to="/orders"> Create Project</Link></li>
+                            </ul>
+                        </li>
+                    }
 
                     <li>
                         <a href='#' onClick={Logout}>

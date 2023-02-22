@@ -77,26 +77,25 @@ const SingleOrder = () => {
 
 
     return (
-        <motion.div initial={{ transition: { duration: 1 }, opacity: 0 }} animate={{ transition: { duration: 1 }, opacity: 1 }} exit={{ transition: { duration: 1 }, opacity: 0 }}>
-            <div className="container-fluid px-0">
-                <div className="row">
-                    <div className="col-xl-3 col-lg-3 col-md-4 col-2"><Sidebar pageid={'order'} /></div>
+        <div className="container-fluid px-0">
+            <div className="row">
+                <div className="col-xl-3 col-lg-3 col-md-4 col-2"><Sidebar pageid={'order'} /></div>
 
-                    <div className="col-xl-9 col-lg-9 col-md-8 col-10 user-profile">
-                        <div className='row w-100 mx-0 px-0 h-100'>
-                            <div className="col-12 mx-0 px-0 h-100">
-                                <div className="profile-page text-start h-100">
-                                    <div className="p-4 h-100">
-                                        <div className="mb-5 mt-3 h-100">
-                                            <div className="d-flex align-items-center mb-3 justify-content-between">
-                                                <h3 className="heading fs-3 mb-3">Manage Orders</h3>
-                                            </div>
-                                            <Tabs defaultActiveKey="1" className='mb-0 h-100' items={tabs} />
+                <div className="col-xl-9 col-lg-9 col-md-8 col-10 user-profile">
+                    <div className='row w-100 mx-0 px-0 h-100'>
+                        <div className="col-12 mx-0 px-0 h-100">
+                            <div className="profile-page text-start h-100">
+                                <div className="p-4 h-100">
+                                    <div className="mb-5 mt-3 h-100">
+                                        <div className="d-flex align-items-center mb-3 justify-content-between">
+                                            <h3 className="heading fs-3 mb-3">Manage Orders</h3>
                                         </div>
+                                        <Tabs defaultActiveKey="1" className='mb-0 h-100' items={tabs} />
                                     </div>
                                 </div>
+                            </div>
 
-                                {/* <div className="profile-page text-start">
+                            {/* <div className="profile-page text-start">
                                     <div className="p-4 ps-2">
                                         {isLoading ? <div className="my-4">
                                             <Skeleton active />
@@ -173,12 +172,12 @@ const SingleOrder = () => {
                                         }
                                     </div>
                                 </div> */}
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </motion.div>
+        </div>
+
     )
 }
 

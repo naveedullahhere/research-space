@@ -58,8 +58,8 @@ export const Footer1 = () => {
                         <div class="col-lg-3 col-xs-12 links">
                             <h4 class="mt-lg-0 mt-sm-3">Quick Links</h4>
                             <ul class="m-0 p-0">
-                                <li>- <Link to="/about">About</Link></li>
-                                <li>- <Link to="#">Faq's</Link></li>
+                                {/* <li>- <Link to="/about">About</Link></li>
+                                <li>- <Link to="#">Faq's</Link></li> */}
                                 <li>- <Link to="/contact">Contact</Link></li>
                                 <li>- <Link to="/privacy-policy">Privacy Policy</Link></li>
                                 <li>- <Link to="/terms-and-conditions">Terms & Conditions</Link></li>

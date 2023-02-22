@@ -121,7 +121,7 @@ export const Home = () => {
 
 
     return (
-        <motion.div initial={{ transition: { duration: 1 }, opacity: 0 }} animate={{ transition: { duration: 1 }, opacity: 1 }} exit={{ transition: { duration: 1 }, opacity: 0 }}>
+        <>
             <Modal
 
                 title="Inquiry Now"
@@ -133,12 +133,13 @@ export const Home = () => {
                 onCancel={() => setOpen(false)}
 
             >
-                <Alert
+                {/* <Alert
                     className='mt-3'
                     message="Warning Text Warning Text Warning TextW arning Text Warning Text Warning TextWarning Text"
                     type="warning"
                     closable
-                />
+                /> */}
+
                 <Form
                     form={form}
                     name="form_in_modal"
@@ -274,21 +275,27 @@ export const Home = () => {
                                                         <h4><a href="">{item.title}</a></h4>
                                                         <p dangerouslySetInnerHTML={{ __html: item.description }}></p>
                                                         <div class="product-bottom-details">
-                                                            {!item.stock &&
-                                                                <div className='mb-3'>                                                                                <Alert message="Our limit is exceed!" type="info" />
+                                                            {item.permission === 'inquire' &&
+                                                                <div className='mb-3'>
+                                                                    <Alert message="Our limit is exceed!" type="info" />
                                                                 </div>
                                                             }
                                                             <div className='d-flex align-items-center justify-content-between'>
 
                                                                 <div class="product-price">
-                                                                    {item.compare_price_per_page &&
-                                                                        <strike className="fs-sm">${parseInt(item.compare_price_per_page) * parseInt(item.minimum_pages_allowed)}&nbsp;&nbsp;</strike>}
-                                                                    $<span>{parseInt(item.actual_price_per_page) * parseInt(item.minimum_pages_allowed)}</span>
+                                                                    {/* {item.compare_price_per_page && */}
+
+                                                                    <strike className="fs-sm">
+                                                                        ${item.permission === `writing-service` ? parseInt(item.compare_price_per_page) * parseInt(item.minimum_pages_allowed) : item.compare_price}&nbsp;&nbsp;
+                                                                    </strike>
+
+                                                                    {/* } */}
+                                                                    $<span>{item.permission === `writing-service` ? parseInt(item.actual_price_per_page) * parseInt(item.minimum_pages_allowed) : item.compare_price}</span>
                                                                     <br /> /{item.subscription_duration} Months
                                                                 </div>
                                                                 <div class="product-links">
                                                                     {
-                                                                        item?.stock
+                                                                        item?.permission != 'inquire'
                                                                             ?
                                                                             <Link className="py-2 btn btn-main" to={`/view-subscription/${item.slug}`} >
                                                                                 Buy Now
@@ -316,6 +323,6 @@ export const Home = () => {
                     </div>
                 </div>
             </div>
-        </motion.div>
+        </>
     )
 }

@@ -10,6 +10,8 @@ import { Button, Skeleton, Slider, Tooltip } from 'antd';
 
 
 const ViewSubscription = () => {
+
+
     const params = useParams();
 
 
@@ -17,6 +19,7 @@ const ViewSubscription = () => {
     const [noOfPages, setNoOfPages] = useState({ min: 0, max: 100 });
     const [data, setData] = useState(null);
     const [price, setPrice] = useState(0);
+    const [permission, setPermission] = useState('');
 
     useEffect(() => {
         setIsLoading(true);
@@ -26,7 +29,7 @@ const ViewSubscription = () => {
             body: JSON.stringify({ slug: params.subscription }),
         })
             .then((response) => response.json())
-            .then((actualData) => { setData(actualData); setIsLoading(false); setPrice(parseInt(actualData.data.minimum_pages_allowed)); setNoOfPages({ min: parseInt(actualData.data.minimum_pages_allowed), max: parseInt(actualData.data.maximum_pages_allowed) }) })
+            .then((actualData) => { setData(actualData); setIsLoading(false); setPermission(actualData.data.permission); setPrice(parseInt(actualData.data.minimum_pages_allowed)); setNoOfPages({ min: parseInt(actualData.data.minimum_pages_allowed), max: parseInt(actualData.data.maximum_pages_allowed) }) })
             .catch((err) => {
                 setIsLoading(false);
                 toast.error("something went wrong!");
@@ -49,10 +52,14 @@ const ViewSubscription = () => {
                             <div className="mb-3">
 
                                 <a class="fs-2 text-main fw-bold truncate-1" href="#">{data?.data.title}</a>
+
                             </div>
                             <div className="my-3">
+
                                 <div className="row">
+
                                     <div className="col-12">
+
                                         <p className="fw-bold fs-5 mb-2">Summary</p>
 
                                     </div>
@@ -60,33 +67,36 @@ const ViewSubscription = () => {
                                 </div>
                                 <div class="text mt-0 truncate-5" dangerouslySetInnerHTML={{ __html: data?.data.description }}>
                                 </div>
-                                <div className="row">
-                                    <div className="col-12">
-                                        <Slider
-                                            min={noOfPages.min}
-                                            max={noOfPages.max}
-                                            onChange={(e) => setPrice(e)}
-                                        />
-                                    </div>
+                                {
+                                    permission === 'writing-service' &&
+                                    <div className="row">
+                                        <div className="col-12">
+                                            <Slider
+                                                min={noOfPages.min}
+                                                max={noOfPages.max}
+                                                onChange={(e) => setPrice(e)}
+                                            />
+                                        </div>
 
-                                </div>
+                                    </div>
+                                }
                             </div>
-                            {noOfPages.min &&
+                            {data &&
                                 <div className="my-3 d-flex">
 
 
                                     <Link className="btn btn-main"
                                         to={{
                                             pathname: `/checkout/${data?.data.slug}`,
-                                            search: `?pages=${price}`,
+                                            search: `${permission === `writing-service` ? `?pages=${price}` : `?pages=none`}`,
                                             state: { fromDashboard: true }
                                         }}
                                     >Buy Now</Link>
                                     <div className='d-flex align-items-center flex-column ms-3'>
                                         <div className='d-flex gap-2 align-items-center'>
 
-                                            <strike class="text-end fs-sm">$  {parseInt(data?.data.compare_price_per_page) * price}</strike>
-                                            <div class="text-end">$ {parseInt(data?.data.actual_price_per_page) * price}</div>
+                                            <strike class="text-end fs-sm">$  {permission === `writing-service` ? parseInt(data?.data.compare_price_per_page) * price : data.data.compare_price}</strike>
+                                            <div class="text-end">$ {permission === `writing-service` ? parseInt(data?.data.actual_price_per_page) * price : data.data.actual_price}</div>
                                         </div>
                                         <p className="mb-0 truncate-2 text-start">
                                             /{data.data.subscription_duration} Month

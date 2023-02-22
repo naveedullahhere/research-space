@@ -60,13 +60,18 @@ const Checkout = () => {
                     setData(actualData);
 
                     setIsDtLoading(false);
-
-                    setPrice({ regular_price: parseInt(actualData?.data.compare_price_per_page) * pages, discount_price: parseInt(actualData?.data.actual_price_per_page) * pages })
-
-                    if (isNaN(parseInt(pages)) || parseInt(actualData.data?.minimum_pages_allowed) > pages || parseInt(actualData.data?.maximum_pages_allowed) < pages || pages === null) {
-                        // navigator('/')
-                        setError(true);
+                    if (pages === 'none') {
+                        console.log('dd');
+                        setPrice({ regular_price: parseInt(actualData?.data.compare_price), discount_price: parseInt(actualData?.data.actual_price) })
+                    } else {
+                        console.log('dda');
+                        setPrice({ regular_price: parseInt(actualData?.data.compare_price_per_page) * pages, discount_price: parseInt(actualData?.data.actual_price_per_page) * pages })
+                        if (isNaN(parseInt(pages)) || parseInt(actualData.data?.minimum_pages_allowed) > pages || parseInt(actualData.data?.maximum_pages_allowed) < pages || pages === null) {
+                            setError(true);
+                        }
                     }
+
+
                 })
                 .catch((err) => {
                     setIsDtLoading(false);
@@ -169,24 +174,26 @@ const Checkout = () => {
 
                 toast.success(json.message);
                 setisLoading(false);
+                if (json.success) {
+                    navigator('/my-subscriptions');
+                }
 
+                // fetch(`https://eliteblue.net/research-space/api/webs/user-permissions`, {
+                //     method: 'POST',
+                //     headers: { 'Content-Type': 'application/json' },
+                //     body: JSON.stringify({ user_token: user.data.user_token }),
+                // })
+                //     .then((response) => response.json())
+                //     .then((json) => {
 
-                fetch(`https://eliteblue.net/research-space/api/webs/user-permissions`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ user_token: user.data.user_token }),
-                })
-                    .then((response) => response.json())
-                    .then((json) => {
+                //         console.log(json);
 
-                        console.log(json);
-
-                    })
-                    .catch((err) => {
-                        console.log(err);
-                        setIsDtLoading(false);
-                        toast.error("something went wrong!");
-                    });
+                //     })
+                //     .catch((err) => {
+                //         console.log(err);
+                //         setIsDtLoading(false);
+                //         toast.error("something went wrong!");
+                //     });
 
 
             }).catch(err => {
@@ -210,7 +217,7 @@ const Checkout = () => {
                 if (json.success) {
                     toast.success(json.message);
                     if (!discountCode.code) {
-                        dispatch(setCouponCode(code, parseInt(json.data.value)));
+                        // dispatch(setCouponCode(code, parseInt(json.data.value)));
                     }
                     setDiscountValue(parseInt(json.data.value));
                 }

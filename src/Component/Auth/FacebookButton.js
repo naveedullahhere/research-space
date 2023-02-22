@@ -22,6 +22,6 @@ export const FacebookButton = ({ where, continueWithSocials }) => {
 
                 <FacebookLoginButton text={`${where === "login" ? "Sign in" : "Signup"}  with facebook`} />
             </LoginSocialFacebook>
-        </> 
+        </>
     )
 }

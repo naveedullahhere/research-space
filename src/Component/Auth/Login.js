@@ -34,7 +34,7 @@ export const Login = ({ continueWithSocials }) => {
         postData(`https://eliteblue.net/research-space/api/webs/signin`, { email: emailD, password: passwordD })
             .then(data => {
                 // console.log(data.data.user_token);
-console.log(data);
+                console.log(data);
                 if (data.success != false) {
 
                     // fetch(`${URL}api/web/react-items?user_token=${data.data.user_token}&type=wishlist&api_token=${API_TOKEN}`)

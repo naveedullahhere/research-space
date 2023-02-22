@@ -70,9 +70,11 @@ const PrivacyPolicy = () => {
                         <p>All credit/debit cards' details and personally identifiable information will NOT be stored, sold, shared, rented or leased to any third parties.</p>
                         <p>Writing Space will not pass any debit/credit card details to third parties.</p>
                         <p>The Website Policies and Terms &amp; Conditions may be changed or updated occasionally to meet the requirements and standards. Therefore, the Customers' are encouraged to frequently visit these sections to be updated about the changes on the website. Modifications will be effective on the day they are posted.</p>
-                        <h3>Representation for data subjects in the EU</h3>
+                        {/* <h3>Representation for data subjects in the EU</h3>
                         <p>We value your privacy and your rights as a data subject and have therefore appointed Prighter as our privacy representative and your point of contact.</p>
-                        <p>Prighter gives you an easy way to exercise your privacy-related rights (e.g. requests to access or erase personal data). If you want to contact us via our representative Prighter or make use of your data subject rights, please visit: <a rel="nofollow" target="_blank" href="https://prighter.com/q/12897868">https://prighter.com/q/12897868</a></p> </article>
+                        <p>Prighter gives you an easy way to exercise your privacy-related rights (e.g. requests to access or erase personal data). If you want to contact us via our representative Prighter or make use of your data subject rights, please visit: <a rel="nofollow" target="_blank" href="https://prighter.com/q/12897868">https://prighter.com/q/12897868</a></p> */}
+
+                    </article>
                 </div>
             </div>
         </>

@@ -7149,6 +7149,10 @@ span.buttonText {
   margin-block: 12px;
 }
 
+ol {
+
+  padding-left: 0;
+}
 
 @media(max-width:992px) {
   .fileItem {
@@ -7629,7 +7633,7 @@ span.buttonText {
 .sidebar.db-bar ul.dropdownItems.active {
   transform: translateY(0px);
   margin-top: 6px;
-  height: calc(50px*4);
+  height: calc(50px*1);
 }
 
 .sidebar.db-bar ul li a.active:hover,

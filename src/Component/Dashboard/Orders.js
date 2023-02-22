@@ -34,7 +34,7 @@ const Orders = () => {
             .then(data => {
                 console.log(data);
                 if (data.success != false) {
-                    toast.success(data.message);
+                    // toast.success(data.message);
                     setData(data.order);
 
                 } else {
@@ -169,7 +169,7 @@ const Orders = () => {
                 form.resetFields();
                 console.log(json);
                 if (json.success) {
-                    toast.success(json.message);
+                    // toast.success(json.message);
                 }
                 else {
                     toast.error(json.message);
@@ -206,7 +206,7 @@ const Orders = () => {
 
 
     return (
-        <motion.div initial={{ transition: { duration: 1 }, opacity: 0 }} animate={{ transition: { duration: 1 }, opacity: 1 }} exit={{ transition: { duration: 1 }, opacity: 0 }}>
+        <>
             <Modal
 
                 title="Paper Details:"
@@ -511,7 +511,7 @@ const Orders = () => {
                     </div>
                 </div>
             </div>
-        </motion.div >
+        </ >
     )
 }
 

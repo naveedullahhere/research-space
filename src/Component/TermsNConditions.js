@@ -14,7 +14,6 @@ const TermsNConditions = () => {
                 </div>
             </div>
             <section class="container main-services my-3">
-
                 <ol>
                     <li>
                         <ol>
@@ -462,7 +461,8 @@ const TermsNConditions = () => {
                                 email, and SMS/MMS to let you know about any goods, services or promotions which may be of interest to you.</li>
                         </ol>
                     </li>
-                </ol></section>
+                </ol>
+            </section>
         </>
     )
 }

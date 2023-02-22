@@ -30,10 +30,10 @@ export const MySubscriptions = () => {
         postData(`https://eliteblue.net/research-space/api/webs/get-orders`, { user_token: user.data.user_token })
             .then(data => {
                 if (data.success != false) {
-                    toast.success(data.message);
+                    // toast.success(data.message);
                     setData(data.order);
                 } else {
-                    toast.error(data.message);
+                    // toast.error(data.message);
                 }
                 setIsLoading(false);
             }).catch((err) => {
@@ -87,24 +87,15 @@ export const MySubscriptions = () => {
                 showTitle: false,
             },
             render: (subscription_duration) => (
-                <Tooltip placement="topLeft" title={subscription_duration}>
+                <p className="mb-0">
+
+                    {/* <Tooltip placement="topLeft" title={subscription_duration}> */}
                     {subscription_duration} /mo
-                </Tooltip>
+                    {/* </Tooltip> */}
+                </p>
             ),
         },
-        {
-            title: 'No. Of Pages',
-            dataIndex: 'no_of_pages',
-            key: 'no_of_pages',
-            ellipsis: {
-                showTitle: false,
-            },
-            render: (no_of_pages) => (
-                <Tooltip placement="topLeft" title={no_of_pages}>
-                    {no_of_pages}
-                </Tooltip>
-            ),
-        },
+
         {
             title: 'Total Discount',
             dataIndex: 'coupon_discount',
@@ -113,9 +104,12 @@ export const MySubscriptions = () => {
                 showTitle: false,
             },
             render: (coupon_discount) => (
-                <Tooltip placement="topLeft" title={coupon_discount}>
-                    {coupon_discount}
-                </Tooltip>
+                <p className="mb-0">
+
+                    {/* // <Tooltip placement="topLeft" title={coupon_discount}> */}
+                    $  {coupon_discount ? coupon_discount : 0}
+                    {/* // </Tooltip> */}
+                </p>
             ),
         },
         {
@@ -126,9 +120,12 @@ export const MySubscriptions = () => {
                 showTitle: false,
             },
             render: (order_total) => (
-                <Tooltip placement="topLeft" title={order_total}>
-                    {order_total}
-                </Tooltip>
+                <p className="mb-0">
+
+                    {/* // <Tooltip placement="topLeft" title={order_total}> */}
+                    $ {order_total}
+                    {/* // </Tooltip> */}
+                </p>
             ),
         },
         {
@@ -139,9 +136,12 @@ export const MySubscriptions = () => {
                 showTitle: false,
             },
             render: (grand_total) => (
-                <Tooltip placement="topLeft" title={grand_total}>
-                    {grand_total}
-                </Tooltip>
+                <p className="mb-0">
+
+                    {/* // <Tooltip placement="topLeft" title={grand_total}> */}
+                    $ {grand_total}
+                    {/* // </Tooltip> */}
+                </p>
             ),
         },
     ];
@@ -214,37 +214,26 @@ export const MySubscriptions = () => {
 
 
     return (
-        <motion.div initial={{ transition: { duration: 1 }, opacity: 0 }} animate={{ transition: { duration: 1 }, opacity: 1 }} exit={{ transition: { duration: 1 }, opacity: 0 }}>
-            <div className="container-fluid px-0">
-                <div className="row">
-                    <div className="col-xl-3 col-lg-3 col-md-4 col-2"><Sidebar pageid={'subscriptions'} /></div>
+        <div className="container-fluid px-0">
+            <div className="row">
+                <div className="col-xl-3 col-lg-3 col-md-4 col-2"><Sidebar pageid={'subscriptions'} /></div>
 
-                    <div className="col-xl-9 col-lg-9 col-md-8 col-10" >
-                        <div className='row w-100 mx-0 px-0 h-100'>
-                            <div className="col-12 mx-0 px-0 user-profile h-100">
-                                <div className="profile-page text-start">
-                                    <div className="p-4">
-                                        <div className="mb-5">
+                <div className="col-xl-9 col-lg-9 col-md-8 col-10" >
+                    <div className='row w-100 mx-0 px-0 h-100'>
+                        <div className="col-12 mx-0 px-0 user-profile h-100">
+                            <div className="profile-page text-start">
+                                <div className="p-4">
+                                    <div className="mb-5">
 
-                                            <h3 className="heading fs-3 mb-3">Manage Subscription</h3>
-                                            {isLoading ? <div className="my-4">
-                                                <Skeleton active />
-                                            </div> :
-                                                !data ?
-                                                    <Empty description="Something went wrong!" />
-                                                    :
-                                                    <Table columns={columns} dataSource={data} pagination={{ pageSize: 5 }} />
-                                            }
-                                            {/* {isLoading ?
-                                                <div className="my-4">
-                                                    <Skeleton active />
-                                                </div>
+                                        <h3 className="heading fs-3 mb-3">Manage Subscription</h3>
+                                        {isLoading ? <div className="my-4">
+                                            <Skeleton active />
+                                        </div> :
+                                            !data ?
+                                                <Empty description="Something went wrong!" />
                                                 :
-                                                data &&
-                                                
-                                            } */}
-
-                                        </div>
+                                                <Table columns={columns} dataSource={data} pagination={{ pageSize: 5 }} />
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -252,7 +241,8 @@ export const MySubscriptions = () => {
                     </div>
                 </div>
             </div>
-        </motion.div>
+        </div>
+
     )
 }
 
