@@ -7,7 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import toast from "react-hot-toast";
 import { AppContext } from '../../context/AppContext';
 import { Sidebar } from './Sidebar';
-import { Button, Empty, Form, Input, InputNumber, Modal, Select, Skeleton, Table, Tooltip } from 'antd';
+import { Button, Empty, Form, Input, InputNumber, Modal, Select, Skeleton, Table, Tooltip, Upload } from 'antd';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 
@@ -155,9 +155,10 @@ const Orders = () => {
         console.log(values);
     };
 
-
     const onCreate = (data) => {
+
         console.log(data);
+
         fetch(`https://eliteblue.net/research-space/api/webs/create-order`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -246,7 +247,7 @@ const Orders = () => {
                         <label className='fs-7'><b className='fs-7'>Subject or Discipline:</b> "If the required type of paper is missing, feel free to
                             pick “Other” and write your specific type of paper in the appeared tab."
                         </label>
-                        <Form.Item name={['subject_discipline']} label="Subject or Discipline:" rules={[{ required: false }]}>
+                        <Form.Item name={['erp_subject_name']} label="Subject or Discipline:" rules={[{ required: true, message: 'This Field is Required!' }]}>
                             <Select
                                 defaultValue="Select an option"
                                 className='text-dark'
@@ -260,13 +261,14 @@ const Orders = () => {
                     <div className="my-3">
                         <Form.Item
                             noStyle
-                            shouldUpdate={(prevValues, currentValues) => prevValues.subject_discipline !== currentValues.subject_discipline}
+                            shouldUpdate={(prevValues, currentValues) => prevValues.erp_subject_name !== currentValues.erp_subject_name}
                         >
                             {({ getFieldValue }) =>
-                                getFieldValue('subject_discipline') === 'other' ? (
+                                getFieldValue('erp_subject_name') === 'other' ? (
                                     <Form.Item
-                                        name="other_subject_discipline"
+                                        name="erp_sub"
                                         label="Other Subject Discipline"
+                                        rules={[{ required: true, message: 'This Field is Required!' }]}
                                     >
                                         <Input />
                                     </Form.Item>
@@ -277,7 +279,7 @@ const Orders = () => {
                     <div className='my-3'>
                         <label className='fs-7'><b className='fs-7'>Topic:</b> "Please provide us with a clear topic of your assignment up to 300 symbols. If you don’t have a specific topic, use the default writer’s choice option or use the “Subject or Discipline” chosen above."
                         </label>
-                        <Form.Item name={['erp_order_topic']} label="Topic:" rules={[{ required: false }]}>
+                        <Form.Item name={['erp_order_topic']} label="Topic:" rules={[{ required: true, message: 'This Field is Required!' }]}>
                             <Select
                                 defaultValue="Select an option"
                                 className='text-dark'
@@ -303,8 +305,9 @@ const Orders = () => {
                             {({ getFieldValue }) =>
                                 getFieldValue('erp_order_topic') === 'other' ? (
                                     <Form.Item
-                                        name="other_erp_order_topic"
+                                        name="erp_order_text"
                                         label="Other Topic"
+                                        rules={[{ required: true, message: 'This Field is Required!' }]}
                                     >
                                         <Input />
                                     </Form.Item>
@@ -316,14 +319,14 @@ const Orders = () => {
                     <div className='my-3'>
                         <label className='fs-7'><b className='fs-7'>Paper Instructions:</b> "To ensure that the final paper meets your requirements, make sure your instructions are as clear and detailed as possible. This will decrease the chance of revisions in your order."
                         </label>
-                        <Form.Item name={['erp_order_message']} label="Message:">
+                        <Form.Item name={['erp_order_message']} label="Message:" rules={[{ required: true, message: 'This Field is Required!' }]}>
                             <Input.TextArea />
                         </Form.Item>
                     </div>
                     <div className='my-3'>
                         <label className='fs-7'><b className='fs-7'>Academic Level:</b> "Please select the option that is the closest to your next obtainable degree."
                         </label>
-                        <Form.Item name={['erp_academic_name']} label="Academic Level:" rules={[{ required: false }]}>
+                        <Form.Item name={['erp_academic_name']} label="Academic Level:" rules={[{ required: true, message: 'This Field is Required!' }]}>
                             <Select
                                 defaultValue="Select an option"
                                 className='text-dark'
@@ -343,8 +346,9 @@ const Orders = () => {
                             {({ getFieldValue }) =>
                                 getFieldValue('erp_academic_name') === 'other' ? (
                                     <Form.Item
-                                        name="other_erp_academic_name"
+                                        name="erp_academic_description"
                                         label="Other Academic Level"
+                                        rules={[{ required: true, message: 'This Field is Required!' }]}
                                     >
                                         <Input />
                                     </Form.Item>
@@ -357,7 +361,7 @@ const Orders = () => {
                         <label className='fs-7'><b className='fs-7'>Type of Paper:</b> "If the required type of paper is missing, feel free to pick “Other” and write your specific type of paper in the appeared tab."
 
                         </label>
-                        <Form.Item name={['erp_paper_type']} label="Type of Paper:" rules={[{ required: false }]}>
+                        <Form.Item name={['erp_paper_type']} label="Type of Paper:" rules={[{ required: true, message: 'This Field is Required!' }]}>
                             <Select
                                 defaultValue="Select an option"
                                 className='text-dark'
@@ -368,7 +372,7 @@ const Orders = () => {
                     <div className='my-3'>
                         <label className='fs-7'><b className='fs-7'>Paper Format:</b> "Format of your in-text citations, references and title page. The         format/citation style also applies to any Works Cited and/or References pages."
                         </label>
-                        <Form.Item name={['erp_paper_format']} label="Paper Format:" rules={[{ required: false }]}>
+                        <Form.Item name={['erp_paper_format']} label="Paper Format:" rules={[{ required: true, message: 'This Field is Required!' }]}>
                             <Select
                                 defaultValue="Select an option"
                                 className='text-dark'
@@ -377,7 +381,7 @@ const Orders = () => {
                         </Form.Item>
                     </div>
                     <div className='my-3'>
-                        <Form.Item name={['erp_language_name']} className='mb-0' label="Language and spelling style:" rules={[{ required: false }]}>
+                        <Form.Item name={['erp_language_name']} className='mb-0' label="Language and spelling style:" rules={[{ required: true, message: 'This Field is Required!' }]}>
                             <Select
                                 defaultValue="Select an option"
                                 className='text-dark'
@@ -389,27 +393,48 @@ const Orders = () => {
                     </div>
 
                     <div className='my-3'>
-                        <Form.Item name={['erp_resource_materials']} label="Will you provide any resource materials:" rules={[{ required: false }]}>
+                        <Form.Item name={['erp_resource_materials']} label="Will you provide any resource materials:" rules={[{ required: true, message: 'This Field is Required!' }]}>
                             <Select
                                 defaultValue="Select an option"
                                 className='text-dark'
                                 options={[
-                                    { value: 'Yes', label: 'Yes' },
+                                    { value: 'yes', label: 'Yes' },
                                     { value: 'No', label: 'No' },
                                 ]}
                             />
                         </Form.Item>
                     </div>
+                    <div className="my-3">
+                        <Form.Item
+                            noStyle
+                            shouldUpdate={(prevValues, currentValues) => prevValues.erp_resource_materials !== currentValues.erp_resource_materials}
+                        >
+                            {({ getFieldValue }) =>
+                                getFieldValue('erp_resource_materials') === 'yes' ? (
+                                    <Form.Item
+                                        name="erp_resource_file"
+                                        label="Resource Material"
+
+                                        rules={[{ required: true, message: 'Please Provide an Resource Material!' }]}
+                                    >
+                                        <Upload multiple={false} maxCount={1} >
+                                            <Button type='default'>Upload</Button>
+                                        </Upload>
+                                    </Form.Item>
+                                ) : null
+                            }
+                        </Form.Item>
+                    </div>
                     <div className='my-3'>
                         <label className='fs-7'><b className='fs-7'>Number of Pages:</b> "Select the number of pages needed. Do not include Bibliography, Works Cited, or References pages because they are free."</label>
-                        <Form.Item name={['erp_number_Pages']} label="Number of Pages:" rules={[{ required: false }]}>
+                        <Form.Item name={['erp_number_Pages']} label="Number of Pages:" rules={[{ required: true, message: 'This Field is Required!' }]}>
                             <InputNumber style={{ width: '100%' }} />
 
                         </Form.Item>
                     </div>
                     <div className='my-3'>
                         <label className='fs-7'><b className='fs-7'>Spacing:</b>  “Double spaced pages contain approximately 300 words each, while single-spaced have 600.”</label>
-                        <Form.Item name={['erp_spacing']} label="Spacing:" rules={[{ required: false }]}>
+                        <Form.Item name={['erp_spacing']} label="Spacing:" rules={[{ required: true, message: 'This Field is Required!' }]}>
                             {/* <Select
                                 defaultValue="Select an option"
                                 className='text-dark'
@@ -423,7 +448,7 @@ const Orders = () => {
                     </div>
                     <div className='my-3'>
                         <label className='fs-7'><b className='fs-7'> PowerPoint Slides:</b>  "The number of Power Point slides that will be delivered to you separately from your paper. Useful for those who need to present in front of class."</label>
-                        <Form.Item name={['erp_powerPoint_slides']} label=" PowerPoint Slides:" rules={[{ required: false }]}>
+                        <Form.Item name={['erp_powerPoint_slides']} label=" PowerPoint Slides:" rules={[{ required: true, message: 'This Field is Required!' }]}>
                             <InputNumber style={{ width: '100%' }} />
                         </Form.Item>
                     </div>
@@ -443,13 +468,13 @@ const Orders = () => {
                         <label className='fs-7'><b className='fs-7'>   EXTRA SOURCES:</b>      There is an additional cost of $1 per each extra source that exceeds the number of pages that you order. For example, if you order 10 pages and request 15 sources, there will be a total additional cost of $5 for the 5 extra sources.</label>
 
 
-                        <Form.Item name={['erp_extra_source']} label="No. of EXTRA SOURCES:" rules={[{ required: false }]}>
+                        <Form.Item name={['erp_extra_source']} label="No. of EXTRA SOURCES:" rules={[{ required: true, message: 'This Field is Required!' }]}>
                             <InputNumber style={{ width: '100%' }} />
                         </Form.Item>
                     </div>
                     <div className='my-3'>
                         <label className='fs-7'><b className='fs-7'>Deadline:</b>  "The time in which you will receive your completed paper. The countdown starts when we receive payment for your order. Please note that revision requests may exceed your deadline."</label>
-                        <Form.Item name={['erp_deadline']} label="Deadline:" rules={[{ required: false }]}>
+                        <Form.Item name={['erp_deadline']} label="Deadline:" rules={[{ required: true, message: 'This Field is Required!' }]}>
                             <Select
                                 defaultValue="Select an option"
                                 className='text-dark'
@@ -461,7 +486,7 @@ const Orders = () => {
                         </Form.Item>
                     </div>
                     <div className='my-3'>
-                        <Form.Item name={['erp_copy_sources']} label="Copy of Sources:" rules={[{ required: false }]}>
+                        <Form.Item name={['erp_copy_sources']} label="Copy of Sources:" rules={[{ required: true, message: 'This Field is Required!' }]}>
                             <Select
                                 defaultValue="Select an option"
                                 className='text-dark'
@@ -473,7 +498,7 @@ const Orders = () => {
                         </Form.Item>
                     </div>
                     <div className='my-3'>
-                        <Form.Item name={['erp_page_summary']} label="1 Page Summary:" rules={[{ required: false }]}>
+                        <Form.Item name={['erp_page_summary']} label="1 Page Summary:" rules={[{ required: true, message: 'This Field is Required!' }]}>
                             <Select
                                 defaultValue="Select an option"
                                 className='text-dark'
@@ -485,7 +510,7 @@ const Orders = () => {
                         </Form.Item>
                     </div>
                     <div className='my-3'>
-                        <Form.Item name={['erp_paper_outline']} label="Paper Outline in Bullets:" rules={[{ required: false }]}>
+                        <Form.Item name={['erp_paper_outline']} label="Paper Outline in Bullets:" rules={[{ required: true, message: 'This Field is Required!' }]}>
                             <Select
                                 defaultValue="Select an option"
                                 className='text-dark'
@@ -497,7 +522,7 @@ const Orders = () => {
                         </Form.Item>
                     </div>
                     <div className='my-3'>
-                        <Form.Item name={['erp_abstract_page']} label="Abstract Page:" rules={[{ required: false }]}>
+                        <Form.Item name={['erp_abstract_page']} label="Abstract Page:" rules={[{ required: true, message: 'This Field is Required!' }]}>
                             <Select
                                 defaultValue="Select an option"
                                 className='text-dark'
@@ -510,7 +535,7 @@ const Orders = () => {
                     </div>
                     <div className='my-3'>
                         <label className='fs-7'><b className='fs-7'>Statistical Analysis:</b>  If your order requires statistical analysis or a significant amount of mathematical calculations, there will be an additional charge of 15%. To see a list of features that qualify as "statistical analysis," click here.</label>
-                        <Form.Item name={['erp_statistical_analysis']} label="Statistical Analysis:" rules={[{ required: false }]}>
+                        <Form.Item name={['erp_statistical_analysis']} label="Statistical Analysis:" rules={[{ required: true, message: 'This Field is Required!' }]}>
                             <Select
                                 defaultValue="Select an option"
                                 className='text-dark'
