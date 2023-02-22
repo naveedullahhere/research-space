@@ -285,10 +285,34 @@ const Orders = () => {
                                     { value: 'Computer', label: 'Computer' },
                                     { value: 'Physics', label: 'Physics' },
                                     { value: 'Urdu', label: 'Urdu' },
+                                    {
+                                        "label": "I’ll Write the Topic",
+                                        "value": "other"
+                                    }
                                 ]}
+
                             />
                         </Form.Item>
                     </div>
+
+                    <div className="my-3">
+                        <Form.Item
+                            noStyle
+                            shouldUpdate={(prevValues, currentValues) => prevValues.erp_order_topic !== currentValues.erp_order_topic}
+                        >
+                            {({ getFieldValue }) =>
+                                getFieldValue('erp_order_topic') === 'other' ? (
+                                    <Form.Item
+                                        name="other_erp_order_topic"
+                                        label="Other Topic"
+                                    >
+                                        <Input />
+                                    </Form.Item>
+                                ) : null
+                            }
+                        </Form.Item>
+                    </div>
+
                     <div className='my-3'>
                         <label className='fs-7'><b className='fs-7'>Paper Instructions:</b> "To ensure that the final paper meets your requirements, make sure your instructions are as clear and detailed as possible. This will decrease the chance of revisions in your order."
                         </label>
@@ -303,10 +327,32 @@ const Orders = () => {
                             <Select
                                 defaultValue="Select an option"
                                 className='text-dark'
-                                options={dropdownsValues ? dropdownsValues.academic_level : []}
+                                options={dropdownsValues ? [dropdownsValues.academic_level, {
+                                    "label": "Other (not listed above)",
+                                    "value": "other"
+                                }].flat() : []}
+
                             />
                         </Form.Item>
                     </div>
+                    <div className="my-3">
+                        <Form.Item
+                            noStyle
+                            shouldUpdate={(prevValues, currentValues) => prevValues.erp_academic_name !== currentValues.erp_academic_name}
+                        >
+                            {({ getFieldValue }) =>
+                                getFieldValue('erp_academic_name') === 'other' ? (
+                                    <Form.Item
+                                        name="other_erp_academic_name"
+                                        label="Other Academic Level"
+                                    >
+                                        <Input />
+                                    </Form.Item>
+                                ) : null
+                            }
+                        </Form.Item>
+                    </div>
+
                     <div className='my-3'>
                         <label className='fs-7'><b className='fs-7'>Type of Paper:</b> "If the required type of paper is missing, feel free to pick “Other” and write your specific type of paper in the appeared tab."
 
