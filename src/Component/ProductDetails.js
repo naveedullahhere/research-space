@@ -44,6 +44,7 @@ export const ProductDetails = () => {
         if (!user) {
             return navigate('/login');
         }
+
         setDownloading(true);
         await fetch(`https://eliteblue.net/research-space/api/webs/in-papers`, {
             method: 'POST',
@@ -61,18 +62,19 @@ export const ProductDetails = () => {
                     setFile(actualData);
                     setDownloading(false);
                     toast.success("Downloading");
+                    saveAs(
+                        `${actualData.file_path}/${actualData.data.file_upload}`,
+                        "download.pdf",
+                    );
                 }
             })
             .catch((err) => {
                 setDownloading(false);
                 toast.error("something went wrong!");
             });
-        if (file.success) {
-            saveAs(
-                `${file.file_path}/${file.data.file_upload}`,
-                "download.pdf",
-            );
-        }
+        // if (file.success) {
+
+        // }
     }
 
     return (

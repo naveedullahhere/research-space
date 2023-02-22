@@ -6,28 +6,9 @@ import { Spinner } from '../Spinner';
 import { Button } from 'antd';
 
 export const Header = () => {
-    const { user, removeUserData, dispatch, cartItems, URL } = useContext(AppContext);
-    const [data, setData] = useState([]);
-    const [stores, setStores] = useState([]);
+    const { user, removeUserData, dispatch } = useContext(AppContext);
 
 
-    useEffect(() => {
-        fetch(`${URL}api/web/stores`)
-            .then((response) => response.json())
-            .then((actualData) => { setStores(actualData); })
-            .catch((err) => {
-                setStores([]);
-            });
-        fetch(`${URL}api/web/category?type=coupon`)
-            .then((response) => response.json())
-            .then((actualData) => { setData(actualData.data); })
-            .catch((err) => {
-                setData([]);
-            });
-    }, []);
-
-
-    const { search, setSearch } = useContext(AppContext);
     const navigate = useNavigate();
     const { pathname } = useLocation();
     const [isActive, setActive] = useState(false);
@@ -41,19 +22,6 @@ export const Header = () => {
         setActive(false);
     }, [pathname])
 
-    const toggleClass = () => {
-        setActive(!isActive);
-    };
-
-    const toggleMobNav = () => {
-        setmobnav(!ismobnav);
-    };
-    const toggleMobNavStore = () => {
-        setmobnavstore(!ismobnavstore);
-    };
-    const toggleMobNavProfile = () => {
-        setmobprofile(!ismobprofile);
-    };
 
     const Logout = () => {
         dispatch(removeUserData(user.id));

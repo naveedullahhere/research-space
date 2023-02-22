@@ -36,14 +36,6 @@ export const Home = () => {
                 toast.error("something went wrong!");
             }
             );
-        fetch(`${URL}public/api/web/slider`)
-            .then((response) => response.json())
-            .then((actualData) => { setSlider(actualData); })
-            .catch((err) => {
-                setSlider([]);
-                toast.error("something went wrong!");
-            }
-            );
     }, []);
 
     const addToCart = (item) => {

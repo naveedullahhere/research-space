@@ -62,7 +62,20 @@ const SingleSubscription = () => {
                                                                 size="large"
                                                                 bordered
                                                             >
-                                                                <List.Item> <p className='mb-0 d-flex justify-content-between'><div>{data?.title}</div>
+                                                                <List.Item> <p className='mb-0 d-flex justify-content-between'>
+
+                                                                    <div>{data?.title}</div>
+                                                                    <div>
+
+                                                                        <p className='mb-0'><span className='fw-bold'>Subscription Duration: </span>
+
+                                                                            {data?.subscription_duration}/mo
+
+                                                                        </p>
+                                                                    </div>
+
+
+
                                                                     {data?.no_of_pages != 'none'
                                                                         && <div><span className='fw-bold'>No. of Pages: </span>{data?.no_of_pages}</div>
                                                                     }
@@ -77,7 +90,6 @@ const SingleSubscription = () => {
                                                                 size="large"
                                                                 bordered
                                                             >
-                                                                <List.Item>  <span className='fw-bold'>Details</span></List.Item>
                                                                 <List.Item> <p className='mb-0 d-flex justify-content-between'><span className='fw-bold'>Subtotal: </span>${data?.order_total}</p> </List.Item>
                                                                 <List.Item> <p className='mb-0 d-flex justify-content-between'><span className='fw-bold'>Discount: </span>- ${data?.coupon_discount ? data?.coupon_discount : 0}</p> </List.Item>
                                                                 <List.Item> <p className='mb-0 d-flex justify-content-between'><span className='fw-bold'>Grand Total: </span>${data?.grand_total}</p> </List.Item>
@@ -91,7 +103,7 @@ const SingleSubscription = () => {
                                                                 size="large"
                                                                 bordered
                                                             >
-                                                                <List.Item> <p className='mb-0'><span className='fw-bold'>Customer</span><br />{data?.billing_first_name}-{data?.billing_last_name}
+                                                                <List.Item> <p className='mb-0'><span className='fw-bold'>Customer</span><br />{data?.billing_first_name} {data?.billing_last_name}
                                                                 </p> </List.Item>
                                                                 {/* <List.Item> <a href={`mailto:${data?.email}`}><span className='fw-bold'>Email</span><br />{data?.email}</a> </List.Item> */}
                                                                 {/* <List.Item> <p className='mb-0'><span className='fw-bold'>Phone Address</span><br /><a href={`tel:${data?.billing_phone}`}> {data?.billing_phone}</a></p> </List.Item> */}
@@ -110,7 +122,7 @@ const SingleSubscription = () => {
                                                                         {data?.billing_country}
                                                                     </p>
                                                                 </List.Item>
-                                                                <List.Item> <p className='mb-0'><span className='fw-bold'>Subscription Duration</span><br />{data?.subscription_duration}/mo</p> </List.Item>
+
 
                                                             </List>
                                                         </div>

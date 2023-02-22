@@ -32,13 +32,12 @@ const Orders = () => {
         setIsLoading(true);
         postData(`https://eliteblue.net/research-space/api/webs/fetch-orders`, { user_token: user.data.user_token })
             .then(data => {
-                console.log(data);
                 if (data.success != false) {
                     // toast.success(data.message);
                     setData(data.order);
 
                 } else {
-                    toast.error(data.message);
+                    // toast.error(data.message);
                 }
                 setIsLoading(false);
             }).catch((err) => {
@@ -175,7 +174,6 @@ const Orders = () => {
                     toast.error(json.message);
                 }
                 setConfirmLoading(false);
-
             }).catch(err => {
                 setConfirmLoading(false);
                 toast.error("something went wrong!");
@@ -502,7 +500,6 @@ const Orders = () => {
                                                     <Table columns={columns} dataSource={data} pagination={{ pageSize: 5 }} />
 
                                             }
-                                            <Link to='/single-order/kuch-bhiii' className="btn btn-main">goo</Link>
                                         </div>
                                     </div>
                                 </div>
