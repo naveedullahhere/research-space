@@ -631,7 +631,6 @@ const Orders = () => {
                                                     <Empty description="Something went wrong!" />
                                                     :
                                                     <Table columns={columns} dataSource={data} pagination={{ pageSize: 5 }} />
-
                                             }
                                         </div>
                                     </div>

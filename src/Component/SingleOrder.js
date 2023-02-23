@@ -16,6 +16,8 @@ const SingleOrder = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [isDownloading, setDownloading] = useState(false);
     const [data, setData] = useState(null);
+    const [status, setStatus] = useState(null);
+    const [ordr, setOrder] = useState(false);
     const [file, setFile] = useState(null);
     const order = params.order;
 
@@ -35,38 +37,34 @@ const SingleOrder = () => {
             );
     }, []);
 
-    // console.log(data, navigator);
-
-    const dataset = [
-        'Racing car sprays burning fuel into crowd.',
-        'Japanese princess to wed commoner.',
-        'Australian walks 100km after outback crash.',
-        'Man charged over missing wedding girl.',
-        'Los Angeles battles huge wildfires.',
-    ];
 
 
     const tabs = [
         {
             key: '1',
             label: `Details`,
-            children: <div className="bg-white shadow-sm p-3 rounded-3 vh-70"> <Details /></div>,
+            children: <div className="bg-white shadow-sm p-3 rounded-3 vh-70"> <Details order={order} setStatus={setStatus} setOrder={setOrder} /></div>,
         },
+        ordr &&
         {
             key: '2',
             label: `Files`,
             children: <div className="bg-white shadow-sm p-3 rounded-3 vh-70"><Files order={order} /></div>,
         },
+        ordr &&
         {
             key: '3',
             label: `Message`,
             children: <div className="bg-white shadow-sm p-3 rounded-3 vh-70"><Message order={order} /></div>,
         },
-        {
-            key: '4',
-            label: `Rating & Review`,
-            children: <div className="bg-white shadow-sm p-3 rounded-3 vh-70"><Rating /></div>,
-        },
+        ordr &&
+            4 === parseInt(status) ?
+            {
+                key: '4',
+                label: `Rating & Review`,
+                children: <div className="bg-white shadow-sm p-3 rounded-3 vh-70"><Rating /></div>,
+            } : {},
+        ordr &&
         {
             key: '5',
             label: `Note`,

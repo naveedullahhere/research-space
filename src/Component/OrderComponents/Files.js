@@ -65,7 +65,6 @@ const Files = ({ order }) => {
     };
 
 
-    console.log(files);
     const [fileList, setFileList] = useState([]);
     const [uploading, setUploading] = useState(false);
     const handleUpload = () => {
@@ -81,21 +80,6 @@ const Files = ({ order }) => {
         formData.append('type', "file");
         formData.append('user_token', user.data.user_token);
 
-
-        // console.log(fileList, formData);
-
-
-        var ffff = formData.get('file');
-
-        console.log(ffff, formData);
-
-        var data = {
-            file: formData,
-            order_id: order,
-            user_token: user.data.user_token
-        }
-
-        // console.log(ffff);
         setUploading(true);
         fetch('https://eliteblue.net/research-space/api/webs/manage-files', {
             method: 'POST',
@@ -115,7 +99,7 @@ const Files = ({ order }) => {
 
 
                     for (const item of data.path) {
-                        setFiles([...files, { file: item, files: data.files, title: data.title, file_id: data.file_id, name: user.data.name, created_at: data.created_at, user_token: user.data.user_token }]);
+                        setFiles([...files, { type: data.type, file: item, files: data.files, title: data.title, file_id: data.file_id, name: user.data.name, created_at: data.created_at, user_token: user.data.user_token }]);
                     }
 
                 } else {
