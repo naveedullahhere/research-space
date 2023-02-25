@@ -421,7 +421,7 @@ const Orders = () => {
                             <Select
                                 defaultValue="Select an option"
                                 className='text-dark'
-                                options={dropdownsValues ? dropdownsValues.document_type : []}
+                                options={dropdownsValues ? dropdownsValues.paper_type : []}
                             />
                         </Form.Item>
                     </div>
