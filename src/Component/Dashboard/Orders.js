@@ -208,11 +208,12 @@ const Orders = () => {
     const onFinish = (values) => {
         console.log(values);
     };
+    const [fileList, setFileList] = useState([]);
 
     const onCreate = (data) => {
 
-        console.log(data);
 
+        console.log(data);
         fetch(`https://eliteblue.net/research-space/api/webs/create-order`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -220,7 +221,7 @@ const Orders = () => {
         })
             .then(res => res.json())
             .then(json => {
-                form.resetFields();
+                // form.resetFields();
                 console.log(json);
                 if (json.success) {
                     // toast.success(json.message);
@@ -258,6 +259,18 @@ const Orders = () => {
     // console.log(dropdownsValues);
 
 
+    const props = {
+        listType: 'picture',
+        accept: "application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint, text/plain, application/pdf",
+
+        beforeUpload: (file) => {
+            setFileList([file]);
+            return false;
+        },
+
+        fileList,
+
+    };
     return (
         <>
             <Modal
@@ -373,10 +386,28 @@ const Orders = () => {
                     <div className='my-3'>
                         <label className='fs-7'><b className='fs-7'>Paper Instructions:</b> "To ensure that the final paper meets your requirements, make sure your instructions are as clear and detailed as possible. This will decrease the chance of revisions in your order."
                         </label>
-                        <Form.Item name={['erp_order_message']} label="Message:" rules={[{ required: false, message: 'This Field is Required!' }]}>
+                        <Form.Item name={['papertype_desc']} label="Message:" rules={[{ required: false, message: 'This Field is Required!' }]}>
                             <Input.TextArea className='d-none' value={noteValue} />
 
                             <Note />
+                        </Form.Item>
+                    </div>
+                    <div className='my-3'>
+                        <label className='fs-7'><b className='fs-7'>Reason:</b>
+                        </label>
+                        <Form.Item name={['reason']} label="Reason:" rules={[{ required: false, message: 'This Field is Required!' }]}>
+                            <Input />
+
+
+                        </Form.Item>
+                    </div>
+                    <div className='my-3'>
+                        <label className='fs-7'><b className='fs-7'>Order Message:</b>
+                        </label>
+                        <Form.Item name={['erp_order_message']} label="Order Message:" rules={[{ required: false, message: 'This Field is Required!' }]}>
+                            <Input />
+
+
                         </Form.Item>
                     </div>
                     <div className='my-3'>
@@ -473,7 +504,7 @@ const Orders = () => {
 
                                         rules={[{ required: true, message: 'Please Provide an Resource Material!' }]}
                                     >
-                                        <Upload multiple={false} maxCount={1} >
+                                        <Upload {...props} multiple={false}  >
                                             <Button type='default'>Upload</Button>
                                         </Upload>
                                     </Form.Item>
