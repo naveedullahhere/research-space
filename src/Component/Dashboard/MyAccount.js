@@ -122,15 +122,15 @@ export const MyAccount = () => {
                                                 <input type="text" name="" value={user.data.email}
                                                     className={`form-control text-dark`} style={{ "filter": "none" }} disabled={true} />
 
-                                                <input type="text" name="name" id="" required {...register2('name',)}
+                                                <input type="text" name="name" required {...register2('name',)}
                                                     className={`form-control text-dark ${errors2.name ? 'is-invalid' : ''}`} style={{ "filter": "none" }} placeholder={`Name`} disabled={isActiveEdit} value={userName} onChange={(e) => setUserName(e.target.value)} />
 
-                                                <input type="text" name="phone_number" id="" {...register2('phone_number')}
+                                                <input type="text" name="phone_number" {...register2('phone_number')}
                                                     className={`form-control text-dark ${errors2.phone_number ? 'is-invalid' : ''}`} style={{ "filter": "none" }} placeholder={`Phone Number`} disabled={isActiveEdit} value={userPhone} onChange={(e) => setUserPhone(e.target.value)} />
                                                 <div className='mb-t'>
                                                     <Alert message={`Joined Since: ${new Date(user.data.updated_at).toLocaleString("en-us").split(',')[0]}`} type="warning" />
                                                 </div>
-                                                {/* <textarea type="text" name="about" id="" {...register2('about')}
+                                                {/* <textarea type="text" name="about" {...register2('about')}
                                                         className={`form-control text-dark ${errors2.about ? 'is-invalid' : ''}`} style={{ "filter": "none" }} placeholder={`About your self`} disabled={isActiveEdit} onChange={(e) => setUserAbout(e.target.value)} >{userAbout}</textarea> */}
 
                                                 <div className="float-end">
@@ -161,7 +161,7 @@ export const MyAccount = () => {
                                                 <div className='col-md-6 col-12'>
                                                     <div className='d-flex gap-3 my-2 flex-column'>
                                                         <div className="input-box">
-                                                            <input type="password" name="password" id="" {...register('cpassword', { required: true })}
+                                                            <input type="password" name="password"   {...register('cpassword', { required: true })}
                                                                 className={`form-control text-dark ${errors.cpassword ? 'is-invalid' : ''}`} style={{ "filter": "none" }} placeholder={`Current Password`} disabled={isActiveEditPass} />
 
                                                             <div className="invalid-feedback text-dark">{errors.password?.message}</div>

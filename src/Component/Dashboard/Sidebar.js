@@ -37,8 +37,6 @@ export const Sidebar = ({ pageid }) => {
             })
     }, [])
 
-    console.log(permissions);
-
     return (
         <>
 
@@ -59,16 +57,16 @@ export const Sidebar = ({ pageid }) => {
                     <li>
                         <Link className={`${pageid === "subscriptions" && "active"}`} to={'/my-subscriptions'}>
                             <i class='fa fa-comment-dollar'></i>
-                            <span className="link_names">My Subscriptions</span>
+                            <span className="link_names">Purchase History</span>
                         </Link>
-                        <span className="tooltip">My Subscriptions</span>
+                        <span className="tooltip">Purchase History</span>
                     </li>
                     {permissions.includes("writing-service")
                         &&
                         <li>
                             <Link className={`${dropdown && "active"} justify-content-between dropdown ${pageid === "order" && "bg-main"}`} onClick={() => setDropdown(!dropdown)} to={'#'}>
                                 <div>
-                                    <i class='fa fa-comment-dollar'></i>
+                                    <i class='fa fa-magic'></i>
                                     <span className="link_names">Manage Orders</span>
                                 </div>
                                 <i class='fa fa-angle-right angle'></i>
@@ -79,6 +77,14 @@ export const Sidebar = ({ pageid }) => {
                             </ul>
                         </li>
                     }
+
+                    <li>
+                        <Link className={`${pageid === "custom_order" && "active"}`} to={'/custom-order'}>
+                            <i class='fa fa-first-order'></i>
+                            <span className="link_names">Create Custom Order</span>
+                        </Link>
+                        <span className="tooltip">Create Custom Order</span>
+                    </li>
 
                     <li>
                         <a href='#' onClick={Logout}>

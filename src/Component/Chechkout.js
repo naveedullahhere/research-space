@@ -21,11 +21,10 @@ const { Option } = Select;
 const Checkout = () => {
     const params = useParams();
     const item = params.item;
+    const order_id = params.item;
     const query = new URLSearchParams(window.location.search);
     const pages = query.get('pages')
     const [data, setData] = useState([]);
-
-
     const { user, cartItems, setCouponCode, discountCode, dispatch } = useContext(AppContext);
     const [isDtLoading, setIsDtLoading] = useState(false);
     const [couponLoading, setCouponLoading] = useState(false);
@@ -49,7 +48,7 @@ const Checkout = () => {
         setIsDtLoading(true);
 
         async function fetchData() {
-            await fetch(`https://eliteblue.net/research-space/api/webs/single-subscription`, {
+            await fetch(`https://eliteblue.net/research-space/api/webs/${pages === 'custom' ? 'single-custom-order' : 'single-subscription'}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ slug: item }),
@@ -60,14 +59,32 @@ const Checkout = () => {
                     setData(actualData);
 
                     setIsDtLoading(false);
-                    if (pages === 'none') {
-                        console.log('dd');
-                        setPrice({ regular_price: parseInt(actualData?.data.compare_price), discount_price: parseInt(actualData?.data.actual_price) })
-                    } else {
-                        console.log('dda');
-                        setPrice({ regular_price: parseInt(actualData?.data.compare_price_per_page) * pages, discount_price: parseInt(actualData?.data.actual_price_per_page) * pages })
-                        if (isNaN(parseInt(pages)) || parseInt(actualData.data?.minimum_pages_allowed) > pages || parseInt(actualData.data?.maximum_pages_allowed) < pages || pages === null) {
+
+
+
+                    if (pages === 'custom') {
+
+                        if (actualData.data[0].is_paid === 1) {
                             setError(true);
+                        }
+                        else {
+                            setPrice({ regular_price: null, discount_price: parseInt(actualData?.data[0].order_price) });
+
+                            if (actualData?.data[0].is_paid === 1) {
+                                setError(true);
+                            }
+                        }
+                    }
+                    else {
+
+                        if (pages === 'none') {
+                            setPrice({ regular_price: parseInt(actualData?.data.compare_price), discount_price: parseInt(actualData?.data.actual_price) })
+                        }
+                        else {
+                            setPrice({ regular_price: parseInt(actualData?.data.compare_price_per_page) * pages, discount_price: parseInt(actualData?.data.actual_price_per_page) * pages })
+                            if (isNaN(parseInt(pages)) || parseInt(actualData.data?.minimum_pages_allowed) > pages || parseInt(actualData.data?.maximum_pages_allowed) < pages || pages === null) {
+                                setError(true);
+                            }
                         }
                     }
 
@@ -159,7 +176,6 @@ const Checkout = () => {
             // setOtherFields({ ...otherFields, grand_total: JSON.parse(price.price), order_total: JSON.parse(price.price) })
         }
 
-        console.log(values.grand_total);
         // console.log(values.coupon_discount,
         //     values.grand_total,
         //     values.order_total,);
@@ -323,6 +339,26 @@ const Checkout = () => {
                                                     >
                                                         <Input />
                                                     </Form.Item>
+
+                                                    {
+                                                        pages === 'custom' &&
+                                                        <div>
+
+                                                            <Form.Item
+                                                                name="is_custom_order"
+                                                                initialValue={1}
+                                                            >
+                                                                <Input />
+                                                            </Form.Item>
+                                                            <Form.Item
+                                                                name="custom_order_id"
+                                                                initialValue={order_id}
+                                                            >
+                                                                <Input />
+                                                            </Form.Item>
+                                                        </div>
+                                                    }
+
                                                     <Form.Item
                                                         name="discount_code"
                                                         initialValue={discountCode?.code}
@@ -547,24 +583,30 @@ const Checkout = () => {
                                                 <div class="row" style={{ borderTop: "1px solid rgba(0,0,0,.1)", padding: "2vh 0" }}>
                                                     <div className="col">
                                                         <div className="row">
-                                                            <div className="col-2">
-                                                                <img src={`${data.image_path}/${data.data.image}`} alt="" className="w-100" />
-                                                            </div>
-                                                            <div className="col-10 my-auto">
+                                                            {pages != 'custom'
+                                                                &&
+                                                                <div className="col-2">
+                                                                    <img src={`${data.image_path}/${data.data.image}`} alt="" className="w-100" />
+                                                                </div>
+                                                            }
+                                                            <div className={`col-${pages != 'custom' ? '10' : '12'} my-auto`}>
                                                                 <div className="row">
                                                                     <div className="col-8 my-auto">
 
                                                                         <p className="mb-0 truncate-1 text-start fw-bold">
-                                                                            {data.data.title}
+                                                                            {pages === 'custom' ? data.data[0].erp_subject_name : data.data.title}
                                                                             &nbsp;
 
                                                                         </p>
-                                                                        <p className="mb-0 truncate-2 text-start" >
-                                                                            /{data.data.subscription_duration} Month
-                                                                        </p>
+                                                                        {pages != 'custom'
+                                                                            &&
+                                                                            <p className="mb-0 truncate-2 text-start" >
+                                                                                /{data.data.subscription_duration} Month
+                                                                            </p>
+                                                                        }
                                                                     </div>
                                                                     <div className="col-4 my-auto text-end">
-                                                                        <strike class="text-end fs-sm">$ {price.regular_price}</strike>
+                                                                        {price.regular_price && <strike class="text-end fs-sm">$ {price.regular_price}</strike>}
                                                                         <div class="text-end">$ {price.discount_price}</div>
                                                                     </div>
                                                                 </div>

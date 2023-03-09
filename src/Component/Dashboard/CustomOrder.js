@@ -12,8 +12,8 @@ import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { Note } from '../SummerNote/Note';
 
-const Orders = () => {
 
+const CustomOrder = () => {
 
     const { URL, user, dispatch, noteValue, APP_NAME, setTitle } = useContext(AppContext);
 
@@ -24,8 +24,11 @@ const Orders = () => {
     const [dropdownsValues, setDropdownsValues] = useState(null);
     const [isActiveEditPass, setisActiveEditPass] = useState("false");
     const [isLoading, setIsLoading] = useState(false);
+    const [minPrice, setMinPrice] = useState(0);
+    const [minPages, setMinPages] = useState(0);
     const [isProfileLoading, setIsProfileLoading] = useState(false);
-
+    const [orderConfig, setOrderConfig] = useState(null);
+    const [minMaxPages, setMinMaxPages] = useState([]);
 
 
 
@@ -33,11 +36,10 @@ const Orders = () => {
         setIsLoading(true);
         postData(`https://eliteblue.net/research-space/api/webs/fetch-orders`, { user_token: user.data.user_token })
             .then(data => {
-                console.log(data);
                 if (data.success != false) {
-                    // toast.success(data.message);
-                    setData(data.order);
-
+                    // toast.success(data.message); 
+                    console.log(data.order);
+                    setData(data.order.filter(item => item.order_type === '1' && item.is_paid != 1));
                 } else {
                     // toast.error(data.message);
                 }
@@ -54,9 +56,16 @@ const Orders = () => {
             }).catch((err) => {
                 toast.error("Something went wrong!");
             });
+        fetch(`https://eliteblue.net/research-space/api/webs/order-config`).then(res => res.json())
+            .then(data => {
+                setOrderConfig(data?.data[0]);
+                setMinPrice(parseInt(data?.data[0].minimum_price_per_page));
+                setMinPages(parseInt(data?.data[0].minimum_pages_allowed));
+            }).catch((err) => {
+                toast.error("Something went wrong!");
+            });
 
-    }, [])
-
+    }, []);
 
     async function postData(url, data) {
         const response = await fetch(url, {
@@ -68,15 +77,6 @@ const Orders = () => {
         });
         return response.json();
     }
-
-
-
-
-
-
-
-    // 'erp_order_topic', 'erp_academic_name', 'erp_resource_materials', 'erp_order_message'
-
 
 
     const columns = [
@@ -160,16 +160,24 @@ const Orders = () => {
             ),
         },
         {
-            title: 'Language',
-            dataIndex: 'erp_language_name',
+            title: 'Action',
+            dataIndex: 'id',
             key: 'erp_language_name',
             ellipsis: {
                 showTitle: false,
             },
-            render: (erp_language_name) => (
-                <p className='mb-0'>
-                    {erp_language_name}
-                </p>
+            render: (id) => (
+                <Link
+                    to={{
+                        pathname: `/checkout/${id}`,
+                        search: `${`?pages=custom`}`,
+                        state: { fromDashboard: true }
+                    }}
+                >
+                    <Button type='primary' className='mb-0'>
+                        Checkout
+                    </Button>
+                </Link>
             ),
         },
 
@@ -241,8 +249,8 @@ const Orders = () => {
         formData.append('erp_powerPoint_slides', data.erp_powerPoint_slides);
         formData.append('erp_extra_source', data.erp_extra_source);
         formData.append('erp_deadline', data.erp_deadline);
+        formData.append('order_type', '1');
         formData.append('erp_copy_sources', data.erp_copy_sources);
-        formData.append('order_type', '0');
         formData.append('erp_page_summary', data.erp_page_summary);
         formData.append('erp_paper_outline', data.erp_paper_outline);
         formData.append('erp_abstract_page', data.erp_abstract_page);
@@ -253,6 +261,7 @@ const Orders = () => {
         formData.append('erp_order_text', data.erp_order_text);
         formData.append('erp_paper_description', data.erp_paper_description);
         formData.append('erp_format_description', data.erp_format_description);
+        formData.append('order_price', minPrice * minPages);
 
         console.log(formData);
 
@@ -263,9 +272,10 @@ const Orders = () => {
         })
             .then(res => res.json())
             .then(json => {
-                // form.resetFields();
+                form.resetFields();
                 console.log(json);
                 if (json.success) {
+                    setOpen(false);
                     toast.success(json.message);
                 }
                 else {
@@ -357,12 +367,12 @@ const Orders = () => {
                             <Input />
                         </Form.Item>
                         {/* <Form.Item
-                            name="erp_order_message"
-                            initialValue={noteValue}
+                        name="erp_order_message"
+                        initialValue={noteValue}
 
-                        >
-                            <Input value={noteValue} />
-                        </Form.Item> */}
+                    >
+                        <Input value={noteValue} />
+                    </Form.Item> */}
                     </div>
                     <div className='my-3'>
                         <label className='fs-7'><b className='fs-7'>Subject or Discipline:</b> "If the required type of paper is missing, feel free to
@@ -565,21 +575,12 @@ const Orders = () => {
                     <div className='my-3'>
                         <label className='fs-7'><b className='fs-7'>Number of Pages:</b> "Select the number of pages needed. Do not include Bibliography, Works Cited, or References pages because they are free."</label>
                         <Form.Item name={['erp_number_Pages']} label="Number of Pages:" rules={[{ required: true, message: 'This Field is Required!' }]}>
-                            <InputNumber style={{ width: '100%' }} />
-
+                            <InputNumber style={{ width: '100%' }} placeholder={`${orderConfig ? JSON.parse(orderConfig?.minimum_pages_allowed) : 0} - ${orderConfig ? JSON.parse(orderConfig?.maximum_pages_allowed) : 0}`} min={orderConfig ? JSON.parse(orderConfig?.minimum_pages_allowed) : 0} max={orderConfig ? JSON.parse(orderConfig?.maximum_pages_allowed) : 0} onChange={(e) => setMinPages(e)} />
                         </Form.Item>
                     </div>
                     <div className='my-3'>
                         <label className='fs-7'><b className='fs-7'>Spacing:</b>  “Double spaced pages contain approximately 300 words each, while single-spaced have 600.”</label>
                         <Form.Item name={['erp_spacing']} label="Spacing:" rules={[{ required: true, message: 'This Field is Required!' }]}>
-                            {/* <Select
-                                defaultValue="Select an option"
-                                className='text-dark'
-                                options={[
-                                    { value: 'SingleSpacing', label: 'Single Spacing' },
-                                    { value: 'DoubleSpacing', label: 'Double Spacing' },
-                                ]}
-                            /> */}
                             <InputNumber style={{ width: '100%' }} />
                         </Form.Item>
                     </div>
@@ -590,13 +591,6 @@ const Orders = () => {
                         </Form.Item>
                     </div>
                     <div className='my-3'>
-
-
-
-
-
-
-
 
                         <label className='fs-7'><b className='fs-7'> Sources:</b>  "This number of entries will be in your reference list or bibliography page.”</label>
 
@@ -615,16 +609,8 @@ const Orders = () => {
                             <Select
                                 defaultValue="Select an option"
                                 className='text-dark'
-                                options={[
-                                    { value: 'erp_eight_hrs', label: '8 hours' },
-                                    { value: 'erp_tf_hrs', label: '24 hours' },
-                                    { value: 'erp_fe_hrs', label: '48 hours' },
-                                    { value: 'erp_three_days', label: '  3 days' },
-                                    { value: 'erp_five_days', label: '5 days' },
-                                    { value: 'erp_seven_days', label: '  7 days' },
-                                    { value: 'erp_fourteen_days', label: ' 14 days' },
-                                    { value: 'erp_fourteen_plus_days', label: ' 14+ days' },
-                                ]}
+                                options={dropdownsValues ? dropdownsValues.deadline : []}
+                                onChange={(e) => setMinPrice(dropdownsValues.deadline.filter(item => item.value === e)[0].minimum_price_per_page)}
                             />
                         </Form.Item>
                     </div>
@@ -689,11 +675,16 @@ const Orders = () => {
                             />
                         </Form.Item>
                     </div>
+                    <div className="mt-3">
+                        <p className="mb-0 text-end">
+                            <span className="me-5 fw-bold">Total Price: </span><span>${minPrice * minPages}</span>
+                        </p>
+                    </div>
                 </Form >
             </Modal >
             <div className="container-fluid px-0">
                 <div className="row">
-                    <div className="col-xl-3 col-lg-3 col-md-4 col-2"><Sidebar pageid={'order'} /></div>
+                    <div className="col-xl-3 col-lg-3 col-md-4 col-2"><Sidebar pageid={'custom_order'} /></div>
 
                     <div className="col-xl-9 col-lg-9 col-md-8 col-10" >
                         <div className='row w-100 mx-0 px-0 h-100'>
@@ -703,7 +694,7 @@ const Orders = () => {
                                         <div className="mb-5 mt-3">
                                             <div className="d-flex align-items-center mb-3 justify-content-between">
                                                 <h3 className="heading fs-3 mb-3">Manage Orders</h3>
-                                                <button className="btn btn-main" onClick={() => setOpen(true)}>Create Order</button>
+                                                <button className="btn btn-main" onClick={() => setOpen(true)}>Create Custom Order</button>
                                             </div>
                                             {isLoading ? <div className="my-4">
                                                 <Skeleton active />
@@ -725,4 +716,4 @@ const Orders = () => {
     )
 }
 
-export default Orders
+export default CustomOrder

@@ -30,10 +30,40 @@ export const MySubscriptions = () => {
         postData(`https://eliteblue.net/research-space/api/webs/get-orders`, { user_token: user.data.user_token })
             .then(data => {
                 if (data.success != false) {
-                    // toast.success(data.message);
-                    setData(data.order);
+
+                    const list = data.order || [];
+                    const firstObj = list[0] || {};
+
+                    const cols = [];
+
+                    for (const dta of list) {
+                        const col = {
+                            key: dta.id,
+                            subscription_duration:
+                                dta.no_of_pages === 'custom' ?
+                                    (dta.custom_duration === 'erp_eight_hrs' ?
+                                        '8 hours' : dta.custom_duration === 'erp_tf_hrs' ?
+                                            '24 hours' : dta.custom_duration === 'erp_fe_hrs' ?
+                                                '48 hours' : dta.custom_duration === 'erp_three_days' ?
+                                                    '  3 days' : dta.custom_duration === 'erp_five_days' ?
+                                                        '5 days' : dta.custom_duration === 'erp_seven_days' ?
+                                                            '  7 days' : dta.custom_duration === 'erp_fourteen_days' ?
+                                                                ' 14 days' : dta.custom_duration === 'erp_fourteen_plus_days' ?
+                                                                    ' 14+ days' : "") : `${dta.subscription_duration} /mo`,
+                            coupon_discount: `$ ${dta.coupon_discount || 0}`,
+                            // coupon_discount: dta.no_of_pages === 'custom' ? 'Custom Order' : `$ ${dta.coupon_discount || 0}`,
+                            order_total: dta.order_total,
+                            grand_total: dta.grand_total,
+                            link_title: {
+                                title: dta.no_of_pages === 'custom' ? dta.custom_title : dta.title,
+                                slug: dta.no_of_pages === 'custom' ? `./subscription?id=${dta.custom_slug}` : `./subscription?slug=${dta.slug}`
+                            },
+                        }
+                        cols.push(col);
+                    }
+                    setData(cols);
                 } else {
-                    // toast.error(data.message);
+                    toast.error(data.message);
                 }
                 setIsLoading(false);
             }).catch((err) => {
@@ -58,40 +88,31 @@ export const MySubscriptions = () => {
 
 
 
-
-
-
-
-
-
-
     const columns = [
         {
             title: 'Title',
-            dataIndex: 'title',
-            key: 'title',
+            dataIndex: 'link_title',
+            key: 1,
             ellipsis: {
                 showTitle: false,
             },
             render: (title, i) => (
-                <Tooltip placement="topLeft" title={title}>
-                    <Link to={`${data[data.findIndex((item) => item.title === title)].slug}`}>{title}</Link>
+                <Tooltip placement="topLeft" title={title.title}>
+                    <Link to={`${title.slug}`}>{title.title}</Link>
                 </Tooltip>
             ),
         },
         {
             title: 'Duration',
             dataIndex: 'subscription_duration',
-            key: 'subscription_duration',
+
+            key: 2,
             ellipsis: {
                 showTitle: false,
             },
             render: (subscription_duration) => (
                 <p className="mb-0">
-
-                    {/* <Tooltip placement="topLeft" title={subscription_duration}> */}
-                    {subscription_duration} /mo
-                    {/* </Tooltip> */}
+                    {subscription_duration || ''}
                 </p>
             ),
         },
@@ -99,118 +120,47 @@ export const MySubscriptions = () => {
         {
             title: 'Total Discount',
             dataIndex: 'coupon_discount',
-            key: 'coupon_discount',
+            key: 3,
             ellipsis: {
                 showTitle: false,
             },
             render: (coupon_discount) => (
                 <p className="mb-0">
 
-                    {/* // <Tooltip placement="topLeft" title={coupon_discount}> */}
-                    $  {coupon_discount ? coupon_discount : 0}
-                    {/* // </Tooltip> */}
+                    {coupon_discount}
                 </p>
             ),
         },
         {
             title: 'Total Amount',
             dataIndex: 'order_total',
-            key: 'order_total',
+            key: 4,
             ellipsis: {
                 showTitle: false,
             },
             render: (order_total) => (
                 <p className="mb-0">
-
-                    {/* // <Tooltip placement="topLeft" title={order_total}> */}
                     $ {order_total}
-                    {/* // </Tooltip> */}
                 </p>
             ),
         },
         {
             title: 'Grand Total',
             dataIndex: 'grand_total',
-            key: 'grand_total',
+            key: 5,
             ellipsis: {
                 showTitle: false,
             },
             render: (grand_total) => (
                 <p className="mb-0">
-
-                    {/* // <Tooltip placement="topLeft" title={grand_total}> */}
                     $ {grand_total}
-                    {/* // </Tooltip> */}
                 </p>
             ),
         },
     ];
 
 
-    // const datatable = [
-    //     {
-    //         key: '1',
-    //         subscription: 'John Brown',
-    //         status: 32,
-    //         amount: 'New York No. 1 Lake Park, New York No. 1 Lake Park',
-    //     },
-    //     {
-    //         key: '2',
-    //         subscription: 'Jim Green',
-    //         status: 42,
-    //         amount: 'London No. 2 Lake Park, London No. 2 Lake Park',
-    //     },
-    //     {
-    //         key: '3',
-    //         subscription: 'Joe Black',
-    //         status: 32,
-    //         amount: 'Sydney No. 1 Lake Park, Sydney No. 1 Lake Park',
-    //     },
-    //     {
-    //         key: '4',
-    //         subscription: 'Joe Black',
-    //         status: 32,
-    //         amount: 'Sydney No. 1 Lake Park, Sydney No. 1 Lake Park',
-    //     },
-    //     {
-    //         key: '5',
-    //         subscription: 'Joe Black',
-    //         status: 32,
-    //         amount: 'Sydney No. 1 Lake Park, Sydney No. 1 Lake Park',
-    //     },
-    // ];
 
-
-
-    // const columns = [
-    //     {
-    //         title: 'Name',
-    //         dataIndex: 'name',
-    //         width: 150,
-    //     },
-    //     {
-    //         title: 'Age',
-    //         dataIndex: 'age',
-    //         width: 150,
-    //     },
-    //     {
-    //         title: 'Address',
-    //         dataIndex: 'address',
-    //     },
-    // ];
-
-
-
-
-    // const data = [];
-    // for (let i = 0; i < 100; i++) {
-    //     data.push({
-    //         key: i,
-    //         name: `Edward King ${i}`,
-    //         age: 32,
-    //         address: `London, Park Lane no. ${i}`,
-    //     });
-    // }
 
 
     return (

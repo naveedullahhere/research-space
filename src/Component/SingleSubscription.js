@@ -12,25 +12,29 @@ const SingleSubscription = () => {
     const [isDownloading, setDownloading] = useState(false);
     const [data, setData] = useState(null);
     const [file, setFile] = useState(null);
-    const subscription = params.subscription;
+    // const subscription = params.subscription;
+    const query = new URLSearchParams(window.location.search);
+    const id = query.get('id');
+    const subscription = query.get('slug');
 
+
+    console.log({ id, subscription });
     useEffect(() => {
         setIsLoading(true);
         fetch(`https://eliteblue.net/research-space/api/webs/single-order`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ slug: subscription }),
+            body: subscription ? JSON.stringify({ slug: subscription }) : JSON.stringify({ id: id }),
         })
             .then((response) => response.json())
             .then((actualData) => { setData(actualData.order); setIsLoading(false); })
             .catch((err) => {
                 setIsLoading(false);
                 toast.error("something went wrong!");
-            }
-            );
+            });
     }, []);
 
-
+    console.log(data);
 
     return (
         <div className="container-fluid px-0">
@@ -64,20 +68,33 @@ const SingleSubscription = () => {
                                                             >
                                                                 <List.Item> <p className='mb-0 d-flex justify-content-between'>
 
-                                                                    <div>{data?.title}</div>
+                                                                    {data?.no_of_pages != 'custom'
+                                                                        ? <div> {data?.title}</div> : <div> {data?.custom_title}</div>
+                                                                    }
                                                                     <div>
 
                                                                         <p className='mb-0'><span className='fw-bold'>Subscription Duration: </span>
 
-                                                                            {data?.subscription_duration}/mo
+                                                                            {data?.no_of_pages === 'custom' ?
+                                                                                (data?.custom_duration === 'erp_eight_hrs' ?
+                                                                                    '8 hours' : data.erp_deadline === 'erp_tf_hrs' ?
+                                                                                        '24 hours' : data.erp_deadline === 'erp_fe_hrs' ?
+                                                                                            '48 hours' : data.erp_deadline === 'erp_three_days' ?
+                                                                                                '  3 days' : data.erp_deadline === 'erp_five_days' ?
+                                                                                                    '5 days' : data.erp_deadline === 'erp_seven_days' ?
+                                                                                                        '  7 days' : data.erp_deadline === 'erp_fourteen_days' ?
+                                                                                                            ' 14 days' : data.erp_deadline === 'erp_fourteen_plus_days' ?
+                                                                                                                ' 14+ days' : "") : `${data?.subscription_duration} /mo`}
 
                                                                         </p>
                                                                     </div>
 
 
-
-                                                                    {data?.no_of_pages != 'none'
+                                                                    {data?.no_of_pages != 'custom'
+                                                                        &&
+                                                                        data?.no_of_pages != 'none'
                                                                         && <div><span className='fw-bold'>No. of Pages: </span>{data?.no_of_pages}</div>
+
                                                                     }
                                                                 </p>
                                                                 </List.Item>

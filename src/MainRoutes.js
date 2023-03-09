@@ -24,6 +24,7 @@ import About from './Component/About';
 import Orders from './Component/Dashboard/Orders';
 import SingleOrder from './Component/SingleOrder';
 import ViewSubscription from './Component/ViewSubscription';
+import CustomOrder from './Component/Dashboard/CustomOrder';
 
 
 export const MainRoutes = () => {
@@ -134,6 +135,7 @@ export const MainRoutes = () => {
                     <Route element={<PrivateRoutes />}>
                         <Route path="/checkout/:item" element={<Checkout />} exact />
                         <Route path="/my-account" element={<MyAccount />} exact />
+                        <Route path="/custom-order" element={<CustomOrder />} exact />
                         <Route path="/orders" element={<Orders />} exact />
                         <Route path="/single-order/:order" element={<SingleOrder />} />
                         <Route path="/my-subscriptions" element={<MySubscriptions />} exact />

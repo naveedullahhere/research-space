@@ -272,6 +272,13 @@ const Details = ({ order, setStatus, setOrder }) => {
                                                 Paper format file: <a href={`${URL}public/uploads/${order}/${data.papertype_file}`} download><i class="fa fa-file fa-2x mx-2" aria-hidden="true"> </i></a>
                                             </Card>
                                         </div>
+                                        {data.erp_resource_file &&
+                                            <div className="col-md-4 px-1 my-2">
+                                                <Card className='shadow-sm' size="small" bordered={false}>
+                                                    Customer Resource File: <a href={`${URL}public/${data.erp_resource_file}`} download><i class="fa fa-file fa-2x mx-2" aria-hidden="true"> </i></a>
+                                                </Card>
+                                            </div>
+                                        }
                                         <div className="col-md-4 px-1 my-2">
                                             <Card className='shadow-sm' size="small" bordered={false}>
                                                 Paper Type description: {data.papertype_desc}
@@ -287,32 +294,32 @@ const Details = ({ order, setStatus, setOrder }) => {
                                     <div className="row w-100 mx-auto">
                                         <div className="col-md-6 px-1 my-2">
                                             <Card className='shadow-sm' size="small" bordered={false}>
-                                                1-Page Summary:PowerPoit Slides : 91
+                                                PowerPoint Slides : {data.erp_powerPoint_slides}
                                             </Card>
                                         </div>
                                         <div className="col-md-6 px-1 my-2">
                                             <Card className='shadow-sm' size="small" bordered={false}>
-                                                1-Page Summary: Yes
+                                                1-Page Summary: {data.erp_page_summary}
                                             </Card>
                                         </div>
                                         <div className="col-md-6 px-1 my-2">
                                             <Card className='shadow-sm' size="small" bordered={false}>
-                                                Statistical Analysis: Yes
+                                                Statistical Analysis: {data.erp_statistical_analysis}
                                             </Card>
                                         </div>
                                         <div className="col-md-6 px-1 my-2">
                                             <Card className='shadow-sm' size="small" bordered={false}>
-                                                Abstract: Yes
+                                                Abstract: {data.erp_abstract_page}
                                             </Card>
                                         </div>
                                         <div className="col-md-6 px-1 my-2">
                                             <Card className='shadow-sm' size="small" bordered={false}>
-                                                A Copy of Sources: No
+                                                A Copy of Sources: {data.erp_copy_sources}
                                             </Card>
                                         </div>
                                         <div className="col-md-6 px-1 my-2">
                                             <Card className='shadow-sm' size="small" bordered={false}>
-                                                Outline in Bullets: Yes
+                                                Outline in Bullets: {data.erp_paper_outline}
                                             </Card>
                                         </div>
                                     </div>
